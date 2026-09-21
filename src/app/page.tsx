@@ -31,9 +31,9 @@ export default function Home() {
       {/* Cyber Reticle Cursor (Hides default OS cursor on desktop) */}
       <CustomCursor />
 
-      {/* Cyber Dot-Matrix Grid Blueprint layer with radial focus */}
+      {/* Cyber Dot-Matrix Grid Blueprint layer (scrolls naturally with canvas) */}
       <div
-        className="fixed inset-0 cyber-grid cyber-grid-mask opacity-60 pointer-events-none z-0"
+        className="absolute inset-0 min-h-full cyber-grid cyber-grid-mask opacity-60 pointer-events-none z-0"
         aria-hidden="true"
       />
 

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { ChevronLeft, ChevronRight, ArrowUpRight, CheckCircle } from "lucide-react";
 import { portfolioData, ExperienceEntry } from "@/data/portfolioData";
 import { EditorialImage } from "@/components/EditorialImage";
@@ -154,6 +154,19 @@ function ExperienceSlideGallery({ item }: { item: ExperienceEntry }) {
 export function Experience() {
   const { experiences } = portfolioData;
   const [activeTab, setActiveTab] = useState<string>(experiences.categories[0] || "Cyber Security Community (CSC)");
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start 70%", "end 70%"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 240,
+    damping: 28,
+    restDelta: 0.001,
+  });
 
   const filteredItems = experiences.items.filter((item) => {
     if (activeTab.includes("CSC") || activeTab.includes("Cyber Security Community")) {
@@ -228,112 +241,137 @@ export function Experience() {
           </div>
         </Reveal>
 
-        {/* Timeline panel — elevated interactive cards with spotlight response */}
+        {/* Timeline panel — elevated interactive cards with Scroll-Driven Telemetry Trace */}
         <div
+          ref={timelineRef}
           id="panel-experience-items"
           role="tabpanel"
           aria-labelledby={`tab-exp-${Math.max(0, experiences.categories.indexOf(activeTab))}`}
-          className="space-y-6 sm:space-y-8"
+          className="relative space-y-6 sm:space-y-8 pl-0 md:pl-10"
         >
+          {/* Vertical Telemetry Laser Rail */}
+          {!reduced && (
+            <div
+              className="hidden md:block absolute left-2 top-8 bottom-8 w-[2px] bg-white/[0.06] rounded-full overflow-hidden"
+              aria-hidden="true"
+            >
+              <motion.div
+                style={{ scaleY: smoothProgress, originY: 0 }}
+                className="w-full h-full bg-gradient-to-b from-studio-amber-light via-studio-cyan-light to-blue-500 shadow-[0_0_12px_rgba(245,158,11,0.6)]"
+              />
+            </div>
+          )}
+
           {filteredItems.map((item, idx) => {
             const hasMedia = item.photos && item.photos.length > 0;
 
             return (
-              <Reveal key={item.id} delay={Math.min(idx * 0.06, 0.2)}>
-                <SpotlightCard
-                  spotlightColor="rgba(212, 160, 23, 0.16)"
-                  className="p-6 sm:p-8 md:p-10 rounded-3xl bg-studio-surface/50 hover:bg-studio-surface/80 border border-white/[0.08] hover:border-studio-amber-light/40 transition-colors duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] group"
-                >
-                  <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start">
-                    {/* Period & place */}
-                    <div className="lg:col-span-3 space-y-1">
-                      <span className="text-xs font-mono uppercase tracking-widest text-studio-text font-bold block">
-                        {item.period}
-                      </span>
-                      <span className="text-xs font-sans text-studio-faint block">
-                        {item.location}
-                      </span>
-                    </div>
+              <div key={item.id} className="relative group/timeline">
+                {/* Timeline node beacon */}
+                {!reduced && (
+                  <div
+                    className="hidden md:flex absolute -left-[38px] top-10 w-4 h-4 rounded-full bg-studio-bg border-2 border-white/20 group-hover/timeline:border-studio-amber-light items-center justify-center transition-colors z-20 shadow-sm"
+                    aria-hidden="true"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-studio-amber-light/60 group-hover/timeline:bg-studio-amber-light group-hover/timeline:scale-125 transition-all" />
+                  </div>
+                )}
+                <Reveal delay={Math.min(idx * 0.06, 0.2)}>
+                  <SpotlightCard
+                    spotlightColor="rgba(212, 160, 23, 0.16)"
+                    className="p-6 sm:p-8 md:p-10 rounded-3xl bg-studio-surface/50 hover:bg-studio-surface/80 border border-white/[0.08] hover:border-studio-amber-light/40 transition-colors duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] group"
+                  >
+                    <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start">
+                      {/* Period & place */}
+                      <div className="lg:col-span-3 space-y-1">
+                        <span className="text-xs font-mono uppercase tracking-widest text-studio-text font-bold block">
+                          {item.period}
+                        </span>
+                        <span className="text-xs font-sans text-studio-faint block">
+                          {item.location}
+                        </span>
+                      </div>
 
-                    {/* Body story + impact bullets */}
-                    <div className={hasMedia ? "lg:col-span-5 space-y-4" : "lg:col-span-9 space-y-4"}>
-                      <div className="flex items-start gap-4">
-                        {item.logo && (
-                          <div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-black/50 border border-white/10 p-2 flex items-center justify-center overflow-hidden shadow-inner group-hover:border-studio-amber-light/40 transition-colors">
-                            <Image
-                              src={item.logo}
-                              alt={`${item.organization} Logo`}
-                              width={48}
-                              height={48}
-                              className="w-full h-full object-contain filter drop-shadow"
-                            />
+                      {/* Body story + impact bullets */}
+                      <div className={hasMedia ? "lg:col-span-5 space-y-4" : "lg:col-span-9 space-y-4"}>
+                        <div className="flex items-start gap-4">
+                          {item.logo && (
+                            <div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-black/50 border border-white/10 p-2 flex items-center justify-center overflow-hidden shadow-inner group-hover:border-studio-amber-light/40 transition-colors">
+                              <Image
+                                src={item.logo}
+                                alt={`${item.organization} Logo`}
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-contain filter drop-shadow"
+                              />
+                            </div>
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-studio-text font-display group-hover:text-studio-amber-light transition-colors">
+                              {item.role}
+                            </h3>
+                            <div className="text-xs sm:text-sm font-sans font-medium text-studio-muted mt-1 flex flex-wrap items-center gap-1.5">
+                              <span>{item.organization}</span>
+                              {item.orgHighlight && (
+                                <span className="font-sans font-medium text-studio-amber-light">
+                                  · {item.orgHighlight}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-studio-muted font-sans leading-relaxed">
+                          {item.summary}
+                        </p>
+
+                        <ul className="space-y-1.5 pt-1 text-xs text-studio-muted font-sans">
+                          {item.impactPoints.map((pt, pIdx) => (
+                            <li key={pIdx} className="flex items-start gap-2">
+                              <CheckCircle className="w-3.5 h-3.5 text-studio-amber-light shrink-0 mt-0.5" />
+                              <span className="leading-relaxed">{pt}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {item.tags && item.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 pt-2">
+                            {item.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="rounded-full px-3 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-faint"
+                              >
+                                {tag}
+                              </span>
+                            ))}
                           </div>
                         )}
-                        <div className="min-w-0 flex-1">
-                          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-studio-text font-display group-hover:text-studio-amber-light transition-colors">
-                            {item.role}
-                          </h3>
-                          <div className="text-xs sm:text-sm font-sans font-medium text-studio-muted mt-1 flex flex-wrap items-center gap-1.5">
-                            <span>{item.organization}</span>
-                            {item.orgHighlight && (
-                              <span className="font-sans font-medium text-studio-amber-light">
-                                · {item.orgHighlight}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
 
-                      <p className="text-xs sm:text-sm text-studio-muted font-sans leading-relaxed">
-                        {item.summary}
-                      </p>
-
-                      <ul className="space-y-1.5 pt-1 text-xs text-studio-muted font-sans">
-                        {item.impactPoints.map((pt, pIdx) => (
-                          <li key={pIdx} className="flex items-start gap-2">
-                            <CheckCircle className="w-3.5 h-3.5 text-studio-amber-light shrink-0 mt-0.5" />
-                            <span className="leading-relaxed">{pt}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      {item.tags && item.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 pt-2">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full px-3 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-faint"
+                        {item.link && (
+                          <div className="pt-2">
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 hover:border-studio-amber-light/40 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text hover:text-studio-amber-light font-bold transition-all"
                             >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-
-                      {item.link && (
-                        <div className="pt-2">
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 hover:border-studio-amber-light/40 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text hover:text-studio-amber-light font-bold transition-all"
-                          >
-                            <span>VERIFY RECORD</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-studio-faint" />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Photo documentation carousel column */}
-                    {hasMedia && (
-                      <div className="lg:col-span-4">
-                        <ExperienceSlideGallery item={item} />
+                              <span>VERIFY RECORD</span>
+                              <ArrowUpRight className="w-3.5 h-3.5 text-studio-faint" />
+                            </a>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </article>
-                </SpotlightCard>
-              </Reveal>
+
+                      {/* Photo documentation carousel column */}
+                      {hasMedia && (
+                        <div className="lg:col-span-4">
+                          <ExperienceSlideGallery item={item} />
+                        </div>
+                      )}
+                    </article>
+                  </SpotlightCard>
+                </Reveal>
+              </div>
             );
           })}
         </div>
