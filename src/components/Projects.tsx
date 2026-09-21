@@ -251,7 +251,7 @@ export function Projects() {
                           aria-label={`${project.title} — inspect technical architecture`}
                         >
                           <ImageReveal duration={0.95} className="rounded-2xl">
-                            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl">
+                            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[#080D1A] border border-white/5">
                               <EditorialImage
                                 src={project.image}
                                 alt={project.title}
@@ -262,8 +262,9 @@ export function Projects() {
                                 fallbackLabel={project.title}
                                 fallbackSub={`${project.category} · ${project.year}`}
                                 theme="dark"
+                                objectFit="contain"
                               />
-                              </div>
+                            </div>
                           </ImageReveal>
                         </div>
 
