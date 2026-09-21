@@ -1,0 +1,16 @@
+Dockerfile
+.dockerignore
+node_modules
+npm-debug.log
+yarn-error.log
+.next
+.git
+.gitignore
+.env*.local
+.env
+.opencode
+prompts
+Source_gambar
+start_log.txt
+dev_log.txt
+deploy

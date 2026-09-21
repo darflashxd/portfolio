@@ -1,0 +1,67 @@
+"use client";
+
+import { useState } from "react";
+import { useScroll, motion } from "motion/react";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { CandidateStrip } from "@/components/ui/CandidateStrip";
+import { About } from "@/components/About";
+import { Skills } from "@/components/Skills";
+import { Projects } from "@/components/Projects";
+import { Experience } from "@/components/Experience";
+import { CTFArchive } from "@/components/CTFArchive";
+import { Contact } from "@/components/Contact";
+import { Footer } from "@/components/Footer";
+import { ResumeModal } from "@/components/ui/ResumeModal";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+import { LoadingScreen } from "@/components/ui/LoadingScreen";
+
+export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <div className="relative min-h-screen bg-studio-bg text-studio-text selection:bg-studio-accent/30 selection:text-white">
+      {/* Cinematic Cyber Telemetry Preloader (Plays on initial load / refresh) */}
+      <LoadingScreen onComplete={() => setIsLoaded(true)} />
+
+      {/* Film grain texture */}
+      <div className="grain" aria-hidden="true" />
+
+      {/* Cyber Reticle Cursor (Hides default OS cursor on desktop) */}
+      <CustomCursor />
+
+      {/* Cyber Dot-Matrix Grid Blueprint layer with radial focus */}
+      <div
+        className="fixed inset-0 cyber-grid cyber-grid-mask opacity-60 pointer-events-none z-0"
+        aria-hidden="true"
+      />
+
+      {/* Smooth GPU-composited reading progress hairline */}
+      <motion.div
+        className="scroll-progress"
+        style={{ scaleX: scrollYProgress, width: "100%" }}
+        aria-hidden="true"
+      />
+
+      {/* Floating Liquid Glass Island Capsule Header */}
+      <Navbar isLoaded={isLoaded} />
+
+      <main id="main-content" tabIndex={-1} className="focus:outline-none relative z-10">
+        <Hero isLoaded={isLoaded} />
+        <CandidateStrip />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <CTFArchive />
+        <Contact />
+      </main>
+
+      <Footer />
+
+      {/* Quick-Preview Candidate Dossier & Embedded Live PDF Viewer Modal */}
+      <ResumeModal />
+    </div>
+  );
+}

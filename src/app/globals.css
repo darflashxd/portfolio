@@ -1,0 +1,333 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ── Base Blue Team dark layers (RGB triplets for alpha composability) ── */
+  --bg-base: 6 8 15; /* #06080F — Deep Obsidian Navy */
+  --bg-surface: 12 16 26; /* #0C101A — Midnight Surface */
+  --bg-elevated: 18 24 38; /* #121826 — Elevated Panel */
+
+  /* ── Text ramp (Crisp with subtle slate/blue undertone) ── */
+  --text-primary: 246 248 252; /* #F6F8FC */
+  --text-muted: 148 163 184; /* #94A3B8 — Slate 400 */
+  --text-faint: 100 116 139; /* #64748B — Slate 500 (5.2:1 on base) */
+
+  /* ── Blue Team Defense Accent Triad ── */
+  --accent-cobalt: 37 99 235; /* #2563EB — Primary Electric Cobalt CTA & Focus */
+  --accent-crimson: 37 99 235; /* Aliased to Cobalt for seamless design system alignment */
+  --accent-cyan: 6 182 212; /* #06B6D4 — Cyber Technical / Forensic Telemetry */
+  --accent-ice: 56 189 248; /* #38BDF8 — Luminous Ice Blue */
+  --accent-amber: 212 160 23; /* #D4A017 — BTL1 SOC Certification Gold */
+
+  /* ── Section temperature undertones (subtle atmospheric shifts) ── */
+  --tone-hero: 6 8 15; /* Deep Obsidian Navy */
+  --tone-about: 8 11 20; /* Deep Midnight Slate */
+  --tone-skills: 7 10 18; /* Technical Cyber Cyan undertone */
+  --tone-projects: 8 12 22; /* Deep Oceanic Cobalt Room */
+  --tone-experience: 7 9 17; /* Neutral Defense Archive */
+  --tone-contact: 8 11 20; /* Midnight Horizon */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: rgb(var(--bg-base));
+  color: rgb(var(--text-primary));
+  scroll-behavior: smooth;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: rgb(var(--bg-base));
+  color: rgb(var(--text-primary));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Hide default OS cursor on desktop when Custom Cursor is active ── */
+@media (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active *:not(iframe) {
+    cursor: none !important;
+  }
+}
+
+/* ── Liquid Glass Utility Classes (VisionOS / Luminous Optical Crystal Grade) ── */
+.glass-capsule {
+  background: linear-gradient(180deg, rgba(14, 20, 36, 0.72) 0%, rgba(6, 8, 15, 0.58) 100%);
+  backdrop-filter: blur(28px) saturate(210%) contrast(106%) brightness(106%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%) contrast(106%) brightness(106%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.38);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 20px 50px -12px rgba(0, 0, 0, 0.85),
+    0 0 24px -2px rgba(37, 99, 235, 0.14),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
+    inset 0 0 20px 0 rgba(56, 189, 248, 0.07),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-btn-primary {
+  position: relative;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.45) 0%, rgba(30, 58, 138, 0.3) 100%);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(37, 99, 235, 0.25);
+  box-shadow: 
+    0 8px 24px -4px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-btn-primary:hover {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.6) 0%, rgba(30, 58, 138, 0.45) 100%);
+  border-color: rgba(56, 189, 248, 0.6);
+  border-top-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+}
+
+.glass-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.glass-btn-secondary {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.38);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 
+    0 8px 24px -4px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-btn-secondary:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(255, 255, 255, 0.24);
+  border-top-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 
+    0 12px 28px -4px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.45);
+}
+
+.glass-btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* ── Film grain texture (global, subtle) ── */
+.grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ── Cyber Dot-Matrix Grid Texture ── */
+.cyber-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.cyber-grid-mask {
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 60%, transparent 100%);
+}
+
+/* ── Elegant Luminous Glow Utilities (Blue Team Palette) ── */
+.glow-pill-blue {
+  box-shadow: 0 0 24px -2px rgba(37, 99, 235, 0.45), 0 0 44px -8px rgba(56, 189, 248, 0.25);
+}
+
+.glow-pill-cyan {
+  box-shadow: 0 0 20px -2px rgba(6, 182, 212, 0.35), 0 0 40px -8px rgba(56, 189, 248, 0.18);
+}
+
+.glow-pill-amber {
+  box-shadow: 0 0 20px -2px rgba(212, 160, 23, 0.35), 0 0 40px -8px rgba(212, 160, 23, 0.15);
+}
+
+/* Backward compatibility alias */
+.glow-pill-crimson {
+  box-shadow: 0 0 24px -2px rgba(37, 99, 235, 0.45), 0 0 44px -8px rgba(56, 189, 248, 0.25);
+}
+
+/* ── Reading progress hairline (Blue Team Spectrum: Cyan -> Cobalt -> Ice) ── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    #06b6d4 0%,
+    #2563eb 50%,
+    #38bdf8 100%
+  );
+  z-index: 1000;
+  transform-origin: 0%;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--bg-base));
+}
+
+::-webkit-scrollbar-thumb {
+  background: #151d30;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #253556;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(37, 99, 235, 0.45);
+  color: #ffffff;
+}
+
+/* ── Focus ── */
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIQUID AURORA — CSS-only organic gradient field
+   3 blobs · accent tokens · heavy blur · low opacity · slow drift
+   ═══════════════════════════════════════════════════════════ */
+.aurora-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  will-change: transform, opacity;
+  opacity: 0.22;
+  mix-blend-mode: normal;
+}
+
+/* Blob 1 — crimson, upper left, slowest orbit */
+.aurora-blob--crimson {
+  width: 55vw;
+  height: 55vw;
+  max-width: 720px;
+  max-height: 720px;
+  top: -18%;
+  left: -12%;
+  background: radial-gradient(circle at 35% 35%, rgb(var(--accent-crimson) / 0.5), transparent 70%);
+  animation: aurora-drift-1 24s ease-in-out infinite;
+}
+
+/* Blob 2 — cyan, lower right, mid tempo */
+.aurora-blob--cyan {
+  width: 48vw;
+  height: 48vw;
+  max-width: 640px;
+  max-height: 640px;
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle at 65% 60%, rgb(var(--accent-cyan) / 0.42), transparent 70%);
+  animation: aurora-drift-2 19s ease-in-out infinite;
+  opacity: 0.16;
+}
+
+/* Blob 3 — amber, center-low, gentle pulse */
+.aurora-blob--amber {
+  width: 34vw;
+  height: 34vw;
+  max-width: 420px;
+  max-height: 420px;
+  bottom: 6%;
+  left: 30%;
+  background: radial-gradient(circle at 50% 50%, rgb(var(--accent-amber) / 0.34), transparent 70%);
+  animation: aurora-drift-3 27s ease-in-out infinite;
+  opacity: 0.12;
+}
+
+@keyframes aurora-drift-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6vw, 4vh, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-3vw, 7vh, 0) scale(0.94);
+  }
+}
+
+@keyframes aurora-drift-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  40% {
+    transform: translate3d(-5vw, -5vh, 0) scale(1.06);
+  }
+  70% {
+    transform: translate3d(3vw, -2vh, 0) scale(0.96);
+  }
+}
+
+@keyframes aurora-drift-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4vw, -6vh, 0) scale(1.12);
+  }
+}
+
+/* Marquee pause on hover utility */
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+/* ── Accessibility: aurora + all motion stops ── */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob {
+    animation: none;
+  }
+
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

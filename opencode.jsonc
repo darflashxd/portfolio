@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "portfolio-builder",
+  "permission": {
+    "skill": {
+      "*": "allow",
+      "portfolio-orchestrator": "allow",
+      "motion-ui": "allow",
+      "ui-ux-pro-max": "allow"
+    }
+  },
+  "mcp": {
+    "21st": {
+      "type": "remote",
+      "url": "https://21st.dev/api/mcp",
+      "oauth": false,
+      "headers": {
+        "x-api-key": "21st_sk_177da81e962067f2c39a35ecaf6e98c4badcb1fb259c13300a75d6c5fbe7ea19"
+      },
+      "enabled": true
+    }
+  }
+}
