@@ -352,10 +352,13 @@ export function Projects() {
               initial={reduced ? false : { opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={reduced ? undefined : { opacity: 0, height: 0 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden pt-6 sm:pt-8"
+              transition={{
+                height: { duration: 0.38, ease: [0.16, 1, 0.3, 1] },
+                opacity: { duration: 0.22, ease: "easeOut" },
+              }}
+              className="overflow-hidden"
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 pt-6 sm:pt-8">
                 {ordered.slice(2).map(({ project, index }) => {
                   const displayNum = String(index).padStart(2, "0");
 

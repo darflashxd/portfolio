@@ -142,7 +142,7 @@ export function CTFArchive() {
           </Reveal>
 
           {/* Writeups Roster Grid */}
-          <div className="space-y-6">
+          <div>
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" stagger={0.08}>
               {ctfWriteups.items.slice(0, 4).map((item) => (
                 <StaggerItem key={item.id}>
@@ -158,10 +158,13 @@ export function CTFArchive() {
                   initial={reduced ? false : { opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={reduced ? undefined : { opacity: 0, height: 0 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="overflow-hidden pt-2"
+                  transition={{
+                    height: { duration: 0.38, ease: [0.16, 1, 0.3, 1] },
+                    opacity: { duration: 0.22, ease: "easeOut" },
+                  }}
+                  className="overflow-hidden"
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
                     {ctfWriteups.items.slice(4).map((item) => renderWriteupCard(item))}
                   </div>
                 </motion.div>

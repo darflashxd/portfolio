@@ -251,7 +251,7 @@ export function Experience() {
           id="panel-experience-items"
           role="tabpanel"
           aria-labelledby={`tab-exp-${Math.max(0, experiences.categories.indexOf(activeTab))}`}
-          className="relative space-y-6 sm:space-y-8 pl-0 md:pl-10"
+          className="relative pl-0 md:pl-10"
         >
           {/* Vertical Telemetry Laser Rail */}
           {!reduced && (
@@ -266,7 +266,9 @@ export function Experience() {
             </div>
           )}
 
-          {filteredItems.slice(0, 2).map((item, idx) => {
+          {/* Top 2 Items Container with internal spacing */}
+          <div className="space-y-6 sm:space-y-8">
+            {filteredItems.slice(0, 2).map((item, idx) => {
             const hasMedia = item.photos && item.photos.length > 0;
 
             return (
@@ -378,6 +380,7 @@ export function Experience() {
               </div>
             );
           })}
+          </div>
 
           {/* Expandable Remaining Experience Items */}
           <AnimatePresence>
@@ -386,10 +389,14 @@ export function Experience() {
                 initial={reduced ? false : { opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={reduced ? undefined : { opacity: 0, height: 0 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="space-y-6 sm:space-y-8 overflow-hidden"
+                transition={{
+                  height: { duration: 0.38, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.22, ease: "easeOut" },
+                }}
+                className="overflow-hidden"
               >
-                {filteredItems.slice(2).map((item) => {
+                <div className="space-y-6 sm:space-y-8 pt-6 sm:pt-8">
+                  {filteredItems.slice(2).map((item) => {
                   const hasMedia = item.photos && item.photos.length > 0;
 
                   return (
@@ -495,13 +502,14 @@ export function Experience() {
                     </div>
                   );
                 })}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
 
           {/* Show More Button if more than 2 items exist */}
           {filteredItems.length > 2 && (
-            <div className="pt-4 flex justify-center">
+            <div className="pt-8 flex justify-center">
               <button
                 type="button"
                 onClick={() => setShowAll(!showAll)}
