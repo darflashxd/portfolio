@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, FolderGit2, Sparkles, Terminal, Activity, X, ExternalLink, Code2 } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { ArrowUpRight, FolderGit2, Sparkles, Terminal, Activity, X, ExternalLink, Code2, ChevronDown } from "lucide-react";
 import { portfolioData, type ProjectEntry } from "@/data/portfolioData";
 import { EditorialImage } from "@/components/EditorialImage";
 import { Reveal } from "@/components/motion/Reveal";
@@ -11,6 +11,7 @@ import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { ImageReveal } from "@/components/motion/ImageReveal";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { TiltCard } from "@/components/ui/TiltCard";
+import { cn } from "@/lib/utils";
 
 type LayoutRole = "featured" | "medium" | "wide";
 
@@ -23,7 +24,9 @@ const PROJECT_LAYOUT: { id: string; role: LayoutRole }[] = [
 export function Projects() {
   const { projects } = portfolioData;
   const [inspectedProject, setInspectedProject] = useState<ProjectEntry | null>(null);
+  const [showAll, setShowAll] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
@@ -85,7 +88,7 @@ export function Projects() {
 
         {/* ── Asymmetric Bento Grid with Soft Rounded-3xl Curves & Tactile Spring Lift ── */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8" stagger={0.1}>
-          {ordered.map(({ project, role, index }) => {
+          {ordered.slice(0, 2).map(({ project, role, index }) => {
             const isFeatured = role === "featured";
             const isWide = role === "wide";
             const displayNum = String(index).padStart(2, "0");
@@ -338,121 +341,155 @@ export function Projects() {
               );
             }
 
-            /* ── Tile 03: Wide Landscape Finale (12-Col) — PulmoAI ── */
-            return (
-              <StaggerItem key={project.id} className="md:col-span-12">
-                <TiltCard
-                  maxTilt={4}
-                  spotlightColor="rgba(212, 160, 23, 0.2)"
-                  className="border border-white/[0.08] hover:border-studio-amber-light/40 bg-studio-surface/60 backdrop-blur-md"
-                >
-                  <article className="p-6 sm:p-8 md:p-10 group">
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                      {/* Left: 7-Col Wide Image */}
-                      <div
-                        onClick={() => setInspectedProject(project)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") setInspectedProject(project);
-                        }}
-                        className="md:col-span-7 block focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-accent rounded-2xl overflow-hidden cursor-pointer"
-                        aria-label={`${project.title} — inspect technical architecture`}
-                      >
-                        <ImageReveal duration={1.0} className="rounded-2xl">
-                          <div className="relative aspect-[16/10] md:aspect-[16/9] w-full overflow-hidden rounded-2xl bg-[#04060C] border border-white/5">
-                            <EditorialImage
-                              src={project.image}
-                              alt={project.title}
-                              aspectRatio="aspect-auto h-full w-full"
-                              rounded="rounded-2xl"
-                              monogram="P"
-                              fallbackType="project"
-                              fallbackLabel={project.title}
-                              fallbackSub={`${project.category} · ${project.year}`}
-                              theme="dark"
-                              objectFit="contain"
-                            />
-                            </div>
-                        </ImageReveal>
-                      </div>
-
-                      {/* Right: 5-Col Narrative + Stats */}
-                      <div className="md:col-span-5 space-y-4">
-                        <div className="flex items-center justify-between">
-                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-amber/10 border border-studio-amber/25 text-xs font-sans font-bold text-studio-amber-light">
-                            <Activity className="w-3.5 h-3.5" />
-                            {displayNum} / MEDICAL AI
-                          </span>
-                          <span className="text-xs font-sans font-medium text-studio-faint uppercase">
-                            {project.year}
-                          </span>
-                        </div>
-
-                        <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-studio-text group-hover:text-studio-amber-light transition-colors duration-300">
-                          {project.title}{" "}
-                          {project.serifAccent && (
-                            <span className="font-display font-bold text-studio-amber-light block sm:inline">
-                              · {project.serifAccent}
-                            </span>
-                          )}
-                        </h3>
-
-                        <p className="text-sm text-studio-muted font-sans leading-relaxed">
-                          {project.tagline}
-                        </p>
-
-                        <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between text-xs font-sans text-studio-faint font-medium">
-                          <span>OPTIMIZATION (MobileNetV2)</span>
-                          <span className="text-studio-amber-light font-bold font-mono">99.65% ACCURACY</span>
-                        </div>
-
-                        <div className="pt-2 flex flex-wrap gap-1.5">
-                          {project.technologies.slice(0, 4).map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full px-3 py-1 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-muted"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="pt-2 flex flex-wrap items-center gap-3">
-                          <button
-                            type="button"
-                            onClick={() => setInspectedProject(project)}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-studio-amber-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
-                          >
-                            <Activity className="w-3.5 h-3.5 text-studio-amber-light" />
-                            <span>INSPECT ARCHITECTURE</span>
-                          </button>
-
-                          {project.repoUrl ? (
-                            <a
-                              href={project.repoUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-studio-amber-light/40 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text hover:text-studio-amber-light transition-all font-bold"
-                            >
-                              <FolderGit2 className="w-4 h-4 text-studio-muted" />
-                              <span>VIEW REPOSITORY</span>
-                              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                            </a>
-                          ) : (
-                            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] font-sans text-[11px] font-medium text-studio-faint">
-                              <span>INTERNAL PRODUCTION DEMO</span>
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </article>
-                </TiltCard>
-              </StaggerItem>
-            );
+            return null;
           })}
         </StaggerContainer>
+
+        {/* Expandable Remaining Projects (PulmoAI etc.) */}
+        <AnimatePresence>
+          {showAll && ordered.length > 2 && (
+            <motion.div
+              initial={reduced ? false : { opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={reduced ? undefined : { opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden pt-6 sm:pt-8"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8">
+                {ordered.slice(2).map(({ project, index }) => {
+                  const displayNum = String(index).padStart(2, "0");
+
+                  return (
+                    <div key={project.id} className="md:col-span-12">
+                      <TiltCard
+                        maxTilt={4}
+                        spotlightColor="rgba(212, 160, 23, 0.2)"
+                        className="border border-white/[0.08] hover:border-studio-amber-light/40 bg-studio-surface/60 backdrop-blur-md"
+                      >
+                        <article className="p-6 sm:p-8 md:p-10 group">
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                            {/* Left: 7-Col Wide Image */}
+                            <div
+                              onClick={() => setInspectedProject(project)}
+                              role="button"
+                              tabIndex={0}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") setInspectedProject(project);
+                              }}
+                              className="md:col-span-7 block focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-accent rounded-2xl overflow-hidden cursor-pointer"
+                              aria-label={`${project.title} — inspect technical architecture`}
+                            >
+                              <ImageReveal duration={1.0} className="rounded-2xl">
+                                <div className="relative aspect-[16/10] md:aspect-[16/9] w-full overflow-hidden rounded-2xl bg-[#04060C] border border-white/5">
+                                  <EditorialImage
+                                    src={project.image}
+                                    alt={project.title}
+                                    aspectRatio="aspect-auto h-full w-full"
+                                    rounded="rounded-2xl"
+                                    monogram="P"
+                                    fallbackType="project"
+                                    fallbackLabel={project.title}
+                                    fallbackSub={`${project.category} · ${project.year}`}
+                                    theme="dark"
+                                    objectFit="contain"
+                                  />
+                                </div>
+                              </ImageReveal>
+                            </div>
+
+                            {/* Right: 5-Col Narrative + Stats */}
+                            <div className="md:col-span-5 space-y-4">
+                              <div className="flex items-center justify-between">
+                                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-amber/10 border border-studio-amber/25 text-xs font-sans font-bold text-studio-amber-light">
+                                  <Activity className="w-3.5 h-3.5" />
+                                  {displayNum} / MEDICAL AI
+                                </span>
+                                <span className="text-xs font-sans font-medium text-studio-faint uppercase">
+                                  {project.year}
+                                </span>
+                              </div>
+
+                              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-studio-text group-hover:text-studio-amber-light transition-colors duration-300">
+                                {project.title}{" "}
+                                {project.serifAccent && (
+                                  <span className="font-display font-bold text-studio-amber-light block sm:inline">
+                                    · {project.serifAccent}
+                                  </span>
+                                )}
+                              </h3>
+
+                              <p className="text-sm text-studio-muted font-sans leading-relaxed">
+                                {project.tagline}
+                              </p>
+
+                              <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between text-xs font-sans text-studio-faint font-medium">
+                                <span>OPTIMIZATION (MobileNetV2)</span>
+                                <span className="text-studio-amber-light font-bold font-mono">99.65% ACCURACY</span>
+                              </div>
+
+                              <div className="pt-2 flex flex-wrap gap-1.5">
+                                {project.technologies.slice(0, 4).map((t) => (
+                                  <span
+                                    key={t}
+                                    className="rounded-full px-3 py-1 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-muted"
+                                  >
+                                    {t}
+                                  </span>
+                                ))}
+                              </div>
+
+                              <div className="pt-2 flex flex-wrap items-center gap-3">
+                                <button
+                                  type="button"
+                                  onClick={() => setInspectedProject(project)}
+                                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-studio-amber-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
+                                >
+                                  <Activity className="w-3.5 h-3.5 text-studio-amber-light" />
+                                  <span>INSPECT ARCHITECTURE</span>
+                                </button>
+
+                                {project.repoUrl ? (
+                                  <a
+                                    href={project.repoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-studio-amber-light/40 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text hover:text-studio-amber-light transition-all font-bold"
+                                  >
+                                    <FolderGit2 className="w-4 h-4 text-studio-muted" />
+                                    <span>VIEW REPOSITORY</span>
+                                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                  </a>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] font-sans text-[11px] font-medium text-studio-faint">
+                                    <span>INTERNAL PRODUCTION DEMO</span>
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </article>
+                      </TiltCard>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Show More Button if more than 2 projects */}
+        {ordered.length > 2 && (
+          <div className="pt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAll(!showAll)}
+              className="glass-btn-secondary inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-sans font-bold uppercase tracking-wider text-studio-text hover:text-studio-accent-light transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-accent"
+            >
+              <span>{showAll ? "SHOW FEWER BUILDS" : `SHOW ALL BUILDS (+${ordered.length - 2})`}</span>
+              <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-300", showAll && "rotate-180")} />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ── Technical Architecture & Evidence Inspector Modal ── */}

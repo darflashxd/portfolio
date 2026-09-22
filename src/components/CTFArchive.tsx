@@ -2,23 +2,27 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   FileText,
   ExternalLink,
   Download,
   X,
   Sparkles,
+  ChevronDown,
 } from "lucide-react";
 import { portfolioData, type CTFWriteupEntry } from "@/data/portfolioData";
 import { Reveal } from "@/components/motion/Reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { cn } from "@/lib/utils";
 
 export function CTFArchive() {
   const { ctfWriteups } = portfolioData;
   const [activePdf, setActivePdf] = useState<CTFWriteupEntry | null>(null);
+  const [showAll, setShowAll] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
@@ -39,6 +43,75 @@ export function CTFArchive() {
       document.body.style.overflow = "";
     }
   }, [activePdf]);
+
+  const renderWriteupCard = (item: CTFWriteupEntry) => (
+    <SpotlightCard
+      key={item.id}
+      spotlightColor="rgba(56, 189, 248, 0.14)"
+      className="p-6 sm:p-7 rounded-3xl bg-studio-surface/60 hover:bg-studio-surface/90 border border-white/[0.08] hover:border-studio-cyan-light/40 transition-colors duration-300 h-full flex flex-col justify-between group shadow-[0_8px_30px_rgb(0,0,0,0.14)]"
+    >
+      <article className="space-y-4 flex flex-col justify-between h-full">
+        <div className="space-y-3.5">
+          {/* Top Meta Strip: File Size & Year only */}
+          <div className="flex items-center justify-between gap-3">
+            <span className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-studio-cyan-light font-bold">
+              {item.fileSize} PDF
+            </span>
+            <span className="text-xs font-mono text-studio-faint font-medium">
+              {item.year}
+            </span>
+          </div>
+
+          {/* Header Title */}
+          <div>
+            <div className="text-xs font-sans font-medium text-studio-muted uppercase tracking-wider">
+              {item.organizer}
+            </div>
+            <h4 className="text-lg sm:text-xl font-display font-bold text-studio-text group-hover:text-studio-cyan-light transition-colors leading-snug mt-0.5">
+              {item.competition}
+            </h4>
+            {item.challengeTitle && (
+              <div className="text-xs font-sans font-semibold text-studio-accent-light mt-1 flex items-center gap-1.5">
+                <Sparkles className="w-3 h-3 shrink-0" />
+                <span>{item.challengeTitle}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Summary */}
+          <p className="text-xs sm:text-sm text-studio-muted font-sans leading-relaxed">
+            {item.summary}
+          </p>
+        </div>
+
+        {/* Footer Tags & Actions */}
+        <div className="pt-4 border-t border-white/[0.06] space-y-3.5">
+          <div className="flex flex-wrap gap-1.5">
+            {item.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full px-2.5 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[10px] font-sans font-medium text-studio-faint"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Single Primary Action: In-App PDF View Modal */}
+          <div className="pt-1">
+            <button
+              type="button"
+              onClick={() => setActivePdf(item)}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-studio-accent/20 hover:bg-studio-accent/30 border border-studio-accent/40 text-studio-accent-light hover:text-white text-xs font-sans font-bold uppercase tracking-wider transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-cyan-light active:scale-[0.99]"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>VIEW PDF REPORT</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </SpotlightCard>
+  );
 
   return (
     <>
@@ -69,79 +142,46 @@ export function CTFArchive() {
           </Reveal>
 
           {/* Writeups Roster Grid */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" stagger={0.08}>
-            {ctfWriteups.items.map((item) => {
-              return (
+          <div className="space-y-6">
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" stagger={0.08}>
+              {ctfWriteups.items.slice(0, 4).map((item) => (
                 <StaggerItem key={item.id}>
-                  <SpotlightCard
-                    spotlightColor="rgba(56, 189, 248, 0.14)"
-                    className="p-6 sm:p-7 rounded-3xl bg-studio-surface/60 hover:bg-studio-surface/90 border border-white/[0.08] hover:border-studio-cyan-light/40 transition-colors duration-300 h-full flex flex-col justify-between group shadow-[0_8px_30px_rgb(0,0,0,0.14)]"
-                  >
-                    <article className="space-y-4 flex flex-col justify-between h-full">
-                      <div className="space-y-3.5">
-                        {/* Top Meta Strip: File Size & Year only */}
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-studio-cyan-light font-bold">
-                            {item.fileSize} PDF
-                          </span>
-                          <span className="text-xs font-mono text-studio-faint font-medium">
-                            {item.year}
-                          </span>
-                        </div>
-
-                        {/* Header Title */}
-                        <div>
-                          <div className="text-xs font-sans font-medium text-studio-muted uppercase tracking-wider">
-                            {item.organizer}
-                          </div>
-                          <h4 className="text-lg sm:text-xl font-display font-bold text-studio-text group-hover:text-studio-cyan-light transition-colors leading-snug mt-0.5">
-                            {item.competition}
-                          </h4>
-                          {item.challengeTitle && (
-                            <div className="text-xs font-sans font-semibold text-studio-accent-light mt-1 flex items-center gap-1.5">
-                              <Sparkles className="w-3 h-3 shrink-0" />
-                              <span>{item.challengeTitle}</span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Summary */}
-                        <p className="text-xs sm:text-sm text-studio-muted font-sans leading-relaxed">
-                          {item.summary}
-                        </p>
-                      </div>
-
-                      {/* Footer Tags & Actions */}
-                      <div className="pt-4 border-t border-white/[0.06] space-y-3.5">
-                        <div className="flex flex-wrap gap-1.5">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="rounded-full px-2.5 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[10px] font-sans font-medium text-studio-faint"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Single Primary Action: In-App PDF View Modal */}
-                        <div className="pt-1">
-                          <button
-                            type="button"
-                            onClick={() => setActivePdf(item)}
-                            className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-studio-accent/20 hover:bg-studio-accent/30 border border-studio-accent/40 text-studio-accent-light hover:text-white text-xs font-sans font-bold uppercase tracking-wider transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-cyan-light active:scale-[0.99]"
-                          >
-                            <FileText className="w-3.5 h-3.5" />
-                            <span>VIEW PDF REPORT</span>
-                          </button>
-                        </div>
-                      </div>
-                    </article>
-                  </SpotlightCard>
+                  {renderWriteupCard(item)}
                 </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
+              ))}
+            </StaggerContainer>
+
+            {/* Expandable Remaining Writeups (Gundar & Polri) */}
+            <AnimatePresence>
+              {showAll && ctfWriteups.items.length > 4 && (
+                <motion.div
+                  initial={reduced ? false : { opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={reduced ? undefined : { opacity: 0, height: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden pt-2"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {ctfWriteups.items.slice(4).map((item) => renderWriteupCard(item))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Show More Button if more than 4 writeups */}
+            {ctfWriteups.items.length > 4 && (
+              <div className="pt-8 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAll(!showAll)}
+                  className="glass-btn-secondary inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-sans font-bold uppercase tracking-wider text-studio-text hover:text-studio-cyan-light transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-cyan-light"
+                >
+                  <span>{showAll ? "SHOW FEWER REPORTS" : `SHOW ALL WRITEUPS (+${ctfWriteups.items.length - 4})`}</span>
+                  <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-300", showAll && "rotate-180")} />
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
