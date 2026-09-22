@@ -153,7 +153,7 @@ function ExperienceSlideGallery({ item }: { item: ExperienceEntry }) {
 
 export function Experience() {
   const { experiences } = portfolioData;
-  const [activeTab, setActiveTab] = useState<string>(experiences.categories[0] || "Cyber Security Community (CSC)");
+  const [activeTab, setActiveTab] = useState<string>(experiences.categories[0] || "PETIR Cyber Security");
   const timelineRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 

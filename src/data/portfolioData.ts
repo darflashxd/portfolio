@@ -263,8 +263,61 @@ export const portfolioData = {
   ] as ProjectEntry[],
 
   experiences: {
-    categories: ["Cyber Security Community (CSC)", "PETIR Cyber Security"],
+    categories: ["PETIR Cyber Security", "Cyber Security Community (CSC)"],
     items: [
+      {
+        id: "petir-author",
+        period: "Aug 2026 · 1 mo",
+        role: "Challenge Author (Digital Forensics)",
+        organization: "PETIR Cyber Security",
+        orgHighlight: "BeeCTF 2026 (Beefest)",
+        location: "West Jakarta, Jakarta, Indonesia",
+        summary:
+          "Authored 'The Poisoned AUR' digital forensics challenge simulating an Arch Linux package compromise.",
+        impactPoints: [
+          "Synthesized multi-layered evidence across package logs, shell history, systemd, ELF, and xattr.",
+          "Authored official writeup covering command-line (WSL2) and GUI (FTK Imager) investigation paths.",
+        ],
+        photos: [
+          {
+            src: "/images/experience/beectf-socs-banner.png",
+            alt: "BEE Capture The Flag — Official Competition Banner",
+            caption: "BeeFest BeeCTF Competition — School of Computer Science BINUS University",
+          },
+          {
+            src: "/images/experience/exp-workshop-1.jpg",
+            alt: "BeeCTF 2026 Challenge Documentation",
+            caption: "The Poisoned AUR — Forensic attack timeline & writeup",
+          },
+        ],
+        tags: ["Digital Forensics", "Challenge Author", "BeeCTF", "Linux Forensics"],
+        link: "https://socs.binus.ac.id/2017/06/20/bee-capture-the-flag/",
+        logo: "/images/organizations/petir.png",
+      },
+      {
+        id: "petir-apprentice",
+        period: "Mar 2026 — Present · 7 mos",
+        role: "Apprentice",
+        organization: "PETIR Cyber Security",
+        orgHighlight: "BINUS University · Hybrid",
+        location: "West Jakarta, Jakarta, Indonesia",
+        summary:
+          "Undergoing technical apprenticeship with senior researchers on advanced threat detection and CTF problem sets.",
+        impactPoints: [
+          "Executed intensive Blue Team defensive drills, threat detection, and network security exercises.",
+          "Collaborated with senior members on vulnerability exploitation and forensic triage methodologies.",
+        ],
+        photos: [
+          {
+            src: "/images/experience/exp-ctf-2.jpg",
+            alt: "PETIR Cyber Security Workshop",
+            caption: "Technical mentoring session and hands-on exercises",
+          },
+        ],
+        tags: ["Cybersecurity", "Network Security", "Apprenticeship", "PETIR"],
+        link: "https://www.linkedin.com/in/rafisutanto/",
+        logo: "/images/organizations/petir.png",
+      },
       {
         id: "csc-rd-deputy",
         period: "Oct 2025 — Present · 1 yr",
@@ -335,54 +388,6 @@ export const portfolioData = {
         tags: ["Cybersecurity", "Community", "Study Group"],
         link: "https://www.linkedin.com/in/rafisutanto/",
         logo: "/images/organizations/csc.png",
-      },
-      {
-        id: "petir-apprentice",
-        period: "Mar 2026 — Present · 7 mos",
-        role: "Apprentice",
-        organization: "PETIR Cyber Security",
-        orgHighlight: "BINUS University · Hybrid",
-        location: "West Jakarta, Jakarta, Indonesia",
-        summary:
-          "Undergoing technical apprenticeship with senior researchers on advanced threat detection and CTF problem sets.",
-        impactPoints: [
-          "Executed intensive Blue Team defensive drills, threat detection, and network security exercises.",
-          "Collaborated with senior members on vulnerability exploitation and forensic triage methodologies.",
-        ],
-        photos: [
-          {
-            src: "/images/experience/exp-ctf-2.jpg",
-            alt: "PETIR Cyber Security Workshop",
-            caption: "Technical mentoring session and hands-on exercises",
-          },
-        ],
-        tags: ["Cybersecurity", "Network Security", "Apprenticeship", "PETIR"],
-        link: "https://www.linkedin.com/in/rafisutanto/",
-        logo: "/images/organizations/petir.png",
-      },
-      {
-        id: "petir-author",
-        period: "Aug 2026 · 1 mo",
-        role: "Challenge Author (Digital Forensics)",
-        organization: "PETIR Cyber Security",
-        orgHighlight: "BeeCTF 2026 (Beefest)",
-        location: "West Jakarta, Jakarta, Indonesia",
-        summary:
-          "Authored 'The Poisoned AUR' digital forensics challenge simulating an Arch Linux package compromise.",
-        impactPoints: [
-          "Synthesized multi-layered evidence across package logs, shell history, systemd, ELF, and xattr.",
-          "Authored official writeup covering command-line (WSL2) and GUI (FTK Imager) investigation paths.",
-        ],
-        photos: [
-          {
-            src: "/images/experience/exp-workshop-1.jpg",
-            alt: "BeeCTF 2026 Challenge Documentation",
-            caption: "Forensic attack timeline and writeup documentation",
-          },
-        ],
-        tags: ["Digital Forensics", "Challenge Author", "BeeCTF", "Linux Forensics"],
-        link: "https://github.com/PETIRsec/beefest-2026-qual/tree/main/Forensic/BTW%20I%20Use%20Arch",
-        logo: "/images/organizations/petir.png",
       },
     ] as ExperienceEntry[],
   },
