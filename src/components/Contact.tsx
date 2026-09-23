@@ -7,6 +7,7 @@ import { portfolioData } from "@/data/portfolioData";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { Reveal } from "@/components/motion/Reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
+import { cn } from "@/lib/utils";
 
 function GithubIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
@@ -115,7 +116,12 @@ export function Contact() {
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-studio-surface border border-studio-border hover:border-studio-cyan-light text-xs font-sans uppercase tracking-wider font-bold text-studio-text transition-all shadow-[0_0_24px_rgba(37,99,235,0.25)] hover:shadow-[0_0_36px_rgba(56,189,248,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-accent"
+                className={cn(
+                  "glass-btn-secondary inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-xs font-sans uppercase tracking-wider font-bold transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-accent",
+                  copied
+                    ? "text-emerald-400 !border-emerald-500/50 shadow-[0_0_24px_rgba(52,211,153,0.3)]"
+                    : "text-studio-text hover:text-studio-accent-light"
+                )}
               >
                 {copied ? (
                   <>
