@@ -24,23 +24,40 @@ export function Hero({ isLoaded = false }: { isLoaded?: boolean }) {
       id="hero"
       className="relative min-h-[96vh] flex flex-col pt-32 pb-10 sm:pt-40 sm:pb-12 bg-temp-hero text-studio-text overflow-hidden"
     >
-      {/* High-Performance Ambient Cyber Atmosphere (Pure CSS, 0% GPU overhead, instant 120 FPS) */}
+      {/* ── Architectural Studio Grid & Atmospheric Lighting (100% CSS, 0% GPU load) ── */}
+      {/* 1. Precision Drafting Grid with Soft Radial Vignette Mask */}
       <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] max-w-[90vw] h-[480px] bg-gradient-to-tr from-studio-accent/20 via-studio-cyan/15 to-sky-600/10 blur-[130px] pointer-events-none rounded-full"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute top-1/3 right-1/4 w-[420px] h-[320px] bg-studio-cyan/10 blur-[120px] pointer-events-none rounded-full"
+        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,#000_20%,transparent_85%)] pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* Seamless Atmospheric Bleed into Section Below */}
+      {/* 2. Studio Overhead Key Spotlight (Restrained Cobalt & Cyan Focus) */}
       <div
-        className="absolute inset-x-0 bottom-0 h-40 sm:h-56 pointer-events-none z-[5] bg-gradient-to-t from-[rgb(var(--bg-base))] via-[rgb(var(--bg-base))]/70 to-transparent"
+        className="absolute top-[8%] left-1/2 -translate-x-1/2 w-[720px] max-w-[90vw] h-[440px] bg-gradient-to-b from-sky-400/[0.13] via-blue-600/[0.06] to-transparent blur-[110px] pointer-events-none rounded-full"
+        aria-hidden="true"
+      />
+
+      {/* 3. Deep Atmospheric Ambient Fill */}
+      <div
+        className="absolute top-1/3 left-1/4 w-[500px] h-[320px] bg-studio-cyan/[0.04] blur-[140px] pointer-events-none rounded-full"
+        aria-hidden="true"
+      />
+
+      {/* 4. Seamless Atmospheric Bleed into Section Below */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-44 sm:h-60 pointer-events-none z-[5] bg-gradient-to-t from-[rgb(var(--bg-base))] via-[rgb(var(--bg-base))]/75 to-transparent"
         aria-hidden="true"
       />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full flex-1 flex flex-col justify-center relative z-10">
+        {/* Subtle Architectural Corner Coordinate Crosshairs */}
+        <div className="hidden lg:block absolute -top-6 left-6 text-[11px] font-mono text-white/20 select-none pointer-events-none" aria-hidden="true">
+          +
+        </div>
+        <div className="hidden lg:block absolute -top-6 right-6 text-[11px] font-mono text-white/20 select-none pointer-events-none" aria-hidden="true">
+          +
+        </div>
+
         {/* Eyebrow — identity pill with high-contrast protective dark glass shield */}
         <div className="flex items-baseline justify-between mb-8 sm:mb-12">
           <motion.div
