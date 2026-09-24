@@ -353,7 +353,22 @@ export function Experience() {
                           </div>
                         )}
 
-                        {item.link && (
+                        {item.links && item.links.length > 0 ? (
+                          <div className="pt-2 flex flex-wrap items-center gap-2">
+                            {item.links.map((lnk) => (
+                              <a
+                                key={lnk.href}
+                                href={lnk.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 hover:border-studio-amber-light/40 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text hover:text-studio-amber-light font-bold transition-all"
+                              >
+                                <span>{lnk.label}</span>
+                                <ArrowUpRight className="w-3.5 h-3.5 text-studio-faint" />
+                              </a>
+                            ))}
+                          </div>
+                        ) : item.link ? (
                           <div className="pt-2">
                             <a
                               href={item.link}
@@ -365,7 +380,7 @@ export function Experience() {
                               <ArrowUpRight className="w-3.5 h-3.5 text-studio-faint" />
                             </a>
                           </div>
-                        )}
+                        ) : null}
                       </div>
 
                       {/* Photo documentation carousel column */}
@@ -477,7 +492,22 @@ export function Experience() {
                               </div>
                             )}
 
-                            {item.link && (
+                            {item.links && item.links.length > 0 ? (
+                              <div className="pt-2 flex flex-wrap items-center gap-2">
+                                {item.links.map((lnk) => (
+                                  <a
+                                    key={lnk.href}
+                                    href={lnk.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-white/10 hover:border-studio-amber-light/40 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text hover:text-studio-amber-light font-bold transition-all"
+                                  >
+                                    <span>{lnk.label}</span>
+                                    <ArrowUpRight className="w-3.5 h-3.5 text-studio-faint" />
+                                  </a>
+                                ))}
+                              </div>
+                            ) : item.link ? (
                               <div className="pt-2">
                                 <a
                                   href={item.link}
@@ -489,7 +519,7 @@ export function Experience() {
                                   <ArrowUpRight className="w-3.5 h-3.5 text-studio-faint" />
                                 </a>
                               </div>
-                            )}
+                            ) : null}
                           </div>
 
                           {hasMedia && (

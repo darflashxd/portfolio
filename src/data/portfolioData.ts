@@ -53,6 +53,11 @@ export interface GalleryPhoto {
   caption: string;
 }
 
+export interface ExperienceLink {
+  label: string;
+  href: string;
+}
+
 export interface ExperienceEntry {
   id: string;
   period: string;
@@ -65,6 +70,7 @@ export interface ExperienceEntry {
   photos: GalleryPhoto[];
   tags: string[];
   link?: string;
+  links?: ExperienceLink[];
   logo?: string;
 }
 
@@ -335,17 +341,51 @@ export const portfolioData = {
         photos: [
           {
             src: "/images/experience/exp-csc-rd-1.jpg",
-            alt: "CSC BINUS R&D Team Coordination",
+            alt: "CSC BINUS R&D Author Coordination",
             caption: "Author coordination and challenge syllabus review",
           },
           {
-            src: "/images/experience/exp-csc-rd-2.jpg",
-            alt: "Forensics Training Workshop",
-            caption: "Hands-on student forensic lab session and walk-through",
+            src: "/images/projects/project-ctf-infra.png",
+            alt: "CSC CTF Contest 2026 — GitHub CI/CD Repository & PR Pipeline",
+            caption: "Automated GitHub Actions CI/CD pipeline & 79 PRs review",
           },
         ],
         tags: ["Team Leadership", "R&D", "Cybersecurity", "CI/CD"],
-        link: "https://www.linkedin.com/in/rafisutanto/",
+        link: "https://github.com/csc-research-binus/csc-ctf-contest-2026",
+        logo: "/images/organizations/csc.png",
+      },
+      {
+        id: "csc-ncw-pic",
+        period: "Oct 2025 — Dec 2025 · 3 mos",
+        role: "Project Officer (PIC) — National Cyber Week 2025",
+        organization: "Cyber Security Community (CSC)",
+        orgHighlight: "National Flagship Event · BINUS University",
+        location: "West Jakarta, Jakarta, Indonesia",
+        summary:
+          "Led National Cyber Week 2025 as Project Officer / PIC, orchestrating Indonesia's first national CTF competition featuring an on-site IoT Hacking final stage alongside specialized security workshops.",
+        impactPoints: [
+          "Directed end-to-end competition operations, timeline, and steering committee coordination for national university participants across Indonesia.",
+          "Pioneered Indonesia's first on-site IoT Hacking CTF final challenge at BINUS Anggrek, preceded by an online CTFd Jeopardy qualifier.",
+          "Curated educational workshops on Web Penetration Testing (OWASP/WSTG/OSINT) and Offensive Adversarial AI / ML Red Teaming.",
+        ],
+        photos: [
+          {
+            src: "/images/experience/exp-ncw.jpg",
+            alt: "National Cyber Week 2025 — Workshop & IoT Hacking CTF",
+            caption: "National Cyber Week 2025 — National IoT Hacking CTF & Security Workshops at BINUS University",
+          },
+        ],
+        tags: ["Project Lead", "Event PIC", "IoT Hacking", "CTF", "Cybersecurity", "CSC BINUS"],
+        links: [
+          {
+            label: "NCW EVENT PORTAL",
+            href: "https://ncw.cscbinus.org/",
+          },
+          {
+            label: "BINUS SCDC COVERAGE",
+            href: "https://student-activity.binus.ac.id/csc/2025/12/national-cyber-week-2025/",
+          },
+        ],
         logo: "/images/organizations/csc.png",
       },
       {

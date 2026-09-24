@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, Sparkles } from "lucide-react";
+import { FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { openResumeModal } from "@/components/ui/ResumeModal";
 
@@ -28,13 +28,8 @@ export function CandidateStrip() {
           </span>
         </div>
 
-        {/* Right: Technical Focus Pill + Dossier Quick Action */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          <span className="text-studio-faint text-[11px] font-sans font-medium tracking-wider uppercase hidden lg:inline-flex items-center gap-1.5">
-            <Sparkles className="w-3 h-3 text-studio-cyan-light" />
-            BLUE TEAM · DFIR · SECURITY CI/CD
-          </span>
-
+        {/* Right: Dossier Quick Action */}
+        <div className="flex items-center">
           <button
             type="button"
             onClick={openResumeModal}
