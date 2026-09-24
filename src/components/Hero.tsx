@@ -4,11 +4,10 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, FileText, ShieldCheck } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { LivingGradientShader } from "@/components/ui/LivingGradientShader";
 import { openResumeModal } from "@/components/ui/ResumeModal";
 
 /**
- * Hero — signature staggered text reveal with WebGL Living Gradient Shader.
+ * Hero — signature staggered text reveal with ultra-lightweight CSS ambient lighting.
  * Line-level choreography: DECONSTRUCTING → the unseen → SYSTEMS.
  * Transform + opacity only. Editorial timing (0.8–1.0s, gentle offsets).
  * Modern pill-shaped ergonomics and luminous subtle glow.
@@ -25,18 +24,19 @@ export function Hero({ isLoaded = false }: { isLoaded?: boolean }) {
       id="hero"
       className="relative min-h-[96vh] flex flex-col pt-32 pb-10 sm:pt-40 sm:pb-12 bg-temp-hero text-studio-text overflow-hidden"
     >
-      {/* Living WebGL Simplex-Noise Gradient + Vignette + Film Grain */}
-      <LivingGradientShader />
-
-      {/* Top Ambient Feathered Mask to ensure 100% eyebrow contrast against bright shader flares */}
+      {/* High-Performance Ambient Cyber Atmosphere (Pure CSS, 0% GPU overhead, instant 120 FPS) */}
       <div
-        className="absolute inset-x-0 top-0 h-44 sm:h-64 pointer-events-none z-[4] bg-gradient-to-b from-[rgb(var(--bg-base))]/85 via-[rgb(var(--bg-base))]/40 to-transparent"
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] max-w-[90vw] h-[480px] bg-gradient-to-tr from-studio-accent/20 via-studio-cyan/15 to-sky-600/10 blur-[130px] pointer-events-none rounded-full"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-1/3 right-1/4 w-[420px] h-[320px] bg-studio-cyan/10 blur-[120px] pointer-events-none rounded-full"
         aria-hidden="true"
       />
 
-      {/* Seamless Atmospheric Bleed into Section Below (Feathered Gradient Mask) */}
+      {/* Seamless Atmospheric Bleed into Section Below */}
       <div
-        className="absolute inset-x-0 bottom-0 h-48 sm:h-72 pointer-events-none z-[5] bg-gradient-to-t from-[rgb(var(--bg-base))] via-[rgb(var(--bg-base))]/80 to-transparent"
+        className="absolute inset-x-0 bottom-0 h-40 sm:h-56 pointer-events-none z-[5] bg-gradient-to-t from-[rgb(var(--bg-base))] via-[rgb(var(--bg-base))]/70 to-transparent"
         aria-hidden="true"
       />
 

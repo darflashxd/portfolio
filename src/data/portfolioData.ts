@@ -291,9 +291,14 @@ export const portfolioData = {
             caption: "BeeFest BeeCTF Competition — School of Computer Science BINUS University",
           },
           {
-            src: "/images/experience/exp-workshop-1.jpg",
-            alt: "BeeCTF 2026 Challenge Documentation",
-            caption: "The Poisoned AUR — Forensic attack timeline & writeup",
+            src: "/images/experience/exp-aur-safety.jpg",
+            alt: "The Poisoned AUR — Forensic Challenge Scenario",
+            caption: "The Poisoned AUR — Arch Linux package compromise scenario & forensic artifacts",
+          },
+          {
+            src: "/images/experience/exp-petir-crest.jpg",
+            alt: "PETIR Cyber Security Research Division",
+            caption: "PETIR Cyber Security — Digital Forensics & CTF Research Division",
           },
         ],
         tags: ["Digital Forensics", "Challenge Author", "BeeCTF", "Linux Forensics"],
@@ -340,18 +345,27 @@ export const portfolioData = {
         ],
         photos: [
           {
-            src: "/images/experience/exp-csc-rd-1.jpg",
-            alt: "CSC BINUS R&D Author Coordination",
-            caption: "Author coordination and challenge syllabus review",
-          },
-          {
             src: "/images/projects/project-ctf-infra.png",
             alt: "CSC CTF Contest 2026 — GitHub CI/CD Repository & PR Pipeline",
             caption: "Automated GitHub Actions CI/CD pipeline & 79 PRs review",
           },
+          {
+            src: "/images/experience/exp-csc-rd-1.jpg",
+            alt: "CSC BINUS R&D Author Coordination",
+            caption: "Author coordination and challenge syllabus review",
+          },
         ],
         tags: ["Team Leadership", "R&D", "Cybersecurity", "CI/CD"],
-        link: "https://github.com/csc-research-binus/csc-ctf-contest-2026",
+        links: [
+          {
+            label: "GITHUB REPOSITORY",
+            href: "https://github.com/csc-research-binus/csc-ctf-contest-2026",
+          },
+          {
+            label: "CSC CTF ARTICLE",
+            href: "https://student-activity.binus.ac.id/csc/2026/05/csc-ctf-contest-2026/",
+          },
+        ],
         logo: "/images/organizations/csc.png",
       },
       {
