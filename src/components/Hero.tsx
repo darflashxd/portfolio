@@ -4,11 +4,11 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, FileText, ShieldCheck } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { KeynoteAura } from "@/components/ui/KeynoteAura";
+import { LiquidSilkWaves } from "@/components/ui/LiquidSilkWaves";
 import { openResumeModal } from "@/components/ui/ResumeModal";
 
 /**
- * Hero — Apple Keynote / WWDC signature backlit stage choreography.
+ * Hero — Apple WWDC / Siri Liquid Silk Waves signature stage choreography.
  * Line-level choreography: DECONSTRUCTING → the unseen → SYSTEMS.
  * Transform + opacity only. Editorial timing (0.8–1.0s, gentle offsets).
  * Modern pill-shaped ergonomics and luminous subtle glow.
@@ -25,8 +25,8 @@ export function Hero({ isLoaded = false }: { isLoaded?: boolean }) {
       id="hero"
       className="relative min-h-[96vh] flex flex-col pt-32 pb-10 sm:pt-40 sm:pb-12 bg-temp-hero text-studio-text overflow-hidden"
     >
-      {/* ── Apple Keynote / WWDC Luminous Fluid Stage Atmosphere (Compositor GPU 60-120fps) ── */}
-      <KeynoteAura />
+      {/* ── Apple WWDC / Siri Liquid Silk Waves (Interactive Canvas 2D, 60-120fps) ── */}
+      <LiquidSilkWaves />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full flex-1 flex flex-col justify-center relative z-10">
         {/* Subtle Architectural Corner Coordinate Crosshairs */}
