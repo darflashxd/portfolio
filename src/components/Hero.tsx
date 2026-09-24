@@ -4,10 +4,11 @@ import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, FileText, ShieldCheck } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { KeynoteAura } from "@/components/ui/KeynoteAura";
 import { openResumeModal } from "@/components/ui/ResumeModal";
 
 /**
- * Hero — signature staggered text reveal with ultra-lightweight CSS ambient lighting.
+ * Hero — Apple Keynote / WWDC signature backlit stage choreography.
  * Line-level choreography: DECONSTRUCTING → the unseen → SYSTEMS.
  * Transform + opacity only. Editorial timing (0.8–1.0s, gentle offsets).
  * Modern pill-shaped ergonomics and luminous subtle glow.
@@ -24,30 +25,8 @@ export function Hero({ isLoaded = false }: { isLoaded?: boolean }) {
       id="hero"
       className="relative min-h-[96vh] flex flex-col pt-32 pb-10 sm:pt-40 sm:pb-12 bg-temp-hero text-studio-text overflow-hidden"
     >
-      {/* ── Architectural Studio Grid & Atmospheric Lighting (100% CSS, 0% GPU load) ── */}
-      {/* 1. Precision Drafting Grid with Soft Radial Vignette Mask */}
-      <div
-        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,#000_20%,transparent_85%)] pointer-events-none"
-        aria-hidden="true"
-      />
-
-      {/* 2. Studio Overhead Key Spotlight (Restrained Cobalt & Cyan Focus) */}
-      <div
-        className="absolute top-[8%] left-1/2 -translate-x-1/2 w-[720px] max-w-[90vw] h-[440px] bg-gradient-to-b from-sky-400/[0.13] via-blue-600/[0.06] to-transparent blur-[110px] pointer-events-none rounded-full"
-        aria-hidden="true"
-      />
-
-      {/* 3. Deep Atmospheric Ambient Fill */}
-      <div
-        className="absolute top-1/3 left-1/4 w-[500px] h-[320px] bg-studio-cyan/[0.04] blur-[140px] pointer-events-none rounded-full"
-        aria-hidden="true"
-      />
-
-      {/* 4. Seamless Atmospheric Bleed into Section Below */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-44 sm:h-60 pointer-events-none z-[5] bg-gradient-to-t from-[rgb(var(--bg-base))] via-[rgb(var(--bg-base))]/75 to-transparent"
-        aria-hidden="true"
-      />
+      {/* ── Apple Keynote / WWDC Luminous Fluid Stage Atmosphere (Compositor GPU 60-120fps) ── */}
+      <KeynoteAura />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full flex-1 flex flex-col justify-center relative z-10">
         {/* Subtle Architectural Corner Coordinate Crosshairs */}

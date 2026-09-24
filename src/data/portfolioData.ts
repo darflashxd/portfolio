@@ -295,11 +295,6 @@ export const portfolioData = {
             alt: "The Poisoned AUR — Forensic Challenge Scenario",
             caption: "The Poisoned AUR — Arch Linux package compromise scenario & forensic artifacts",
           },
-          {
-            src: "/images/experience/exp-petir-crest.jpg",
-            alt: "PETIR Cyber Security Research Division",
-            caption: "PETIR Cyber Security — Digital Forensics & CTF Research Division",
-          },
         ],
         tags: ["Digital Forensics", "Challenge Author", "BeeCTF", "Linux Forensics"],
         link: "https://socs.binus.ac.id/2017/06/20/bee-capture-the-flag/",
@@ -319,6 +314,11 @@ export const portfolioData = {
           "Collaborated with senior members on vulnerability exploitation and forensic triage methodologies.",
         ],
         photos: [
+          {
+            src: "/images/experience/exp-petir-crest.jpg",
+            alt: "PETIR Cyber Security Research Division",
+            caption: "PETIR Cyber Security — Digital Forensics & CTF Research Division Crest",
+          },
           {
             src: "/images/experience/exp-ctf-2.jpg",
             alt: "PETIR Cyber Security Workshop",
