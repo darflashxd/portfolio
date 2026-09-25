@@ -194,7 +194,7 @@ export function CTFArchive() {
           <AnimatePresence>
             {activePdf && (
               <div
-                className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+                className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-black/80 animate-in fade-in duration-150"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="pdf-modal-title"
@@ -207,14 +207,14 @@ export function CTFArchive() {
                 />
 
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 16 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative w-full max-w-5xl h-[92vh] max-h-[920px] rounded-3xl bg-[#060810]/95 backdrop-blur-2xl border border-white/15 border-t-white/35 shadow-[0_25px_80px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.3)] overflow-hidden flex flex-col z-10"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  className="relative w-full max-w-5xl h-[92vh] max-h-[920px] rounded-3xl bg-[#060810] border border-white/15 border-t-white/35 shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col z-10"
                 >
                   {/* Header Strip */}
-                  <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 bg-white/[0.03] backdrop-blur-xl border-b border-white/10 select-none gap-3">
+                  <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 bg-white/[0.03] border-b border-white/10 select-none gap-3">
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="w-8 h-8 rounded-full bg-studio-surface border border-white/15 flex items-center justify-center text-studio-cyan-light font-bold text-sm shrink-0 shadow-sm">
                         <FileText className="w-4 h-4" />
@@ -271,6 +271,7 @@ export function CTFArchive() {
                   <div className="flex-1 overflow-hidden relative bg-[#04060C]">
                     <iframe
                       src={`${activePdf.docUrl}#view=FitH&toolbar=0&navpanes=0`}
+                      loading="lazy"
                       className="w-full h-full border-0 bg-[#0E121E]"
                       title={`${activePdf.competition} PDF Report Viewer`}
                     />

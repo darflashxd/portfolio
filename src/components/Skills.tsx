@@ -194,7 +194,7 @@ export function Skills() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-mono font-bold text-studio-cyan-light">
-                    01 / {skills[0]?.name ?? "DIGITAL FORENSICS"}
+                    {skills[0]?.name ?? "DIGITAL FORENSICS"}
                   </span>
                   <span className="text-xs font-mono text-studio-faint uppercase">
                     DFIR &amp; REVERSING
@@ -250,7 +250,7 @@ export function Skills() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-studio-accent/10 border border-studio-accent/25 text-xs font-mono font-bold text-studio-accent-light">
-                    02 / {skills[1]?.name ?? "BLUE TEAM"}
+                    {skills[1]?.name ?? "BLUE TEAM"}
                   </span>
                   <span className="text-xs font-mono text-studio-faint uppercase">
                     THREAT DETECTION &amp; DEFENSE

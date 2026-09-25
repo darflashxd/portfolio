@@ -88,10 +88,9 @@ export function Projects() {
 
         {/* ── Asymmetric Bento Grid with Soft Rounded-3xl Curves & Tactile Spring Lift ── */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8" stagger={0.1}>
-          {ordered.slice(0, 2).map(({ project, role, index }) => {
+          {ordered.slice(0, 2).map(({ project, role }) => {
             const isFeatured = role === "featured";
             const isWide = role === "wide";
-            const displayNum = String(index).padStart(2, "0");
 
             /* ── Tile 01: Featured Dominant Tile (7-Col) — CSC CTF Contest 2026 ── */
             if (isFeatured) {
@@ -108,7 +107,7 @@ export function Projects() {
                         <div className="flex items-baseline justify-between">
                           <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-accent/10 border border-studio-accent/25 text-xs font-sans font-bold text-studio-accent-light shadow-sm">
                             <Sparkles className="w-3.5 h-3.5" />
-                            {displayNum} / FEATURED INFRASTRUCTURE
+                            FEATURED INFRASTRUCTURE
                           </span>
                           <span className="text-xs font-sans font-medium text-studio-faint uppercase">
                             {project.category} · {project.year}
@@ -235,7 +234,7 @@ export function Projects() {
                         <div className="flex items-center justify-between gap-3">
                           <span className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-sans font-bold text-studio-cyan-light">
                             <Terminal className="w-3.5 h-3.5" />
-                            {displayNum} / DIGITAL FORENSICS
+                            DIGITAL FORENSICS
                           </span>
                           <span className="text-xs font-sans font-medium text-studio-faint uppercase shrink-0">
                             BEECTF · {project.year}
@@ -359,9 +358,7 @@ export function Projects() {
               className="overflow-hidden"
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 pt-6 sm:pt-8">
-                {ordered.slice(2).map(({ project, index }) => {
-                  const displayNum = String(index).padStart(2, "0");
-
+                {ordered.slice(2).map(({ project }) => {
                   return (
                     <div key={project.id} className="md:col-span-12">
                       <TiltCard
@@ -405,7 +402,7 @@ export function Projects() {
                               <div className="flex items-center justify-between">
                                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-amber/10 border border-studio-amber/25 text-xs font-sans font-bold text-studio-amber-light">
                                   <Activity className="w-3.5 h-3.5" />
-                                  {displayNum} / MEDICAL AI
+                                  MEDICAL AI
                                 </span>
                                 <span className="text-xs font-sans font-medium text-studio-faint uppercase">
                                   {project.year}
@@ -501,7 +498,7 @@ export function Projects() {
           <AnimatePresence>
             {inspectedProject && (
               <div
-                className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+                className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-black/80 animate-in fade-in duration-150"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="inspect-modal-title"
@@ -513,11 +510,11 @@ export function Projects() {
                 />
 
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.94, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.94, y: 20 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#060810]/95 backdrop-blur-2xl border border-white/15 border-t-white/35 shadow-[0_25px_80px_rgba(0,0,0,0.95),inset_0_1px_0_rgba(255,255,255,0.3)] p-6 sm:p-8 z-10 space-y-6"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                  className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#060810] border border-white/15 border-t-white/35 shadow-[0_25px_70px_rgba(0,0,0,0.95)] p-6 sm:p-8 z-10 space-y-6"
                 >
                   {/* Header */}
                   <div className="flex items-center justify-between pb-4 border-b border-white/10 gap-3">
