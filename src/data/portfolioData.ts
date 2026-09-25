@@ -192,31 +192,17 @@ export const portfolioData = {
   skills: [
     {
       num: "01",
-      name: "Digital Forensics &",
-      serifAccent: "DFIR",
+      name: "Digital Forensics",
+      serifAccent: "DFIR & Reverse Engineering",
       description: "Dead-box & volatile memory triage, filesystem artifact parsing, timeline reconstruction, and evidence correlation.",
-      tags: ["Volatility3", "Autopsy", "Wireshark", "FTK Imager", "Linux Forensics (xattr / systemd)", "Incident Response (DFIR)"],
+      tags: ["Volatility 3", "Autopsy", "Wireshark", "FTK Imager", "Ghidra", "x64dbg", "Linux Forensics (xattr / systemd)", "Incident Response (DFIR)"],
     },
     {
       num: "02",
-      name: "Blue Team &",
-      serifAccent: "threat detection",
+      name: "Blue Team",
+      serifAccent: "Threat Detection & Incident Response",
       description: "Security operations, log telemetry analysis, threat hunting, and incident response containment.",
-      tags: ["Splunk SIEM", "Windows Event Logs", "Sysmon Telemetry", "Linux Security", "Network Packet Analysis", "Incident Triage"],
-    },
-    {
-      num: "03",
-      name: "DevOps &",
-      serifAccent: "automation",
-      description: "Automated competition pipelines, containerized deployment, and system administration.",
-      tags: ["GitHub Actions (CI/CD)", "Docker", "ctfcli", "Bash Scripting", "Python Automation", "SSH / Linux VPS Ops"],
-    },
-    {
-      num: "04",
-      name: "Machine Learning &",
-      serifAccent: "applied AI",
-      description: "Deep learning model optimization, transfer learning, and full-stack medical telemetry applications.",
-      tags: ["TensorFlow / Keras", "MobileNetV2", "Flask API", "React", "TypeScript", "Dependency Pinning"],
+      tags: ["Splunk SIEM", "Windows Event Logs (EVTX)", "Sysmon Telemetry", "YARA Rules", "Sigma Rules", "Linux Security & Hardening", "Network Packet Analysis"],
     },
   ] as SkillCategory[],
 
