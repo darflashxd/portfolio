@@ -1,6 +1,23 @@
 "use client";
 
-import { Terminal, Shield, Wrench, Cpu, Search, FileCode2, Binary, Network, Layers } from "lucide-react";
+import {
+  Terminal,
+  Shield,
+  Wrench,
+  Cpu,
+  Search,
+  FileCode2,
+  Binary,
+  Network,
+  Layers,
+  Globe,
+  Smartphone,
+  Box,
+  GitBranch,
+  Workflow,
+  Container,
+  Server,
+} from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import { Reveal } from "@/components/motion/Reveal";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
@@ -23,16 +40,16 @@ export function Skills() {
       color: "text-studio-cyan-light",
     },
     {
-      name: "Wireshark",
-      category: "Packet & Protocol Inspection",
-      icon: Network,
-      color: "text-studio-accent-light",
-    },
-    {
       name: "FTK Imager",
       category: "Raw E01 Evidence Carving",
       icon: Wrench,
       color: "text-studio-amber-light",
+    },
+    {
+      name: "Eric Zimmerman Tools",
+      category: "Windows Artifact Triage ($MFT)",
+      icon: Wrench,
+      color: "text-studio-cyan-light",
     },
     {
       name: "Ghidra",
@@ -47,10 +64,22 @@ export function Skills() {
       color: "text-studio-cyan-light",
     },
     {
-      name: "systemd Journal",
-      category: "Linux Artifact & Log Triage",
-      icon: Terminal,
-      color: "text-studio-cyan-light",
+      name: "JADX",
+      category: "Android DEX & APK Decompiler",
+      icon: Smartphone,
+      color: "text-studio-accent-light",
+    },
+    {
+      name: "APKTool",
+      category: "Mobile App Disassembly",
+      icon: Box,
+      color: "text-studio-amber-light",
+    },
+    {
+      name: "Wireshark",
+      category: "Packet & Protocol Inspection",
+      icon: Network,
+      color: "text-studio-accent-light",
     },
     {
       name: "ELF & Extended Attributes",
@@ -80,6 +109,12 @@ export function Skills() {
       color: "text-studio-cyan-light",
     },
     {
+      name: "Burp Suite",
+      category: "Web Proxy & Traffic Triage",
+      icon: Globe,
+      color: "text-studio-amber-light",
+    },
+    {
       name: "YARA Rules",
       category: "Malware Signature Detection",
       icon: Shield,
@@ -92,22 +127,28 @@ export function Skills() {
       color: "text-studio-accent-light",
     },
     {
-      name: "Linux Hardening",
-      category: "Systems Defense & UFW Rules",
-      icon: Terminal,
+      name: "Linux",
+      category: "Systems Hardening & systemd",
+      icon: Server,
       color: "text-studio-cyan-light",
     },
     {
-      name: "Python 3 DFIR",
-      category: "Automated Evidence Parsers",
-      icon: Terminal,
-      color: "text-studio-amber-light",
+      name: "Docker",
+      category: "Container Isolation & Sandboxing",
+      icon: Container,
+      color: "text-studio-cyan-light",
     },
     {
-      name: "Network Defense",
-      category: "Packet Triage & Threat Hunting",
-      icon: Network,
+      name: "CI/CD (GitHub Actions)",
+      category: "Automated Deployment Pipelines",
+      icon: Workflow,
       color: "text-studio-accent-light",
+    },
+    {
+      name: "Git",
+      category: "Version Control & Integrity Audit",
+      icon: GitBranch,
+      color: "text-studio-amber-light",
     },
   ];
 
@@ -167,12 +208,12 @@ export function Skills() {
                 </p>
               </div>
 
-              {/* Tools Roster Grid — Clean 2-column cards with full text visibility */}
+              {/* Tools Roster Grid — 10 tools balanced 2-column grid */}
               <div className="pt-2 space-y-3">
                 <div className="text-[11px] font-mono uppercase tracking-wider text-studio-faint font-semibold">
-                  ACTIVE DFIR WORKBENCH (8 TOOLS)
+                  ACTIVE DFIR &amp; REVERSING WORKBENCH (10 TOOLS)
                 </div>
-                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-3" stagger={0.04}>
+                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-3" stagger={0.03}>
                   {forensicsArsenal.map((tool) => {
                     const Icon = tool.icon;
                     return (
@@ -212,23 +253,23 @@ export function Skills() {
                     02 / {skills[1]?.name ?? "BLUE TEAM"}
                   </span>
                   <span className="text-xs font-mono text-studio-faint uppercase">
-                    THREAT DETECTION &amp; SOC
+                    THREAT DETECTION &amp; DEFENSE
                   </span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display font-bold text-studio-text tracking-tight">
-                  {skills[1]?.serifAccent ?? "Threat Detection & Incident Response"}
+                  {skills[1]?.serifAccent ?? "Threat Detection & Defensive Ops"}
                 </h3>
                 <p className="text-xs sm:text-sm text-studio-muted font-sans leading-relaxed">
-                  {skills[1]?.description ?? "Security operations, log telemetry analysis, threat hunting, and incident response containment."}
+                  {skills[1]?.description ?? "Security operations, log telemetry analysis, threat hunting, application proxying, and containerized defense."}
                 </p>
               </div>
 
-              {/* Tools Roster Grid — Clean 2-column cards with full text visibility */}
+              {/* Tools Roster Grid — 10 tools balanced 2-column grid */}
               <div className="pt-2 space-y-3">
                 <div className="text-[11px] font-mono uppercase tracking-wider text-studio-faint font-semibold">
-                  ACTIVE BLUE TEAM ARSENAL (8 TOOLS)
+                  ACTIVE BLUE TEAM &amp; INFRASTRUCTURE ARSENAL (10 TOOLS)
                 </div>
-                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-3" stagger={0.04}>
+                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-3" stagger={0.03}>
                   {blueTeamArsenal.map((tool) => {
                     const Icon = tool.icon;
                     return (

@@ -195,14 +195,14 @@ export const portfolioData = {
       name: "Digital Forensics",
       serifAccent: "DFIR & Reverse Engineering",
       description: "Dead-box & volatile memory triage, filesystem artifact parsing, timeline reconstruction, and evidence correlation.",
-      tags: ["Volatility 3", "Autopsy", "Wireshark", "FTK Imager", "Ghidra", "x64dbg", "Linux Forensics (xattr / systemd)", "Incident Response (DFIR)"],
+      tags: ["Volatility 3", "Autopsy", "FTK Imager", "Eric Zimmerman Tools", "Ghidra", "x64dbg", "JADX", "APKTool", "Wireshark", "Linux Forensics (xattr / systemd)"],
     },
     {
       num: "02",
       name: "Blue Team",
-      serifAccent: "Threat Detection & Incident Response",
-      description: "Security operations, log telemetry analysis, threat hunting, and incident response containment.",
-      tags: ["Splunk SIEM", "Windows Event Logs (EVTX)", "Sysmon Telemetry", "YARA Rules", "Sigma Rules", "Linux Security & Hardening", "Network Packet Analysis"],
+      serifAccent: "Threat Detection & Defensive Ops",
+      description: "Security operations, log telemetry analysis, threat hunting, application proxying, and containerized defense.",
+      tags: ["Splunk SIEM", "Windows Event Logs (EVTX)", "Sysmon Telemetry", "Burp Suite", "YARA Rules", "Sigma Rules", "Linux Systems", "Docker", "CI/CD (GitHub Actions)", "Git"],
     },
   ] as SkillCategory[],
 
