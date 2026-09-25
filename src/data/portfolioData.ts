@@ -258,6 +258,40 @@ export const portfolioData = {
     categories: ["PETIR Cyber Security", "Cyber Security Community (CSC)"],
     items: [
       {
+        id: "petir-ifest-author",
+        period: "Aug 2026 · 1 mo",
+        role: "Problem Setter (Digital Forensics)",
+        organization: "PETIR Cyber Security",
+        orgHighlight: "IFEST 2026 (Universitas Padjadjaran)",
+        location: "Sumedang & Bandung, Jawa Barat · Remote",
+        summary:
+          "Commissioned as external Digital Forensics challenge author for IFEST 2026 (HIMATIF Universitas Padjadjaran) via PETIR Cyber Security consultancy.",
+        impactPoints: [
+          "Developed 'Dead Box' forensics challenge simulating LUKS volume encryption, ext4 unallocated artifact carving, and hidden keyfile extraction.",
+          "Synthesized multi-stage attack scenarios across Linux PAM logs, Git object zlib streams, and binary reversing triage.",
+          "Delivered official reference writeup and automated validation solver harness to guarantee competition integrity.",
+        ],
+        photos: [
+          {
+            src: "/images/experience/exp-ifest-ctf.jpg",
+            alt: "IFEST 2026 — Universitas Padjadjaran CTF Competition",
+            caption: "IFEST 2026 CTF Competition — HIMATIF Universitas Padjadjaran",
+          },
+        ],
+        tags: ["Problem Setter", "Digital Forensics", "IFEST UNPAD", "PETIR Consultancy", "LUKS Forensics"],
+        links: [
+          {
+            label: "IFEST UNPAD PORTAL",
+            href: "https://ifestunpad.com/home",
+          },
+          {
+            label: "CTF COMPETITION",
+            href: "https://ifestunpad.com/competitions",
+          },
+        ],
+        logo: "/images/organizations/ifest.png",
+      },
+      {
         id: "petir-author",
         period: "Aug 2026 · 1 mo",
         role: "Challenge Author (Digital Forensics)",
