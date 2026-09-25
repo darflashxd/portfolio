@@ -28,8 +28,8 @@ const WAVES: WaveConfig[] = [
     harmonicAmp: 25,
     yOffsetRatio: 0.38,
     gradientColors: [
-      "rgba(99, 102, 241, 0.32)", // Electric Indigo
-      "rgba(147, 51, 234, 0.18)", // Deep Violet
+      "rgba(99, 102, 241, 0.30)", // Electric Indigo
+      "rgba(147, 51, 234, 0.16)", // Deep Violet
       "rgba(6, 8, 15, 0)",
     ],
   },
@@ -42,8 +42,8 @@ const WAVES: WaveConfig[] = [
     harmonicAmp: 30,
     yOffsetRatio: 0.44,
     gradientColors: [
-      "rgba(37, 99, 235, 0.38)", // Royal Cobalt
-      "rgba(30, 58, 138, 0.22)", // Midnight Navy
+      "rgba(37, 99, 235, 0.35)", // Royal Cobalt
+      "rgba(30, 58, 138, 0.20)", // Midnight Navy
       "rgba(6, 8, 15, 0)",
     ],
   },
@@ -56,8 +56,8 @@ const WAVES: WaveConfig[] = [
     harmonicAmp: 20,
     yOffsetRatio: 0.48,
     gradientColors: [
-      "rgba(56, 189, 248, 0.45)", // Luminous Cyan
-      "rgba(14, 165, 233, 0.25)", // Sky Blue
+      "rgba(56, 189, 248, 0.42)", // Luminous Cyan
+      "rgba(14, 165, 233, 0.22)", // Sky Blue
       "rgba(6, 8, 15, 0)",
     ],
   },
@@ -70,8 +70,8 @@ const WAVES: WaveConfig[] = [
     harmonicAmp: 18,
     yOffsetRatio: 0.52,
     gradientColors: [
-      "rgba(224, 242, 254, 0.55)", // Ice White Apex
-      "rgba(56, 189, 248, 0.28)", // Cyan Glow
+      "rgba(224, 242, 254, 0.50)", // Ice White Apex
+      "rgba(56, 189, 248, 0.25)", // Cyan Glow
       "rgba(6, 8, 15, 0)",
     ],
   },
@@ -79,11 +79,13 @@ const WAVES: WaveConfig[] = [
 
 export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
@@ -94,12 +96,16 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
     let time = 0;
     let canvasWidth = 0;
     let canvasHeight = 0;
+    let cachedGradients: CanvasGradient[] = [];
+    let lastRenderTime = 0;
+    const targetFpsInterval = 1000 / 45; // 45 FPS saves CPU while maintaining fluid motion
 
-    // Mouse interactive target & lerp smoothing
+    // Mouse target with lerping
     const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
+      if (!inView) return;
+      const rect = container.getBoundingClientRect();
       mouse.targetX = e.clientX - rect.left;
       mouse.targetY = e.clientY - rect.top;
     };
@@ -109,17 +115,30 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
       mouse.targetY = -1000;
     };
 
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    container.addEventListener("mousemove", handleMouseMove, { passive: true });
+    container.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+
+    const buildGradients = () => {
+      if (!ctx || canvasHeight <= 0) return;
+      cachedGradients = WAVES.map((wave) => {
+        const baseY = canvasHeight * wave.yOffsetRatio;
+        const grad = ctx.createLinearGradient(0, baseY - wave.amplitude, 0, canvasHeight);
+        grad.addColorStop(0, wave.gradientColors[0]);
+        grad.addColorStop(0.35, wave.gradientColors[1]);
+        grad.addColorStop(1, wave.gradientColors[2]);
+        return grad;
+      });
+    };
 
     const resize = () => {
-      const rect = canvas.getBoundingClientRect();
+      const rect = container.getBoundingClientRect();
       canvasWidth = rect.width;
       canvasHeight = rect.height;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       canvas.width = Math.max(1, Math.round(rect.width * dpr));
       canvas.height = Math.max(1, Math.round(rect.height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildGradients();
     };
 
     resize();
@@ -130,7 +149,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
       if (inView && isVisible) startLoop();
       else stopLoop();
     });
-    observer.observe(canvas);
+    observer.observe(container);
 
     const handleVisibility = () => {
       isVisible = document.visibilityState === "visible";
@@ -154,9 +173,16 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
     const timeMultiplier = reduced ? 0.2 : 1.0;
 
-    function render() {
+    function render(now: number) {
       rafId = 0;
-      if (!ctx || !canvas) return;
+      if (!ctx || !canvas || !inView || !isVisible) return;
+
+      const elapsed = now - lastRenderTime;
+      if (elapsed < targetFpsInterval) {
+        startLoop();
+        return;
+      }
+      lastRenderTime = now - (elapsed % targetFpsInterval);
 
       const width = canvasWidth;
       const height = canvasHeight;
@@ -171,33 +197,30 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
       mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
       ctx.clearRect(0, 0, width, height);
-
-      // Optical additive blending mode (WWDC Luminous Glare effect)
       ctx.globalCompositeOperation = "screen";
 
       time += 0.015 * timeMultiplier;
+
+      const step = 20; // 20px step resolution reduces calculations by 40%
 
       WAVES.forEach((wave, idx) => {
         const baseY = height * wave.yOffsetRatio;
         ctx.beginPath();
         ctx.moveTo(0, height);
 
-        const step = 12; // Segment resolution for buttery performance
         let firstX = 0;
         let firstY = baseY;
 
         for (let x = 0; x <= width + step; x += step) {
-          // Dual harmonic sine wave calculation (folded liquid silk curve)
           const primary = Math.sin(x * wave.frequency + time * wave.speed * 60 + idx) * wave.amplitude;
           const harmonic = Math.cos(x * wave.harmonicFreq - time * wave.speed * 40) * wave.harmonicAmp;
 
-          // Interactive magnetic crest perturbation near cursor
           let mousePerturb = 0;
           if (mouse.x > -500) {
             const dist = Math.abs(x - mouse.x);
             if (dist < 260) {
               const falloff = Math.cos((dist / 260) * (Math.PI / 2));
-              mousePerturb = Math.sin(time * 3 + idx) * 32 * falloff;
+              mousePerturb = Math.sin(time * 3 + idx) * 28 * falloff;
             }
           }
 
@@ -212,21 +235,17 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
           }
         }
 
-        // Close path down to the bottom
         ctx.lineTo(width, height);
         ctx.lineTo(0, height);
         ctx.closePath();
 
-        // Layered Vertical Fade Gradient
-        const grad = ctx.createLinearGradient(0, baseY - wave.amplitude, 0, height);
-        grad.addColorStop(0, wave.gradientColors[0]);
-        grad.addColorStop(0.35, wave.gradientColors[1]);
-        grad.addColorStop(1, wave.gradientColors[2]);
+        // Use cached gradient (zero GC allocation per frame)
+        if (cachedGradients[idx]) {
+          ctx.fillStyle = cachedGradients[idx];
+          ctx.fill();
+        }
 
-        ctx.fillStyle = grad;
-        ctx.fill();
-
-        // Draw crisp luminous crest line
+        // Draw luminous crest line
         ctx.beginPath();
         ctx.moveTo(firstX, firstY);
         for (let x = 0; x <= width + step; x += step) {
@@ -238,7 +257,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
             const dist = Math.abs(x - mouse.x);
             if (dist < 260) {
               const falloff = Math.cos((dist / 260) * (Math.PI / 2));
-              mousePerturb = Math.sin(time * 3 + idx) * 32 * falloff;
+              mousePerturb = Math.sin(time * 3 + idx) * 28 * falloff;
             }
           }
 
@@ -251,9 +270,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
         ctx.stroke();
       });
 
-      // Reset composite operation
       ctx.globalCompositeOperation = "source-over";
-
       startLoop();
     }
 
@@ -261,8 +278,8 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
     return () => {
       stopLoop();
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", resize);
       observer.disconnect();
       document.removeEventListener("visibilitychange", handleVisibility);
@@ -271,6 +288,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
   return (
     <div
+      ref={containerRef}
       aria-hidden="true"
       className={cn(
         "absolute inset-0 overflow-hidden pointer-events-none select-none z-0",
@@ -280,7 +298,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
       {/* ── 1. Delicate Precision Drafting Grid Overlay (Architectural Rigor) ── */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_40%,#000_30%,transparent_90%)] opacity-60" />
 
-      {/* ── 2. Fluid Silk Waves Canvas (60–120fps Canvas 2D) ── */}
+      {/* ── 2. Fluid Silk Waves Canvas (Optimized 45fps Canvas 2D) ── */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-auto cursor-default opacity-85"

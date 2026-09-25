@@ -5,17 +5,19 @@ import Lenis from "lenis";
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
-    // Respect prefers-reduced-motion
+    // Respect prefers-reduced-motion or Firefox (Firefox has built-in native APZ compositor smooth scroll)
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    if (prefersReducedMotion) {
+    const isFirefox = typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent);
+
+    if (prefersReducedMotion || isFirefox) {
       return;
     }
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",

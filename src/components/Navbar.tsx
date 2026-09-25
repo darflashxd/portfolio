@@ -85,16 +85,19 @@ export function Navbar({ isLoaded = false }: { isLoaded?: boolean }) {
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("modal-open");
       const onKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") setMobileOpen(false);
       };
       document.addEventListener("keydown", onKeyDown);
       return () => {
         document.body.style.overflow = "";
+        document.body.classList.remove("modal-open");
         document.removeEventListener("keydown", onKeyDown);
       };
     } else {
       document.body.style.overflow = "";
+      document.body.classList.remove("modal-open");
     }
   }, [mobileOpen]);
 

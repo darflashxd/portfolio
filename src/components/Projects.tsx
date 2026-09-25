@@ -35,16 +35,19 @@ export function Projects() {
   useEffect(() => {
     if (inspectedProject) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("modal-open");
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") setInspectedProject(null);
       };
       window.addEventListener("keydown", handleKeyDown);
       return () => {
         document.body.style.overflow = "";
+        document.body.classList.remove("modal-open");
         window.removeEventListener("keydown", handleKeyDown);
       };
     } else {
       document.body.style.overflow = "";
+      document.body.classList.remove("modal-open");
     }
   }, [inspectedProject]);
 

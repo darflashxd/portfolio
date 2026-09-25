@@ -24,6 +24,11 @@ export function CustomCursor() {
     document.body.classList.add("custom-cursor-active");
 
     const onMouseMove = (e: MouseEvent) => {
+      if (document.body.classList.contains("modal-open") || document.body.style.overflow === "hidden") {
+        if (isVisible) setIsVisible(false);
+        return;
+      }
+
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
 
@@ -75,7 +80,7 @@ export function CustomCursor() {
       {/* 1. Precision Center Dot (Exact position, zero latency) */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[99999] rounded-full mix-blend-screen"
+        className="pointer-events-none fixed top-0 left-0 z-[100] rounded-full mix-blend-screen custom-cursor-dot"
         style={{
           x: cursorX,
           y: cursorY,
@@ -92,7 +97,7 @@ export function CustomCursor() {
       {/* 2. Outer Cyber Reticle Ring (Always locked 1:1 on position, spring scale on hover/click) */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[99998] rounded-full mix-blend-screen"
+        className="pointer-events-none fixed top-0 left-0 z-[99] rounded-full mix-blend-screen custom-cursor-ring"
         style={{
           x: cursorX,
           y: cursorY,

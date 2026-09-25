@@ -46,16 +46,19 @@ export function ResumeModal() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("modal-open");
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") setIsOpen(false);
       };
       window.addEventListener("keydown", handleKeyDown);
       return () => {
         document.body.style.overflow = "";
+        document.body.classList.remove("modal-open");
         window.removeEventListener("keydown", handleKeyDown);
       };
     } else {
       document.body.style.overflow = "";
+      document.body.classList.remove("modal-open");
     }
   }, [isOpen]);
 

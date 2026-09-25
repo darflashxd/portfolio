@@ -11,6 +11,7 @@ import { InteractivePhotoStack } from "@/components/ui/InteractivePhotoStack";
 import { KineticCounter } from "@/components/ui/KineticCounter";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { openResumeModal } from "@/components/ui/ResumeModal";
+import { cn } from "@/lib/utils";
 
 function CertificationCard({ cert }: { cert: CertificationEntry }) {
   const [imgError, setImgError] = useState(false);
@@ -19,101 +20,91 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
 
   return (
     <TiltCard
-      maxTilt={4}
-      spotlightColor="rgba(212, 160, 23, 0.22)"
-      className="border border-studio-border hover:border-studio-amber-light/40 bg-studio-surface/80 hover:bg-studio-card transition-colors duration-300"
+      maxTilt={3}
+      spotlightColor={isVerified ? "rgba(6, 182, 212, 0.18)" : "rgba(212, 160, 23, 0.18)"}
+      className={cn(
+        "border border-white/[0.08] bg-studio-surface/60 hover:bg-studio-surface/90 transition-colors duration-300 h-full",
+        isVerified ? "hover:border-studio-cyan-light/40" : "hover:border-studio-amber-light/40"
+      )}
     >
-      <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5 group">
-        <div className="flex items-start sm:items-center gap-4 min-w-0 flex-1">
-          {/* Certification Badge Frame */}
-          <div className="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 rounded-xl overflow-hidden bg-black/40 border border-white/10 group-hover:border-studio-amber-light/50 transition-colors flex items-center justify-center p-1.5 shadow-inner">
-            {!imgError && cert.image ? (
-              <div className="relative w-full h-full">
-                <Image
-                  src={cert.image}
-                  alt={`${cert.title} Badge`}
-                  fill
-                  sizes="64px"
-                  className="object-contain transition-transform duration-300 group-hover:scale-105"
-                  onError={() => setImgError(true)}
-                  onLoad={(e) => {
-                    const img = e.currentTarget;
-                    if (img.naturalWidth <= 1 && img.naturalHeight <= 1) {
-                      setImgError(true);
-                    }
-                  }}
-                />
-              </div>
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-[#1c1808] to-[#0d0c04] rounded-lg border border-studio-amber-light/20">
-                <Shield className="w-4 h-4 text-studio-amber-light/70 mb-0.5" />
-                <span className="font-display font-extrabold text-xs text-studio-amber-light/90">
-                  {cert.badgeLetter}
-                </span>
-              </div>
-            )}
+      <div className="p-5 sm:p-6 flex flex-col justify-between h-full gap-5 group">
+        <div className="space-y-4">
+          {/* Top row: Badge Frame & Status Pill */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl overflow-hidden bg-black/40 border border-white/10 group-hover:border-white/20 transition-colors flex items-center justify-center p-2 shadow-inner">
+              {!imgError && cert.image ? (
+                <div className="relative w-full h-full">
+                  <Image
+                    src={cert.image}
+                    alt={`${cert.title} Badge`}
+                    fill
+                    sizes="56px"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    onError={() => setImgError(true)}
+                    onLoad={(e) => {
+                      const img = e.currentTarget;
+                      if (img.naturalWidth <= 1 && img.naturalHeight <= 1) {
+                        setImgError(true);
+                      }
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-white/[0.06] to-transparent rounded-xl border border-white/10">
+                  <Shield className="w-4 h-4 text-studio-cyan-light mb-0.5" />
+                  <span className="font-display font-extrabold text-xs text-white">
+                    {cert.badgeLetter}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Status Pill */}
+            <span
+              className={`text-[10px] font-mono px-3 py-1 rounded-full shrink-0 border font-bold uppercase tracking-wider ${
+                isVerified
+                  ? "bg-studio-cyan/10 text-studio-cyan-light border-studio-cyan/30"
+                  : isActive
+                  ? "bg-studio-amber/10 text-studio-amber-light border-studio-amber/30 shadow-[0_0_12px_rgba(212,160,23,0.18)]"
+                  : "bg-studio-bg text-studio-faint border-studio-border"
+              }`}
+            >
+              {cert.status}
+            </span>
           </div>
 
           {/* Narrative & Details */}
-          <div className="min-w-0 space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2 shrink-0">
-                {isActive && (
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-studio-amber-light opacity-75" />
-                )}
-                <span
-                  className={`relative inline-flex rounded-full h-2 w-2 ${
-                    isVerified
-                      ? "bg-studio-cyan-light"
-                      : isActive
-                      ? "bg-studio-amber-light"
-                      : "bg-studio-faint"
-                  }`}
-                />
-              </span>
-              <h4 className="text-sm sm:text-base font-display font-bold text-studio-text group-hover:text-studio-amber-light transition-colors leading-snug tracking-tight">
-                {cert.title}
-              </h4>
-            </div>
+          <div className="space-y-1.5">
+            <h4 className="text-base font-display font-bold text-studio-text group-hover:text-white transition-colors leading-snug tracking-tight">
+              {cert.title}
+            </h4>
 
             <div className="text-xs font-sans text-studio-muted flex items-center gap-2 font-medium">
               <span>{cert.issuer}</span>
               <span>·</span>
-              <span className="text-studio-amber-light/80 font-mono">{cert.date}</span>
+              <span className={cn("font-mono", isVerified ? "text-studio-cyan-light" : "text-studio-amber-light")}>{cert.date}</span>
             </div>
 
-            <p className="text-xs text-studio-muted font-sans leading-relaxed pt-0.5 max-w-xl">
+            <p className="text-xs text-studio-muted font-sans leading-relaxed pt-1">
               {cert.summary}
             </p>
-
-            {cert.credentialUrl && (
-              <div className="pt-1">
-                <a
-                  href={cert.credentialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] font-sans font-medium text-studio-faint hover:text-studio-cyan-light transition-colors"
-                >
-                  <span>{cert.actionLabel || "Curriculum & Exam Blueprint"}</span>
-                  <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Status Pill */}
-        <span
-          className={`text-[11px] font-sans px-3.5 py-1.5 rounded-full shrink-0 border font-bold whitespace-nowrap self-start sm:self-center tracking-wide ${
-            isVerified
-              ? "bg-studio-cyan/10 text-studio-cyan-light border-studio-cyan/30"
-              : isActive
-              ? "bg-studio-amber/10 text-studio-amber-light border-studio-amber/30 shadow-[0_0_15px_rgba(212,160,23,0.2)]"
-              : "bg-studio-bg text-studio-faint border-studio-border"
-          }`}
-        >
-          {cert.status}
-        </span>
+        {/* Action Button at bottom */}
+        {cert.credentialUrl && (
+          <div className="pt-3 border-t border-white/[0.06]">
+            <a
+              href={cert.credentialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-sans font-bold uppercase tracking-wider text-studio-faint hover:text-studio-cyan-light transition-colors"
+            >
+              <span>{cert.actionLabel || "Curriculum & Exam Blueprint"}</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        )}
       </div>
     </TiltCard>
   );
@@ -219,7 +210,7 @@ export function About() {
             </span>
           </div>
 
-          <div className="max-w-2xl space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 w-full">
             {certifications.map((cert) => (
               <CertificationCard key={cert.title} cert={cert} />
             ))}

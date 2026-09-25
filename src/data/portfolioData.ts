@@ -469,16 +469,6 @@ export const portfolioData = {
 
   certifications: [
     {
-      title: "Wreck-IT 7.0 — Finalis General Capture The Flag",
-      issuer: "Politeknik Siber dan Sandi Negara (Poltek SSN / BSSN)",
-      date: "05 Agustus 2026",
-      status: "Verified",
-      summary: "National cyber competition finalist credential awarded to Tim HM Plenger (Ahmad Rafi Sutanto) for outstanding defense operations and incident triage problem solving.",
-      badgeLetter: "W",
-      credentialUrl: "/certificates/cert-wreckit-finalist.pdf",
-      actionLabel: "View Official Certificate PDF",
-    },
-    {
       title: "Security Blue Team — Blue Team Level 1 (BTL1)",
       issuer: "Security Blue Team",
       date: "Currently Preparing",
@@ -488,6 +478,16 @@ export const portfolioData = {
       image: "/images/certifications/cert-btl1.jpg",
       credentialUrl: "https://securityblue.team/what-is-btl1/",
       actionLabel: "Curriculum & Exam Blueprint",
+    },
+    {
+      title: "Wreck-IT 7.0 — Finalis General Capture The Flag",
+      issuer: "Politeknik Siber dan Sandi Negara (Poltek SSN / BSSN)",
+      date: "05 Agustus 2026",
+      status: "Verified",
+      summary: "National cyber competition finalist credential awarded to Tim HM Plenger (Ahmad Rafi Sutanto) for outstanding defense operations and incident triage problem solving.",
+      badgeLetter: "W",
+      credentialUrl: "/certificates/cert-wreckit-finalist.pdf",
+      actionLabel: "View Official Certificate PDF",
     },
   ] as CertificationEntry[],
 
