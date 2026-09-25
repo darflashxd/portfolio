@@ -155,7 +155,6 @@ export function ResumeModal() {
                 <div className="w-full h-full flex flex-col justify-between relative">
                   <iframe
                     src={`${siteInfo.resumeUrl}#view=FitH&toolbar=0&navpanes=0`}
-                    loading="lazy"
                     className="w-full h-full border-0 bg-[#0E121E]"
                     title="Ahmad Rafi Sutanto Curriculum Vitae PDF Preview"
                   />

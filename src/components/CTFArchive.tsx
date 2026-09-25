@@ -271,7 +271,6 @@ export function CTFArchive() {
                   <div className="flex-1 overflow-hidden relative bg-[#04060C]">
                     <iframe
                       src={`${activePdf.docUrl}#view=FitH&toolbar=0&navpanes=0`}
-                      loading="lazy"
                       className="w-full h-full border-0 bg-[#0E121E]"
                       title={`${activePdf.competition} PDF Report Viewer`}
                     />

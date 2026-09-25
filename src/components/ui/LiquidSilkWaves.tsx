@@ -92,6 +92,8 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
     let isVisible = document.visibilityState === "visible";
     let inView = true;
     let time = 0;
+    let canvasWidth = 0;
+    let canvasHeight = 0;
 
     // Mouse interactive target & lerp smoothing
     const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
@@ -107,12 +109,13 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
       mouse.targetY = -1000;
     };
 
-    const parent = canvas.parentElement || window;
-    parent.addEventListener("mousemove", handleMouseMove as EventListener);
-    parent.addEventListener("mouseleave", handleMouseLeave as EventListener);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseleave", handleMouseLeave, { passive: true });
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
+      canvasWidth = rect.width;
+      canvasHeight = rect.height;
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.max(1, Math.round(rect.width * dpr));
       canvas.height = Math.max(1, Math.round(rect.height * dpr));
@@ -155,9 +158,13 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
       rafId = 0;
       if (!ctx || !canvas) return;
 
-      const rect = canvas.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
+      const width = canvasWidth;
+      const height = canvasHeight;
+
+      if (width <= 0 || height <= 0) {
+        startLoop();
+        return;
+      }
 
       // Mouse lerp damping
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
@@ -254,8 +261,8 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
     return () => {
       stopLoop();
-      parent.removeEventListener("mousemove", handleMouseMove as EventListener);
-      parent.removeEventListener("mouseleave", handleMouseLeave as EventListener);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("resize", resize);
       observer.disconnect();
       document.removeEventListener("visibilitychange", handleVisibility);

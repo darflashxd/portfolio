@@ -8,7 +8,6 @@ export function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const reduced = useReducedMotion();
 
   // Exact pointer coordinates (Zero latency for clicking accuracy & instant tracking)
@@ -24,31 +23,24 @@ export function CustomCursor() {
     setMounted(true);
     document.body.classList.add("custom-cursor-active");
 
-    const checkModalState = () => {
-      const isLocked =
-        document.body.style.overflow === "hidden" ||
-        document.querySelector("[role='dialog']") !== null;
-      setIsModalOpen(isLocked);
-      if (isLocked) {
-        document.body.classList.add("modal-open");
-      } else {
-        document.body.classList.remove("modal-open");
-      }
-    };
-
-    const modalObserver = new MutationObserver(checkModalState);
-    modalObserver.observe(document.body, {
-      attributes: true,
-      attributeFilter: ["style", "class"],
-      childList: true,
-      subtree: true,
-    });
-    checkModalState();
-
     const onMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
+
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      // Automatically hide custom cursor when inside modals/dialogs or hovering iframes
+      const insideDialog = target.closest("[role='dialog'], iframe");
+      if (insideDialog) {
+        if (isVisible) setIsVisible(false);
+        return;
+      }
+
       if (!isVisible) setIsVisible(true);
+
+      const interactive = target.closest("a, button, [role='button'], input, textarea, select, label, [tabindex='0']");
+      setIsHovering(!!interactive);
     };
 
     const onMouseDown = () => setIsClicking(true);
@@ -60,26 +52,15 @@ export function CustomCursor() {
       setIsHovering(false);
     };
 
-    const checkHover = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
-      const interactive = target.closest("a, button, [role='button'], input, textarea, select, label, [tabindex='0']");
-      setIsHovering(!!interactive);
-    };
-
     window.addEventListener("mousemove", onMouseMove, { passive: true });
-    window.addEventListener("mousemove", checkHover, { passive: true });
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
     document.addEventListener("mouseenter", onMouseEnter);
     document.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
-      modalObserver.disconnect();
       document.body.classList.remove("custom-cursor-active");
-      document.body.classList.remove("modal-open");
       window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mousemove", checkHover);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
       document.removeEventListener("mouseenter", onMouseEnter);
@@ -87,7 +68,7 @@ export function CustomCursor() {
     };
   }, [cursorX, cursorY, reduced, isVisible]);
 
-  if (!mounted || reduced || isModalOpen) return null;
+  if (!mounted || reduced) return null;
 
   return (
     <>
