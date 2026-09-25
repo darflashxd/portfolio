@@ -12,118 +12,102 @@ export function Skills() {
   const forensicsArsenal = [
     {
       name: "Volatility 3",
-      category: "Memory Forensics",
+      category: "Memory Forensics & Triage",
       icon: Terminal,
       color: "text-studio-cyan-light",
-      cmd: "vol.py -f mem.raw windows.malfind",
     },
     {
       name: "Autopsy",
-      category: "Dead-Box Triage",
+      category: "Dead-Box Disk Forensics",
       icon: Search,
       color: "text-studio-cyan-light",
-      cmd: "Keyword Search & Hash Lookup",
     },
     {
       name: "Wireshark",
-      category: "Packet Inspection",
+      category: "Packet & Protocol Inspection",
       icon: Network,
       color: "text-studio-accent-light",
-      cmd: "tcp.flags.syn==1 && tcp.flags.ack==0",
     },
     {
       name: "FTK Imager",
-      category: "Raw E01 Carving",
+      category: "Raw E01 Evidence Carving",
       icon: Wrench,
       color: "text-studio-amber-light",
-      cmd: "Image Mount & SHA-256 Hash",
     },
     {
       name: "Ghidra",
-      category: "Static Disassembly",
+      category: "Static Disassembly & Decompilation",
       icon: Cpu,
       color: "text-studio-cyan-light",
-      cmd: "Decompile Function & Strings X-Ref",
     },
     {
       name: "x64dbg",
-      category: "Dynamic Debugging",
+      category: "Dynamic Binary Debugging",
       icon: Binary,
       color: "text-studio-cyan-light",
-      cmd: "Set Hardware Breakpoint on EntryPoint",
     },
     {
       name: "systemd Journal",
-      category: "Linux Artifacts",
+      category: "Linux Artifact & Log Triage",
       icon: Terminal,
       color: "text-studio-cyan-light",
-      cmd: "journalctl -u service --since today",
     },
     {
-      name: "ELF & xattr",
-      category: "Binary Forensics",
+      name: "ELF & Extended Attributes",
+      category: "Linux Binary & xattr Analysis",
       icon: FileCode2,
       color: "text-studio-cyan-light",
-      cmd: "readelf -h binary && getfattr -d",
     },
   ];
 
   const blueTeamArsenal = [
     {
       name: "Splunk SIEM",
-      category: "Threat Hunting",
+      category: "Threat Hunting & Log Search",
       icon: Shield,
       color: "text-studio-accent-light",
-      cmd: "index=sysmon EventCode=1 Image=\"*cmd.exe*\"",
     },
     {
       name: "Sysmon Telemetry",
-      category: "Host Telemetry",
+      category: "Host Activity & Network Monitor",
       icon: Shield,
       color: "text-studio-cyan-light",
-      cmd: "Sysmon Event ID 3: Network Connection",
     },
     {
-      name: "Windows Event Logs",
-      category: "Audit Forensics",
+      name: "Windows Event Logs (EVTX)",
+      category: "Security & Logon Auditing",
       icon: Terminal,
       color: "text-studio-cyan-light",
-      cmd: "Security.evtx ID 4624 (Logon Type 10)",
     },
     {
       name: "YARA Rules",
-      category: "Signature Detection",
+      category: "Malware Signature Detection",
       icon: Shield,
       color: "text-studio-accent-light",
-      cmd: "yara -r rule.yar /target/filesystem",
     },
     {
       name: "Sigma Rules",
-      category: "Detection as Code",
+      category: "Detection as Code & SIEM Rules",
       icon: Layers,
       color: "text-studio-accent-light",
-      cmd: "detection: CommandLine|contains: '-enc'",
     },
     {
       name: "Linux Hardening",
-      category: "Systems Defense",
+      category: "Systems Defense & UFW Rules",
       icon: Terminal,
       color: "text-studio-cyan-light",
-      cmd: "chmod 700 /root && ufw status verbose",
     },
     {
       name: "Python 3 DFIR",
-      category: "Parser Scripting",
+      category: "Automated Evidence Parsers",
       icon: Terminal,
       color: "text-studio-amber-light",
-      cmd: "struct.unpack('<I', pe_header[0x3c:0x40])",
     },
     {
       name: "Network Defense",
-      category: "Packet Triage",
+      category: "Packet Triage & Threat Hunting",
       icon: Network,
       color: "text-studio-accent-light",
-      cmd: "tshark -r capture.pcap -Y http.request",
     },
   ];
 
@@ -156,7 +140,7 @@ export function Skills() {
           </div>
         </Reveal>
 
-        {/* 2 Core Specialization Bento Panels — Instantly visible without waiting for marquee */}
+        {/* 2 Core Specialization Bento Panels */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
           {/* Panel 1: Digital Forensics & Reverse Engineering */}
           <TiltCard
@@ -183,7 +167,7 @@ export function Skills() {
                 </p>
               </div>
 
-              {/* Tools Roster Grid */}
+              {/* Tools Roster Grid — Clean 2-column cards with full text visibility */}
               <div className="pt-2 space-y-3">
                 <div className="text-[11px] font-mono uppercase tracking-wider text-studio-faint font-semibold">
                   ACTIVE DFIR WORKBENCH (8 TOOLS)
@@ -193,25 +177,17 @@ export function Skills() {
                     const Icon = tool.icon;
                     return (
                       <StaggerItem key={tool.name}>
-                        <div className="p-3.5 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.07] hover:border-studio-cyan-light/40 transition-all duration-200 group flex flex-col justify-between space-y-2.5 h-full">
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <div className="w-8 h-8 rounded-xl bg-studio-bg flex items-center justify-center border border-white/10 group-hover:border-studio-cyan-light/40 transition-colors shrink-0">
-                                <Icon className={`w-4 h-4 ${tool.color}`} />
-                              </div>
-                              <span className="text-xs font-sans font-bold text-studio-text group-hover:text-studio-cyan-light transition-colors truncate">
-                                {tool.name}
-                              </span>
-                            </div>
-                            <span className="text-[10px] font-sans font-medium text-studio-faint px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.06] shrink-0 whitespace-nowrap">
-                              {tool.category}
-                            </span>
+                        <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.08] hover:border-studio-cyan-light/40 transition-all duration-200 group flex items-center gap-3.5 h-full">
+                          <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center group-hover:border-studio-cyan-light/40 group-hover:bg-studio-cyan/10 transition-colors shrink-0">
+                            <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${tool.color}`} />
                           </div>
-
-                          {/* Technical Telemetry Snippet */}
-                          <div className="p-1.5 px-2.5 rounded-lg bg-black/40 border border-white/[0.04] font-mono text-[10px] text-studio-faint truncate flex items-center gap-1.5 group-hover:text-studio-muted transition-colors">
-                            <span className="text-studio-cyan-light font-bold">$</span>
-                            <span className="truncate">{tool.cmd}</span>
+                          <div className="min-w-0 flex-1 space-y-0.5">
+                            <div className="text-xs sm:text-sm font-sans font-bold text-studio-text group-hover:text-studio-cyan-light transition-colors leading-snug">
+                              {tool.name}
+                            </div>
+                            <div className="text-[11px] font-sans font-medium text-studio-faint leading-tight">
+                              {tool.category}
+                            </div>
                           </div>
                         </div>
                       </StaggerItem>
@@ -247,7 +223,7 @@ export function Skills() {
                 </p>
               </div>
 
-              {/* Tools Roster Grid */}
+              {/* Tools Roster Grid — Clean 2-column cards with full text visibility */}
               <div className="pt-2 space-y-3">
                 <div className="text-[11px] font-mono uppercase tracking-wider text-studio-faint font-semibold">
                   ACTIVE BLUE TEAM ARSENAL (8 TOOLS)
@@ -257,25 +233,17 @@ export function Skills() {
                     const Icon = tool.icon;
                     return (
                       <StaggerItem key={tool.name}>
-                        <div className="p-3.5 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.07] hover:border-studio-accent-light/40 transition-all duration-200 group flex flex-col justify-between space-y-2.5 h-full">
-                          <div className="flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2.5 min-w-0">
-                              <div className="w-8 h-8 rounded-xl bg-studio-bg flex items-center justify-center border border-white/10 group-hover:border-studio-accent-light/40 transition-colors shrink-0">
-                                <Icon className={`w-4 h-4 ${tool.color}`} />
-                              </div>
-                              <span className="text-xs font-sans font-bold text-studio-text group-hover:text-studio-accent-light transition-colors truncate">
-                                {tool.name}
-                              </span>
-                            </div>
-                            <span className="text-[10px] font-sans font-medium text-studio-faint px-2 py-0.5 rounded-full bg-white/[0.03] border border-white/[0.06] shrink-0 whitespace-nowrap">
-                              {tool.category}
-                            </span>
+                        <div className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.08] hover:border-studio-accent-light/40 transition-all duration-200 group flex items-center gap-3.5 h-full">
+                          <div className="w-10 h-10 rounded-xl bg-black/40 border border-white/10 flex items-center justify-center group-hover:border-studio-accent-light/40 group-hover:bg-studio-accent/10 transition-colors shrink-0">
+                            <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${tool.color}`} />
                           </div>
-
-                          {/* Technical Telemetry Snippet */}
-                          <div className="p-1.5 px-2.5 rounded-lg bg-black/40 border border-white/[0.04] font-mono text-[10px] text-studio-faint truncate flex items-center gap-1.5 group-hover:text-studio-muted transition-colors">
-                            <span className="text-studio-accent-light font-bold">$</span>
-                            <span className="truncate">{tool.cmd}</span>
+                          <div className="min-w-0 flex-1 space-y-0.5">
+                            <div className="text-xs sm:text-sm font-sans font-bold text-studio-text group-hover:text-studio-accent-light transition-colors leading-snug">
+                              {tool.name}
+                            </div>
+                            <div className="text-[11px] font-sans font-medium text-studio-faint leading-tight">
+                              {tool.category}
+                            </div>
                           </div>
                         </div>
                       </StaggerItem>
