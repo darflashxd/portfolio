@@ -99,6 +99,7 @@ export interface CertificationEntry {
   badgeLetter: string;
   image?: string;
   credentialUrl?: string;
+  actionLabel?: string;
 }
 
 export interface CTFWriteupEntry {
@@ -260,7 +261,7 @@ export const portfolioData = {
       {
         id: "petir-ifest-author",
         period: "Aug 2026 · 1 mo",
-        role: "Problem Setter (Digital Forensics)",
+        role: "Challenge Author (Digital Forensics)",
         organization: "PETIR Cyber Security",
         orgHighlight: "IFEST 2026 (Universitas Padjadjaran)",
         location: "Sumedang & Bandung, Jawa Barat · Remote",
@@ -278,7 +279,7 @@ export const portfolioData = {
             caption: "IFEST 2026 CTF Competition — HIMATIF Universitas Padjadjaran",
           },
         ],
-        tags: ["Problem Setter", "Digital Forensics", "IFEST UNPAD", "PETIR Consultancy", "LUKS Forensics"],
+        tags: ["Challenge Author", "Digital Forensics", "IFEST UNPAD", "PETIR Consultancy", "LUKS Forensics"],
         links: [
           {
             label: "IFEST UNPAD PORTAL",
@@ -468,6 +469,16 @@ export const portfolioData = {
 
   certifications: [
     {
+      title: "Wreck-IT 7.0 — Finalis General Capture The Flag",
+      issuer: "Politeknik Siber dan Sandi Negara (Poltek SSN / BSSN)",
+      date: "05 Agustus 2026",
+      status: "Verified",
+      summary: "National cyber competition finalist credential awarded to Tim HM Plenger (Ahmad Rafi Sutanto) for outstanding defense operations and incident triage problem solving.",
+      badgeLetter: "W",
+      credentialUrl: "/certificates/cert-wreckit-finalist.pdf",
+      actionLabel: "View Official Certificate PDF",
+    },
+    {
       title: "Security Blue Team — Blue Team Level 1 (BTL1)",
       issuer: "Security Blue Team",
       date: "Currently Preparing",
@@ -476,6 +487,7 @@ export const portfolioData = {
       badgeLetter: "B",
       image: "/images/certifications/cert-btl1.jpg",
       credentialUrl: "https://securityblue.team/what-is-btl1/",
+      actionLabel: "Curriculum & Exam Blueprint",
     },
   ] as CertificationEntry[],
 

@@ -92,9 +92,9 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
                   href={cert.credentialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] font-sans font-medium text-studio-faint hover:text-studio-amber-light transition-colors"
+                  className="inline-flex items-center gap-1 text-[11px] font-sans font-medium text-studio-faint hover:text-studio-cyan-light transition-colors"
                 >
-                  <span>Curriculum &amp; Exam Blueprint</span>
+                  <span>{cert.actionLabel || "Curriculum & Exam Blueprint"}</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </a>
               </div>
@@ -207,15 +207,15 @@ export function About() {
           </div>
         </div>
 
-        {/* Integrated Certification Candidate Track (BTL1) with elegant amber glow */}
+        {/* Integrated Certification Candidate Track with elegant ambient glow */}
         <Reveal delay={0.1} className="mt-20 pt-12 border-t border-studio-border">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-6">
             <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-wider text-studio-muted font-bold">
-              <Award className="w-4 h-4 text-studio-amber-light" />
-              <span>CERTIFICATION PURSUIT</span>
+              <Award className="w-4 h-4 text-studio-cyan-light" />
+              <span>CERTIFICATIONS &amp; CREDENTIALS</span>
             </div>
             <span className="text-[11px] font-mono text-studio-faint">
-              Active professional candidate track
+              Verified achievements &amp; professional candidate tracks
             </span>
           </div>
 
