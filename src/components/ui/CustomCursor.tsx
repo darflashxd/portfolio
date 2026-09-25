@@ -8,6 +8,7 @@ export function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const reduced = useReducedMotion();
 
   // Exact pointer coordinates (Zero latency for clicking accuracy & instant tracking)
@@ -22,6 +23,27 @@ export function CustomCursor() {
 
     setMounted(true);
     document.body.classList.add("custom-cursor-active");
+
+    const checkModalState = () => {
+      const isLocked =
+        document.body.style.overflow === "hidden" ||
+        document.querySelector("[role='dialog']") !== null;
+      setIsModalOpen(isLocked);
+      if (isLocked) {
+        document.body.classList.add("modal-open");
+      } else {
+        document.body.classList.remove("modal-open");
+      }
+    };
+
+    const modalObserver = new MutationObserver(checkModalState);
+    modalObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["style", "class"],
+      childList: true,
+      subtree: true,
+    });
+    checkModalState();
 
     const onMouseMove = (e: MouseEvent) => {
       cursorX.set(e.clientX);
@@ -53,7 +75,9 @@ export function CustomCursor() {
     document.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
+      modalObserver.disconnect();
       document.body.classList.remove("custom-cursor-active");
+      document.body.classList.remove("modal-open");
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mousemove", checkHover);
       window.removeEventListener("mousedown", onMouseDown);
@@ -63,7 +87,7 @@ export function CustomCursor() {
     };
   }, [cursorX, cursorY, reduced, isVisible]);
 
-  if (!mounted || reduced) return null;
+  if (!mounted || reduced || isModalOpen) return null;
 
   return (
     <>

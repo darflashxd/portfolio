@@ -128,7 +128,7 @@ export const portfolioData = {
     name: "Ahmad Rafi Sutanto",
     shortName: "Rafi Sutanto",
     initials: "ARS",
-    role: "Blue Team & Digital Forensics Researcher",
+    role: "Blue Team & Digital Forensics",
     institution: "BINUS University",
     location: "Tangerang & Jakarta, Indonesia",
     status: "Open to Blue Team, SOC & DFIR Opportunities",

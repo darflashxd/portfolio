@@ -101,9 +101,6 @@ export function ResumeModal() {
                 <div>
                   <h3 id="dossier-title" className="font-display font-bold text-xs sm:text-sm uppercase tracking-tight text-white flex items-center gap-2">
                     <span>{siteInfo.name}</span>
-                    <span className="text-[10px] font-mono text-studio-cyan-light bg-studio-cyan/15 px-2 py-0.5 rounded-full border border-studio-cyan/30 hidden sm:inline-block">
-                      LIVE CV VIEWER
-                    </span>
                   </h3>
                   <span className="text-[10px] font-mono text-studio-faint tracking-wider uppercase block">
                     {siteInfo.role} · {siteInfo.institution}

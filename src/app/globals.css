@@ -51,9 +51,13 @@ body {
 
 /* ── Hide default OS cursor on desktop when Custom Cursor is active ── */
 @media (pointer: fine) {
-  body.custom-cursor-active,
-  body.custom-cursor-active *:not(iframe) {
+  body.custom-cursor-active:not(.modal-open),
+  body.custom-cursor-active:not(.modal-open) *:not(iframe) {
     cursor: none !important;
+  }
+  body.modal-open,
+  body.modal-open * {
+    cursor: auto !important;
   }
 }
 

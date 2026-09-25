@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://darflashxd.my.id"),
   title: "Ahmad Rafi Sutanto — Cybersecurity & Digital Forensics",
   description:
-    "Personal portfolio of Ahmad Rafi Sutanto. Cybersecurity student at BINUS University, Deputy Coordinator of R&D at Cyber Security Community, and Digital Forensics / DFIR researcher.",
+    "Personal portfolio of Ahmad Rafi Sutanto. Cybersecurity student at BINUS University, Deputy Coordinator of R&D at Cyber Security Community, specializing in Blue Team & Digital Forensics.",
   keywords: [
     "Ahmad Rafi Sutanto",
     "Cybersecurity",
@@ -48,14 +48,14 @@ export const metadata: Metadata = {
     url: "https://darflashxd.my.id",
     title: "Ahmad Rafi Sutanto — Cybersecurity & Digital Forensics",
     description:
-      "Personal portfolio of Ahmad Rafi Sutanto. Cybersecurity student and DFIR researcher at BINUS University.",
+      "Personal portfolio of Ahmad Rafi Sutanto. Cybersecurity student specializing in Blue Team operations & Digital Forensics at BINUS University.",
     siteName: "Ahmad Rafi Sutanto",
   },
   twitter: {
     card: "summary_large_image",
     title: "Ahmad Rafi Sutanto — Cybersecurity & Digital Forensics",
     description:
-      "Personal portfolio of Ahmad Rafi Sutanto. Cybersecurity student and DFIR researcher at BINUS University.",
+      "Personal portfolio of Ahmad Rafi Sutanto. Cybersecurity student specializing in Blue Team operations & Digital Forensics at BINUS University.",
     creator: "@darflashxd",
   },
 };
