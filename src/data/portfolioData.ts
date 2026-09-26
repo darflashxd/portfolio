@@ -68,7 +68,7 @@ export interface ExperienceEntry {
   summary: string;
   impactPoints: string[];
   photos: GalleryPhoto[];
-  tags: string[];
+  tags?: string[];
   link?: string;
   links?: ExperienceLink[];
   logo?: string;
@@ -279,7 +279,6 @@ export const portfolioData = {
             caption: "IFEST 2026 CTF Competition — HIMATIF Universitas Padjadjaran",
           },
         ],
-        tags: ["Challenge Author", "Digital Forensics", "IFEST UNPAD", "PETIR Consultancy", "LUKS Forensics"],
         links: [
           {
             label: "IFEST UNPAD PORTAL",
@@ -317,7 +316,6 @@ export const portfolioData = {
             caption: "The Poisoned AUR — Arch Linux package compromise scenario & forensic artifacts",
           },
         ],
-        tags: ["Digital Forensics", "Challenge Author", "BeeCTF", "Linux Forensics"],
         link: "https://socs.binus.ac.id/2017/06/20/bee-capture-the-flag/",
         logo: "/images/organizations/petir.png",
       },
@@ -346,7 +344,6 @@ export const portfolioData = {
             caption: "Technical mentoring session and hands-on exercises",
           },
         ],
-        tags: ["Cybersecurity", "Network Security", "Apprenticeship", "PETIR"],
         link: "https://www.linkedin.com/in/rafisutanto/",
         logo: "/images/organizations/petir.png",
       },
@@ -376,7 +373,6 @@ export const portfolioData = {
             caption: "Author coordination and challenge syllabus review",
           },
         ],
-        tags: ["Team Leadership", "R&D", "Cybersecurity", "CI/CD"],
         links: [
           {
             label: "GITHUB REPOSITORY",
@@ -410,7 +406,6 @@ export const portfolioData = {
             caption: "National Cyber Week 2025 — National IoT Hacking CTF & Security Workshops at BINUS University",
           },
         ],
-        tags: ["Project Lead", "Event PIC", "IoT Hacking", "CTF", "Cybersecurity", "CSC BINUS"],
         links: [
           {
             label: "NCW EVENT PORTAL",
@@ -443,7 +438,6 @@ export const portfolioData = {
             caption: "Challenge authoring and artifact validation test harness",
           },
         ],
-        tags: ["Digital Forensics", "Problem Setter", "CTF", "R&D"],
         link: "https://www.linkedin.com/in/rafisutanto/",
         logo: "/images/organizations/csc.png",
       },
@@ -460,7 +454,6 @@ export const portfolioData = {
           "Completed hands-on labs in packet inspection, Linux security, and dead-box file triage.",
         ],
         photos: [],
-        tags: ["Cybersecurity", "Community", "Study Group"],
         link: "https://www.linkedin.com/in/rafisutanto/",
         logo: "/images/organizations/csc.png",
       },

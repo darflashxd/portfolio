@@ -340,19 +340,6 @@ export function Experience() {
                           ))}
                         </ul>
 
-                        {item.tags && item.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 pt-2">
-                            {item.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="rounded-full px-3 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-faint"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-
                         {item.links && item.links.length > 0 ? (
                           <div className="pt-2 flex flex-wrap items-center gap-2">
                             {item.links.map((lnk) => (
@@ -478,19 +465,6 @@ export function Experience() {
                                 </li>
                               ))}
                             </ul>
-
-                            {item.tags && item.tags.length > 0 && (
-                              <div className="flex flex-wrap gap-1.5 pt-2">
-                                {item.tags.map((tag) => (
-                                  <span
-                                    key={tag}
-                                    className="rounded-full px-3 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-faint"
-                                  >
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
 
                             {item.links && item.links.length > 0 ? (
                               <div className="pt-2 flex flex-wrap items-center gap-2">
