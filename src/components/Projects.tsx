@@ -140,7 +140,6 @@ export function Projects() {
                                 fallbackLabel={project.title}
                                 fallbackSub={`${project.category} · ${project.year}`}
                                 theme="dark"
-                                priority
                               />
 
                             </div>

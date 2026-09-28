@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useReducedMotion } from "motion/react";
 
 export function CustomCursor() {
@@ -8,6 +8,7 @@ export function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const isVisibleRef = useRef(false);
   const reduced = useReducedMotion();
 
   // Exact pointer coordinates (Zero latency for clicking accuracy & instant tracking)
@@ -23,9 +24,16 @@ export function CustomCursor() {
     setMounted(true);
     document.body.classList.add("custom-cursor-active");
 
+    const updateVisibility = (visible: boolean) => {
+      if (isVisibleRef.current !== visible) {
+        isVisibleRef.current = visible;
+        setIsVisible(visible);
+      }
+    };
+
     const onMouseMove = (e: MouseEvent) => {
       if (document.body.classList.contains("modal-open") || document.body.style.overflow === "hidden") {
-        if (isVisible) setIsVisible(false);
+        updateVisibility(false);
         return;
       }
 
@@ -38,11 +46,11 @@ export function CustomCursor() {
       // Automatically hide custom cursor when inside modals/dialogs or hovering iframes
       const insideDialog = target.closest("[role='dialog'], iframe");
       if (insideDialog) {
-        if (isVisible) setIsVisible(false);
+        updateVisibility(false);
         return;
       }
 
-      if (!isVisible) setIsVisible(true);
+      updateVisibility(true);
 
       const interactive = target.closest("a, button, [role='button'], input, textarea, select, label, [tabindex='0']");
       setIsHovering(!!interactive);
@@ -51,9 +59,9 @@ export function CustomCursor() {
     const onMouseDown = () => setIsClicking(true);
     const onMouseUp = () => setIsClicking(false);
 
-    const onMouseEnter = () => setIsVisible(true);
+    const onMouseEnter = () => updateVisibility(true);
     const onMouseLeave = () => {
-      setIsVisible(false);
+      updateVisibility(false);
       setIsHovering(false);
     };
 
@@ -71,7 +79,7 @@ export function CustomCursor() {
       document.removeEventListener("mouseenter", onMouseEnter);
       document.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [cursorX, cursorY, reduced, isVisible]);
+  }, [cursorX, cursorY, reduced]);
 
   if (!mounted || reduced) return null;
 

@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useScroll, motion } from "motion/react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
@@ -11,8 +12,17 @@ import { Experience } from "@/components/Experience";
 import { CTFArchive } from "@/components/CTFArchive";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { ResumeModal } from "@/components/ui/ResumeModal";
-import { CustomCursor } from "@/components/ui/CustomCursor";
+
+// Lazy-load off-screen and desktop-only interactive components for fast First Contentful Paint
+const ResumeModal = dynamic(
+  () => import("@/components/ui/ResumeModal").then((mod) => mod.ResumeModal),
+  { ssr: false }
+);
+
+const CustomCursor = dynamic(
+  () => import("@/components/ui/CustomCursor").then((mod) => mod.CustomCursor),
+  { ssr: false }
+);
 
 export default function Home() {
   const { scrollYProgress } = useScroll();

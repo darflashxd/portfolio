@@ -7,6 +7,7 @@ export interface SiteInfo {
   location: string;
   status: string;
   resumeUrl: string;
+  resumeDocxUrl?: string;
 }
 
 export interface HeroData {
@@ -118,6 +119,7 @@ export interface CTFWriteupEntry {
 
 export interface SocialLinks {
   email: string;
+  phone?: string;
   github: string;
   linkedin: string;
   tryhackme: string;
@@ -134,6 +136,7 @@ export const portfolioData = {
     location: "Tangerang & Jakarta, Indonesia",
     status: "Open to Blue Team, SOC & DFIR Opportunities",
     resumeUrl: "/Resume_Ahmad_Rafi_Sutanto.pdf",
+    resumeDocxUrl: "/CV_Ahmad_Rafi_Sutanto.docx",
   } as SiteInfo,
 
   hero: {
@@ -565,6 +568,7 @@ export const portfolioData = {
 
   socials: {
     email: "rafisutanto@gmail.com",
+    phone: "+62 895-3831-57017",
     github: "https://github.com/darflashxd",
     linkedin: "https://www.linkedin.com/in/rafisutanto/",
     tryhackme: "https://tryhackme.com/p/YOUR_THM_HANDLE",

@@ -5,14 +5,15 @@ import Lenis from "lenis";
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
-    // Respect prefers-reduced-motion or Firefox (Firefox has built-in native APZ compositor smooth scroll)
+    // Respect prefers-reduced-motion, Firefox (built-in native APZ compositor), or touch devices (native 120Hz momentum scroll)
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
     const isFirefox = typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent);
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
 
-    if (prefersReducedMotion || isFirefox) {
+    if (prefersReducedMotion || isFirefox || isTouch) {
       return;
     }
 
@@ -23,7 +24,6 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 1.5,
     });
 
     let rafId: number;

@@ -62,7 +62,7 @@ export function ResumeModal() {
     }
   }, [isOpen]);
 
-  const recruiterPitch = `Ahmad Rafi Sutanto — Cybersecurity Student at BINUS University & Deputy Coordinator of R&D at Cyber Security Community (CSC). Specialization: Blue Team, DFIR, and Threat Detection. Experience: 30 CTF challenges, 20+ authors led, BeeCTF forensics author, BTL1 pursuit, GPA 3.23 / 4.00. Portfolio: https://darflashxd.my.id | Resume: https://darflashxd.my.id/Resume_Ahmad_Rafi_Sutanto.pdf | Contact: ${socials.email}`;
+  const recruiterPitch = `Ahmad Rafi Sutanto — Cybersecurity Student at BINUS University & Deputy Coordinator of R&D at Cyber Security Community (CSC). Specialization: Blue Team, DFIR, and Threat Detection. Experience: 30 CTF challenges, 20+ authors led, BeeCTF forensics author, BTL1 (Expected 2026), GPA 3.23 / 4.00. Portfolio: https://darflashxd.my.id | Resume: https://darflashxd.my.id/Resume_Ahmad_Rafi_Sutanto.pdf | Contact: ${socials.email} | Tel: ${socials.phone ?? "+62 895-3831-57017"}`;
 
   const copyPitch = () => {
     if (navigator?.clipboard) {
@@ -279,6 +279,18 @@ export function ResumeModal() {
                   <Download className="w-3.5 h-3.5" />
                   <span>DOWNLOAD PDF</span>
                 </a>
+
+                {siteInfo.resumeDocxUrl && (
+                  <a
+                    href={siteInfo.resumeDocxUrl}
+                    download
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-white/15 hover:border-white/30 bg-white/[0.04] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text transition-colors font-bold"
+                    title="Download Word Document (.docx)"
+                  >
+                    <Download className="w-3.5 h-3.5 text-studio-faint" />
+                    <span>DOCX</span>
+                  </a>
+                )}
 
                 <a
                   href={`mailto:${socials.email}`}

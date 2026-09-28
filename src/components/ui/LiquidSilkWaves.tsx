@@ -99,6 +99,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
     let cachedGradients: CanvasGradient[] = [];
     let lastRenderTime = 0;
     const targetFpsInterval = 1000 / 45; // 45 FPS saves CPU while maintaining fluid motion
+    const pointsY = new Float32Array(300); // Reusable coordinate cache to eliminate duplicate trigonometry math
 
     // Mouse target with lerping
     const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
@@ -192,16 +193,18 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
         return;
       }
 
-      // Mouse lerp damping
-      mouse.x += (mouse.targetX - mouse.x) * 0.08;
-      mouse.y += (mouse.targetY - mouse.y) * 0.08;
+      // Mouse lerp damping (only when active)
+      if (mouse.x > -500 || mouse.targetX > -500) {
+        mouse.x += (mouse.targetX - mouse.x) * 0.08;
+        mouse.y += (mouse.targetY - mouse.y) * 0.08;
+      }
 
       ctx.clearRect(0, 0, width, height);
       ctx.globalCompositeOperation = "screen";
 
       time += 0.015 * timeMultiplier;
 
-      const step = 20; // 20px step resolution reduces calculations by 40%
+      const step = width < 640 ? 26 : 20;
 
       WAVES.forEach((wave, idx) => {
         const baseY = height * wave.yOffsetRatio;
@@ -210,6 +213,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
         let firstX = 0;
         let firstY = baseY;
+        let pointCount = 0;
 
         for (let x = 0; x <= width + step; x += step) {
           const primary = Math.sin(x * wave.frequency + time * wave.speed * 60 + idx) * wave.amplitude;
@@ -225,14 +229,18 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
           }
 
           const y = baseY + primary + harmonic + mousePerturb;
+          if (pointCount < 300) {
+            pointsY[pointCount] = y;
+          }
 
-          if (x === 0) {
+          if (pointCount === 0) {
             firstX = x;
             firstY = y;
             ctx.lineTo(x, y);
           } else {
             ctx.lineTo(x, y);
           }
+          pointCount++;
         }
 
         ctx.lineTo(width, height);
@@ -245,24 +253,11 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
           ctx.fill();
         }
 
-        // Draw luminous crest line
+        // Draw luminous crest line reusing cached Y coordinates (eliminates 50% duplicate trigonometry)
         ctx.beginPath();
         ctx.moveTo(firstX, firstY);
-        for (let x = 0; x <= width + step; x += step) {
-          const primary = Math.sin(x * wave.frequency + time * wave.speed * 60 + idx) * wave.amplitude;
-          const harmonic = Math.cos(x * wave.harmonicFreq - time * wave.speed * 40) * wave.harmonicAmp;
-
-          let mousePerturb = 0;
-          if (mouse.x > -500) {
-            const dist = Math.abs(x - mouse.x);
-            if (dist < 260) {
-              const falloff = Math.cos((dist / 260) * (Math.PI / 2));
-              mousePerturb = Math.sin(time * 3 + idx) * 28 * falloff;
-            }
-          }
-
-          const y = baseY + primary + harmonic + mousePerturb;
-          ctx.lineTo(x, y);
+        for (let i = 1, x = step; i < pointCount; i++, x += step) {
+          ctx.lineTo(x, pointsY[i]);
         }
 
         ctx.lineWidth = idx === 3 ? 1.5 : 1.0;

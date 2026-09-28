@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useSpring,
   useMotionTemplate,
+  useReducedMotion,
 } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +29,8 @@ export function SpotlightCard({
   ...props
 }: SpotlightCardProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+  const reduced = useReducedMotion();
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -39,31 +42,51 @@ export function SpotlightCard({
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = ref.current?.getBoundingClientRect();
+      if (reduced) return;
+      const rect = rectRef.current || ref.current?.getBoundingClientRect();
       if (!rect) return;
       mx.set(e.clientX - rect.left);
       my.set(e.clientY - rect.top);
     },
-    [mx, my]
+    [mx, my, reduced]
   );
 
   const handleMouseEnter = useCallback(() => {
+    if (reduced) return;
+    rectRef.current = ref.current?.getBoundingClientRect() ?? null;
     glow.set(0.85);
-  }, [glow]);
+  }, [glow, reduced]);
 
   const handleMouseLeave = useCallback(() => {
+    rectRef.current = null;
     glow.set(0);
   }, [glow]);
 
   const handleFocus = useCallback(() => {
+    if (reduced) return;
     glow.set(0.5);
-  }, [glow]);
+  }, [glow, reduced]);
 
   const handleBlur = useCallback(() => {
     glow.set(0);
   }, [glow]);
 
   const spotlightTemplate = useMotionTemplate`radial-gradient(420px circle at ${sx}px ${sy}px, ${spotlightColor}, transparent 70%)`;
+
+  if (reduced) {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "relative rounded-2xl overflow-hidden bg-studio-surface border border-studio-border transition-colors duration-300",
+          className
+        )}
+        {...props}
+      >
+        <div className="relative z-20 h-full">{children}</div>
+      </div>
+    );
+  }
 
   return (
     <div

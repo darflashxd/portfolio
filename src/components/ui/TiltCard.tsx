@@ -30,6 +30,7 @@ export function TiltCard({
   id,
 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const reduced = useReducedMotion();
 
@@ -43,7 +44,7 @@ export function TiltCard({
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (reduced) return;
-      const rect = ref.current?.getBoundingClientRect();
+      const rect = rectRef.current || ref.current?.getBoundingClientRect();
       if (!rect) return;
 
       mouseX.set(e.clientX - rect.left);
@@ -53,10 +54,13 @@ export function TiltCard({
   );
 
   const handleMouseEnter = () => {
+    if (reduced) return;
+    rectRef.current = ref.current?.getBoundingClientRect() ?? null;
     setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
+    rectRef.current = null;
     setIsHovered(false);
   };
 

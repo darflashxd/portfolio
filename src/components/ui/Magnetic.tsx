@@ -5,6 +5,7 @@ import {
   motion,
   useMotionValue,
   useSpring,
+  useReducedMotion,
   type SpringOptions,
 } from "motion/react";
 
@@ -29,6 +30,7 @@ export function Magnetic({
 }: MagneticProps) {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -36,40 +38,52 @@ export function Magnetic({
   const springX = useSpring(x, springOptions);
   const springY = useSpring(y, springOptions);
 
+  // Attach mousemove ONLY when hovered, avoiding global document polling
   useEffect(() => {
+    if (!isHovered || reduced) {
+      x.set(0);
+      y.set(0);
+      return;
+    }
+
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
     const calculateDistance = (e: MouseEvent) => {
-      if (ref.current) {
-        const rect = ref.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distanceX = e.clientX - centerX;
-        const distanceY = e.clientY - centerY;
+      const distanceX = e.clientX - centerX;
+      const distanceY = e.clientY - centerY;
+      const absoluteDistance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
 
-        const absoluteDistance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
-
-        if (isHovered && absoluteDistance <= range) {
-          const scale = 1 - absoluteDistance / range;
-          x.set(distanceX * intensity * scale);
-          y.set(distanceY * intensity * scale);
-        } else {
-          x.set(0);
-          y.set(0);
-        }
+      if (absoluteDistance <= range) {
+        const scale = 1 - absoluteDistance / range;
+        x.set(distanceX * intensity * scale);
+        y.set(distanceY * intensity * scale);
+      } else {
+        setIsHovered(false);
+        x.set(0);
+        y.set(0);
       }
     };
 
-    document.addEventListener("mousemove", calculateDistance);
+    window.addEventListener("mousemove", calculateDistance, { passive: true });
     return () => {
-      document.removeEventListener("mousemove", calculateDistance);
+      window.removeEventListener("mousemove", calculateDistance);
     };
-  }, [ref, isHovered, intensity, range, x, y]);
+  }, [isHovered, intensity, range, x, y, reduced]);
 
   useEffect(() => {
     if (actionArea === "parent" && ref.current?.parentElement) {
       const parent = ref.current.parentElement;
 
       const handleParentEnter = () => setIsHovered(true);
-      const handleParentLeave = () => setIsHovered(false);
+      const handleParentLeave = () => {
+        setIsHovered(false);
+        x.set(0);
+        y.set(0);
+      };
 
       parent.addEventListener("mouseenter", handleParentEnter);
       parent.addEventListener("mouseleave", handleParentLeave);
@@ -81,10 +95,10 @@ export function Magnetic({
     } else if (actionArea === "global") {
       setIsHovered(true);
     }
-  }, [actionArea]);
+  }, [actionArea, x, y]);
 
   const handleMouseEnter = () => {
-    if (actionArea === "self") {
+    if (actionArea === "self" && !reduced) {
       setIsHovered(true);
     }
   };
@@ -96,6 +110,10 @@ export function Magnetic({
       y.set(0);
     }
   };
+
+  if (reduced) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div

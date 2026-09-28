@@ -23,53 +23,22 @@ export function Navbar({ isLoaded = false }: { isLoaded?: boolean }) {
   const { siteInfo, socials } = portfolioData;
   const reduced = useReducedMotion();
 
-  // Synchronized scroll listener with rAF throttle for navbar styling and active section highlighting
+  // High-performance IntersectionObserver for active section tracking (zero forced reflow)
   useEffect(() => {
     let ticking = false;
-
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setScrolled(scrollY > 20);
-
-      const windowHeight = window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
-
-      // 1. Bottom of page -> contact
-      if (scrollY + windowHeight >= docHeight - 60) {
-        setActiveSection("contact");
-        return;
-      }
-
-      // 2. Near top (Hero area) -> clear active section
-      if (scrollY < 180) {
-        setActiveSection("");
-        return;
-      }
-
-      // 3. Focal line at 35% of viewport
-      const targetY = windowHeight * 0.35;
-      let matched = "";
-
-      for (const item of NAV_ITEMS) {
-        const el = document.getElementById(item.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= targetY && rect.bottom > targetY) {
-            matched = item.id;
-            break;
-          }
-        }
-      }
-
-      if (matched) {
-        setActiveSection(matched);
-      }
-    };
 
     const onScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          handleScroll();
+          const scrollY = window.scrollY;
+          setScrolled(scrollY > 20);
+
+          if (scrollY < 180) {
+            setActiveSection("");
+          } else if (scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60) {
+            setActiveSection("contact");
+          }
+
           ticking = false;
         });
         ticking = true;
@@ -77,9 +46,32 @@ export function Navbar({ isLoaded = false }: { isLoaded?: boolean }) {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    handleScroll(); // initialize on mount
+    onScroll();
 
-    return () => window.removeEventListener("scroll", onScroll);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find visible section intersecting the target viewport focal band
+        for (const entry of entries) {
+          if (entry.isIntersecting && window.scrollY >= 180) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      {
+        rootMargin: "-25% 0px -55% 0px",
+        threshold: 0,
+      }
+    );
+
+    NAV_ITEMS.forEach((item) => {
+      const el = document.getElementById(item.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
