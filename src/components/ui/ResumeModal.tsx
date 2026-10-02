@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   FileText,
   X,
@@ -33,6 +33,7 @@ export function ResumeModal() {
   const [activeTab, setActiveTab] = useState<"pdf" | "dossier">("pdf");
   const [copied, setCopied] = useState(false);
   const { siteInfo, socials, certifications } = portfolioData;
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const handleOpen = () => {
@@ -89,11 +90,11 @@ export function ResumeModal() {
           />
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 12 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-              className="relative w-full max-w-5xl h-[90vh] max-h-[880px] rounded-3xl bg-[#060810] border border-white/15 border-t-white/35 shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col z-10"
+              initial={reduced ? false : { opacity: 0, y: 12, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={reduced ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="relative w-full max-w-5xl h-[90vh] max-h-[880px] rounded-2xl bg-[#060810] border border-white/15 border-t-white/35 shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col z-10"
             >
               {/* Header Strip */}
               <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 bg-white/[0.03] border-b border-white/10 select-none">
@@ -105,7 +106,7 @@ export function ResumeModal() {
                   <h3 id="dossier-title" className="font-display font-bold text-xs sm:text-sm uppercase tracking-tight text-white flex items-center gap-2">
                     <span>{siteInfo.name}</span>
                   </h3>
-                  <span className="text-[10px] font-mono text-studio-faint tracking-wider uppercase block">
+                  <span className="text-[10px] font-mono text-studio-muted tracking-wider uppercase block">
                     {siteInfo.role} · {siteInfo.institution}
                   </span>
                 </div>
@@ -124,7 +125,7 @@ export function ResumeModal() {
                   )}
                 >
                   <Eye className="w-3 h-3" />
-                  <span>PDF PREVIEW</span>
+                  <span>PDF DOCUMENT</span>
                 </button>
                 <button
                   type="button"
@@ -137,7 +138,7 @@ export function ResumeModal() {
                   )}
                 >
                   <Briefcase className="w-3 h-3" />
-                  <span>EXECUTIVE DOSSIER</span>
+                  <span>TECHNICAL OVERVIEW</span>
                 </button>
               </div>
 
@@ -145,7 +146,7 @@ export function ResumeModal() {
                 type="button"
                 onClick={() => setIsOpen(false)}
                 className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.1] border border-white/10 flex items-center justify-center text-studio-muted hover:text-white transition-colors focus:outline-none"
-                aria-label="Close Dossier"
+                aria-label="Close Curriculum Vitae"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -154,19 +155,55 @@ export function ResumeModal() {
             {/* Body Viewport */}
             <div className="flex-1 overflow-hidden relative bg-[#04060C]">
               {activeTab === "pdf" ? (
-                /* ── Embedded Live PDF Viewer ── */
-                <div className="w-full h-full flex flex-col justify-between relative">
-                  <iframe
-                    src={`${siteInfo.resumeUrl}#view=FitH&toolbar=0&navpanes=0`}
-                    className="w-full h-full border-0 bg-[#0E121E]"
-                    title="Ahmad Rafi Sutanto Curriculum Vitae PDF Preview"
-                  />
-                </div>
+                <>
+                  {/* ── Mobile Direct Launch Viewport (Eliminates iOS Safari iframe crash) ── */}
+                  <div className="flex-1 flex md:hidden flex-col items-center justify-center p-6 text-center space-y-4 bg-[#070A12] h-full">
+                    <div className="w-14 h-14 rounded-2xl bg-studio-accent/10 border border-studio-accent/30 flex items-center justify-center text-studio-accent-light shadow-inner">
+                      <FileText className="w-7 h-7" />
+                    </div>
+                    <div className="space-y-1.5 max-w-sm">
+                      <h4 className="font-display font-bold text-white text-base leading-snug">
+                        Ahmad Rafi Sutanto — Curriculum Vitae
+                      </h4>
+                      <p className="text-xs text-studio-muted leading-relaxed">
+                        Blue Team, SOC Operations &amp; Digital Forensics specialist. Verified PDF document.
+                      </p>
+                    </div>
+                    <div className="flex flex-col w-full max-w-xs gap-2.5 pt-2">
+                      <a
+                        href={siteInfo.resumeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-3 rounded-full bg-studio-accent text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>OPEN FULLSCREEN PDF</span>
+                      </a>
+                      <a
+                        href={siteInfo.resumeUrl}
+                        download="Resume_Ahmad_Rafi_Sutanto.pdf"
+                        className="w-full py-3 rounded-full bg-white/[0.06] border border-white/10 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2"
+                      >
+                        <Download className="w-4 h-4" />
+                        <span>DOWNLOAD PDF</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* ── Desktop Embedded Live PDF Viewer ── */}
+                  <div className="hidden md:flex w-full h-full flex-col justify-between relative">
+                    <iframe
+                      src={`${siteInfo.resumeUrl}#view=FitH&toolbar=0&navpanes=0`}
+                      className="w-full h-full border-0 bg-[#0E121E]"
+                      title="Ahmad Rafi Sutanto Curriculum Vitae PDF Preview"
+                    />
+                  </div>
+                </>
               ) : (
-                /* ── Executive Dossier View ── */
+                /* ── Technical Profile View ── */
                 <div className="h-full p-6 sm:p-8 overflow-y-auto space-y-6 text-studio-text">
                   {/* Status Banner */}
-                  <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-cyan-950/30 border border-studio-accent/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+                  <div className="p-4 rounded-xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-cyan-950/30 border border-studio-accent/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="relative flex h-2.5 w-2.5 shrink-0">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -188,11 +225,11 @@ export function ResumeModal() {
                   </div>
 
                   {/* Recruiter Quick Pitch Tool */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-2.5">
+                  <div className="p-4 sm:p-5 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-studio-accent-light uppercase">
                         <Sparkles className="w-3.5 h-3.5" />
-                        <span>1-CLICK RECRUITER PITCH (FOR HIRING MANAGER)</span>
+                        <span>EXECUTIVE SUMMARY &amp; VALUE PROPOSITION</span>
                       </div>
                       <button
                         type="button"
@@ -212,7 +249,7 @@ export function ResumeModal() {
                         )}
                       </button>
                     </div>
-                    <p className="text-xs font-mono text-studio-muted bg-black/40 p-3 rounded-xl border border-white/[0.04] leading-relaxed select-text">
+                    <p className="text-xs font-mono text-studio-muted bg-black/40 p-3 rounded-lg border border-white/[0.04] leading-relaxed select-text">
                       {recruiterPitch}
                     </p>
                   </div>
@@ -225,7 +262,7 @@ export function ResumeModal() {
                         <span className="font-sans text-xs font-bold uppercase">TARGET ROLES</span>
                       </div>
                       <p className="text-xs text-studio-muted font-sans leading-relaxed">
-                        SOC Analyst L1 · DFIR Specialist · Blue Team Operations · Security Engineer Intern
+                        DFIR Specialist · Threat Analyst · SOC Operations · Blue Team Specialist
                       </p>
                     </div>
 
@@ -235,7 +272,7 @@ export function ResumeModal() {
                         <span className="font-sans text-xs font-bold uppercase">CORE TELEMETRY</span>
                       </div>
                       <p className="text-xs text-studio-muted font-sans leading-relaxed">
-                        Splunk SIEM, Volatility 3, Sysmon, Wireshark, Autopsy, GitHub Actions CI/CD
+                        MITRE ATT&amp;CK, Splunk SIEM, Volatility 3, Sysmon, Wireshark, Autopsy, CI/CD
                       </p>
                     </div>
 

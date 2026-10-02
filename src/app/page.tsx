@@ -19,11 +19,6 @@ const ResumeModal = dynamic(
   { ssr: false }
 );
 
-const CustomCursor = dynamic(
-  () => import("@/components/ui/CustomCursor").then((mod) => mod.CustomCursor),
-  { ssr: false }
-);
-
 export default function Home() {
   const { scrollYProgress } = useScroll();
 
@@ -31,9 +26,6 @@ export default function Home() {
     <div className="relative min-h-screen bg-studio-bg text-studio-text selection:bg-studio-accent/30 selection:text-white">
       {/* Film grain texture */}
       <div className="grain" aria-hidden="true" />
-
-      {/* Cyber Reticle Cursor (Hides default OS cursor on desktop) */}
-      <CustomCursor />
 
       {/* Cyber Dot-Matrix Grid Blueprint layer (scrolls naturally with canvas) */}
       <div
