@@ -60,24 +60,30 @@ function PhotoCard({
       ) : (
         /* High-End Studio Matte Archival Plate Placeholder */
         <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6 bg-gradient-to-b from-[#111726] via-[#0D121F] to-[#070A10] text-studio-text">
+          {/* Viewfinder crosshairs */}
+          <span aria-hidden="true" className="absolute top-2.5 left-2.5 text-[9px] font-mono text-white/25 select-none">+</span>
+          <span aria-hidden="true" className="absolute top-2.5 right-2.5 text-[9px] font-mono text-white/25 select-none">+</span>
+          <span aria-hidden="true" className="absolute bottom-2.5 left-2.5 text-[9px] font-mono text-white/25 select-none">+</span>
+          <span aria-hidden="true" className="absolute bottom-2.5 right-2.5 text-[9px] font-mono text-white/25 select-none">+</span>
+
           {/* Top Plate Header */}
           <div className="flex items-baseline justify-between text-[10px] font-mono tracking-widest pb-2 border-b border-white/10 relative z-10">
             <span className={cn(
               "uppercase font-semibold flex items-center gap-1.5",
-              isCenter ? "text-studio-cyan-light" : "text-studio-muted"
+              isCenter ? "text-studio-cyan-light" : "text-studio-faint"
             )}>
               <Camera className="w-3 h-3" />
-              ARTIFACT // {photo.letter}
+              SLOT // {photo.letter}
             </span>
-            <span className="text-studio-muted font-mono text-[10px] font-medium">
-              [ EVIDENCE RECORD ]
+            <span className="text-white/40 font-mono text-[9px]">
+              [ 35MM · ARCHIVE ]
             </span>
           </div>
 
           {/* Central Monogram / Visual Anchor */}
           <div className="my-auto py-4 flex flex-col items-center justify-center text-center relative z-10">
             <span className={cn(
-              "text-6xl sm:text-7xl font-display font-black block transition-transform duration-500 leading-none",
+              "text-6xl sm:text-7xl font-display font-black block transition-transform duration-500 select-none leading-none",
               isCenter ? "text-studio-cyan-light/40 scale-105" : "text-white/15"
             )}>
               {photo.letter}
@@ -93,9 +99,9 @@ function PhotoCard({
           </div>
 
           {/* Bottom Footnote */}
-          <div className="flex items-center justify-between text-[10px] font-mono pt-2.5 border-t border-white/10 text-studio-muted relative z-10">
-            <span>AUDIT REF</span>
-            <span className="text-white/80 uppercase font-semibold">{isCenter ? "PRIMARY" : "ARCHIVE"}</span>
+          <div className="flex items-center justify-between text-[9px] font-mono pt-2.5 border-t border-white/10 text-studio-faint relative z-10">
+            <span>PHOTO REF</span>
+            <span className="text-white/60 uppercase">{isCenter ? "FOREGROUND" : "BACKGROUND"}</span>
           </div>
         </div>
       )}

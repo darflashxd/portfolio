@@ -8,10 +8,10 @@
   --bg-surface: 12 16 26; /* #0C101A — Midnight Surface */
   --bg-elevated: 18 24 38; /* #121826 — Elevated Panel */
 
-  /* ── Text ramp (Crisp with high-contrast slate/blue undertone, WCAG AAA compliant) ── */
+  /* ── Text ramp (Crisp with subtle slate/blue undertone) ── */
   --text-primary: 246 248 252; /* #F6F8FC */
-  --text-muted: 160 175 200; /* Crisp slate 350 — 8.5:1 on base */
-  --text-faint: 135 152 178; /* Refined slate 400 — 6.5:1 on base, WCAG AA/AAA */
+  --text-muted: 148 163 184; /* #94A3B8 — Slate 400 */
+  --text-faint: 100 116 139; /* #64748B — Slate 500 (5.2:1 on base) */
 
   /* ── Blue Team Defense Accent Triad ── */
   --accent-cobalt: 37 99 235; /* #2563EB — Primary Electric Cobalt CTA & Focus */
@@ -47,32 +47,6 @@ body {
   color: rgb(var(--text-primary));
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-/* ── Native OS Cursor preserved for maximum responsiveness and standard accessibility ── */
-.ambient-glow-mesh {
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-/* ── 2.5D Spatial Architecture & Fresnel Lighting Tokens (Igloo.inc inspired) ── */
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.perspective-1200 {
-  perspective: 1200px;
-}
-
-.fresnel-edge {
-  box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.45),
-    0 16px 36px -10px rgba(0, 0, 0, 0.75);
 }
 
 /* ── Liquid Glass Utility Classes (VisionOS / Luminous Optical Crystal Grade) ── */
@@ -227,13 +201,111 @@ body {
   outline-offset: 3px;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   LIQUID AURORA — CSS-only organic gradient field
+   3 blobs · accent tokens · heavy blur · low opacity · slow drift
+   ═══════════════════════════════════════════════════════════ */
+.aurora-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  will-change: transform, opacity;
+  opacity: 0.22;
+  mix-blend-mode: normal;
+}
+
+/* Blob 1 — crimson, upper left, slowest orbit */
+.aurora-blob--crimson {
+  width: 55vw;
+  height: 55vw;
+  max-width: 720px;
+  max-height: 720px;
+  top: -18%;
+  left: -12%;
+  background: radial-gradient(circle at 35% 35%, rgb(var(--accent-crimson) / 0.5), transparent 70%);
+  animation: aurora-drift-1 24s ease-in-out infinite;
+}
+
+/* Blob 2 — cyan, lower right, mid tempo */
+.aurora-blob--cyan {
+  width: 48vw;
+  height: 48vw;
+  max-width: 640px;
+  max-height: 640px;
+  bottom: -20%;
+  right: -10%;
+  background: radial-gradient(circle at 65% 60%, rgb(var(--accent-cyan) / 0.42), transparent 70%);
+  animation: aurora-drift-2 19s ease-in-out infinite;
+  opacity: 0.16;
+}
+
+/* Blob 3 — amber, center-low, gentle pulse */
+.aurora-blob--amber {
+  width: 34vw;
+  height: 34vw;
+  max-width: 420px;
+  max-height: 420px;
+  bottom: 6%;
+  left: 30%;
+  background: radial-gradient(circle at 50% 50%, rgb(var(--accent-amber) / 0.34), transparent 70%);
+  animation: aurora-drift-3 27s ease-in-out infinite;
+  opacity: 0.12;
+}
+
+@keyframes aurora-drift-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6vw, 4vh, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-3vw, 7vh, 0) scale(0.94);
+  }
+}
+
+@keyframes aurora-drift-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  40% {
+    transform: translate3d(-5vw, -5vh, 0) scale(1.06);
+  }
+  70% {
+    transform: translate3d(3vw, -2vh, 0) scale(0.96);
+  }
+}
+
+@keyframes aurora-drift-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4vw, -6vh, 0) scale(1.12);
+  }
+}
+
 /* Marquee pause on hover utility */
 .marquee-container:hover .marquee-content {
   animation-play-state: paused;
 }
 
-/* ── Accessibility: Respect reduced motion ── */
+/* ── Accessibility: aurora + all motion stops ── */
 @media (prefers-reduced-motion: reduce) {
+  .aurora-blob {
+    animation: none;
+  }
+
   *,
   ::before,
   ::after {

@@ -183,20 +183,10 @@ export function Experience() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
-        <Reveal className="mb-14 sm:mb-20">
-          <div className="pb-4 border-b border-studio-border mb-8">
-            <p className="text-xs sm:text-sm font-mono font-bold uppercase tracking-widest text-studio-cyan-light">
-              [ 04 // EXPERIENCE &amp; LEADERSHIP ]
-            </p>
-          </div>
-          <div>
-            <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight leading-[0.98] text-studio-text">
-              DEFENSE TRACK
-              <span className="block font-display font-extrabold uppercase tracking-tight text-studio-amber-light text-2xl sm:text-4xl md:text-5xl mt-1">
-                &amp; OPERATIONAL LEADERSHIP
-              </span>
-            </h2>
-          </div>
+        <Reveal className="mb-12 sm:mb-16 pb-4 border-b border-studio-border">
+          <h2 className="text-xs sm:text-sm font-sans font-bold uppercase tracking-wider text-studio-muted">
+            EXPERIENCES &amp; FIELD LOGS
+          </h2>
         </Reveal>
 
         {/* Modern Sliding Pill Tab Switcher */}
@@ -295,7 +285,7 @@ export function Experience() {
                 <Reveal delay={Math.min(idx * 0.06, 0.2)}>
                   <SpotlightCard
                     spotlightColor="rgba(212, 160, 23, 0.16)"
-                    className="p-6 sm:p-8 md:p-10 rounded-2xl bg-studio-surface/50 hover:bg-studio-surface/80 border border-white/[0.08] hover:border-studio-amber-light/40 transition-colors duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] group"
+                    className="p-6 sm:p-8 md:p-10 rounded-3xl bg-studio-surface/50 hover:bg-studio-surface/80 border border-white/[0.08] hover:border-studio-amber-light/40 transition-colors duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] group"
                   >
                     <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-start">
                       {/* Period & place */}
@@ -303,7 +293,7 @@ export function Experience() {
                         <span className="text-xs font-mono uppercase tracking-widest text-studio-text font-bold block">
                           {item.period}
                         </span>
-                        <span className="text-xs font-sans text-studio-muted block">
+                        <span className="text-xs font-sans text-studio-faint block">
                           {item.location}
                         </span>
                       </div>

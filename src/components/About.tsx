@@ -20,18 +20,18 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
 
   return (
     <TiltCard
-      maxTilt={3.5}
+      maxTilt={3}
       spotlightColor={isVerified ? "rgba(6, 182, 212, 0.18)" : "rgba(212, 160, 23, 0.18)"}
       className={cn(
         "border border-white/[0.08] bg-studio-surface/60 hover:bg-studio-surface/90 transition-colors duration-300 h-full",
         isVerified ? "hover:border-studio-cyan-light/40" : "hover:border-studio-amber-light/40"
       )}
     >
-      <div className="p-5 sm:p-6 flex flex-col justify-between h-full gap-5 group [transform-style:preserve-3d]">
+      <div className="p-5 sm:p-6 flex flex-col justify-between h-full gap-5 group">
         <div className="space-y-4">
           {/* Top row: Badge Frame & Status Pill */}
-          <div className="flex items-center justify-between gap-3 [transform:translateZ(20px)]">
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl overflow-hidden bg-black/40 border border-white/10 group-hover:border-white/20 transition-colors flex items-center justify-center p-2 shadow-inner">
+          <div className="flex items-center justify-between gap-3">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl overflow-hidden bg-black/40 border border-white/10 group-hover:border-white/20 transition-colors flex items-center justify-center p-2 shadow-inner">
               {!imgError && cert.image ? (
                 <div className="relative w-full h-full">
                   <Image
@@ -50,7 +50,7 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
                   />
                 </div>
               ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-white/[0.06] to-transparent rounded-lg border border-white/10">
+                <div className="w-full h-full flex flex-col items-center justify-center text-center bg-gradient-to-b from-white/[0.06] to-transparent rounded-xl border border-white/10">
                   <Shield className="w-4 h-4 text-studio-cyan-light mb-0.5" />
                   <span className="font-display font-extrabold text-xs text-white">
                     {cert.badgeLetter}
@@ -66,7 +66,7 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
                   ? "bg-studio-cyan/10 text-studio-cyan-light border-studio-cyan/30"
                   : isActive
                   ? "bg-studio-amber/10 text-studio-amber-light border-studio-amber/30 shadow-[0_0_12px_rgba(212,160,23,0.18)]"
-                  : "bg-studio-bg text-studio-muted border-studio-border"
+                  : "bg-studio-bg text-studio-faint border-studio-border"
               }`}
             >
               {cert.status}
@@ -74,7 +74,7 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
           </div>
 
           {/* Narrative & Details */}
-          <div className="space-y-1.5 [transform:translateZ(14px)]">
+          <div className="space-y-1.5">
             <h4 className="text-base font-display font-bold text-studio-text group-hover:text-white transition-colors leading-snug tracking-tight">
               {cert.title}
             </h4>
@@ -82,9 +82,7 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
             <div className="text-xs font-sans text-studio-muted flex items-center gap-2 font-medium">
               <span>{cert.issuer}</span>
               <span>·</span>
-              <span className={cn("font-mono", isVerified ? "text-studio-cyan-light font-semibold" : "text-studio-amber-light font-semibold")}>
-                {cert.date}
-              </span>
+              <span className={cn("font-mono", isVerified ? "text-studio-cyan-light" : "text-studio-amber-light")}>{cert.date}</span>
             </div>
 
             <p className="text-xs text-studio-muted font-sans leading-relaxed pt-1">
@@ -95,12 +93,12 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
 
         {/* Action Button at bottom */}
         {cert.credentialUrl && (
-          <div className="pt-3 border-t border-white/[0.06] [transform:translateZ(12px)]">
+          <div className="pt-3 border-t border-white/[0.06]">
             <a
               href={cert.credentialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-sans font-bold uppercase tracking-wider text-studio-muted hover:text-studio-cyan-light transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-sans font-bold uppercase tracking-wider text-studio-faint hover:text-studio-cyan-light transition-colors"
             >
               <span>{cert.actionLabel || "Curriculum & Exam Blueprint"}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -118,7 +116,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="py-28 sm:py-36 bg-temp-about text-studio-text border-b border-studio-border overflow-hidden relative"
+      className="py-28 sm:py-40 bg-temp-about text-studio-text border-b border-studio-border overflow-hidden relative"
     >
       {/* Subtle ambient oceanic illumination */}
       <div
@@ -128,10 +126,10 @@ export function About() {
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Header */}
-        <Reveal className="mb-14 sm:mb-20 pb-4 border-b border-studio-border">
-          <p className="text-xs sm:text-sm font-mono font-bold uppercase tracking-widest text-studio-cyan-light">
-            [ 01 // {whoAmI.title} ]
-          </p>
+        <Reveal className="mb-16 sm:mb-24 pb-4 border-b border-studio-border">
+          <h2 className="text-xs sm:text-sm font-sans font-bold uppercase tracking-wider text-studio-muted">
+            {whoAmI.title}
+          </h2>
         </Reveal>
 
         {/* Narrative & Contact-Sheet Spread */}
@@ -139,12 +137,12 @@ export function About() {
           {/* Left Narrative Column */}
           <div className="lg:col-span-7 space-y-8">
             <Reveal>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-studio-text font-display leading-[1.08]">
+              <h3 className="text-3xl sm:text-5xl font-extrabold tracking-monumental text-studio-text font-display leading-[1.08]">
                 <span>{whoAmI.headingLine1}</span>{" "}
                 <span className="font-display font-extrabold text-studio-accent-light block sm:inline">
                   {whoAmI.headingLine2Serif}
                 </span>
-              </h2>
+              </h3>
             </Reveal>
 
             {/* Concise 2-sentence punchy narrative */}
@@ -172,7 +170,7 @@ export function About() {
                     value={stat.value}
                     className="text-3xl sm:text-4xl font-extrabold font-display bg-gradient-to-b from-white via-white/95 to-white/75 bg-clip-text text-transparent block tracking-tight"
                   />
-                  <span className="text-xs font-sans font-medium text-studio-muted block leading-tight">
+                  <span className="text-xs font-sans font-medium text-studio-faint block leading-tight">
                     {stat.label}
                   </span>
                 </StaggerItem>
@@ -188,7 +186,7 @@ export function About() {
                   className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full border border-white/15 bg-white/[0.04] hover:bg-studio-accent/20 hover:border-studio-accent/40 text-xs font-sans font-bold uppercase tracking-wider text-studio-text hover:text-studio-accent-light backdrop-blur-md transition-all duration-300 group shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-accent"
                 >
                   <FileText className="w-3.5 h-3.5 text-studio-accent-light transition-transform group-hover:scale-110" />
-                  <span>VIEW TECHNICAL CURRICULUM VITAE</span>
+                  <span>OPEN CANDIDATE DOSSIER / CV</span>
                 </button>
               </Magnetic>
             </Reveal>
@@ -203,11 +201,11 @@ export function About() {
         {/* Integrated Certification Candidate Track with elegant ambient glow */}
         <Reveal delay={0.1} className="mt-20 pt-12 border-t border-studio-border">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-6">
-            <h3 className="flex items-center gap-2 text-xs font-sans uppercase tracking-wider text-studio-muted font-bold">
+            <div className="flex items-center gap-2 text-xs font-sans uppercase tracking-wider text-studio-muted font-bold">
               <Award className="w-4 h-4 text-studio-cyan-light" />
               <span>CERTIFICATIONS &amp; CREDENTIALS</span>
-            </h3>
-            <span className="text-xs font-mono text-studio-muted">
+            </div>
+            <span className="text-[11px] font-mono text-studio-faint">
               Verified achievements &amp; professional candidate tracks
             </span>
           </div>

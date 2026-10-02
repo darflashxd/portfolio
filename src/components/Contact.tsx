@@ -55,8 +55,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      data-flag="PETIR{AKU_THE_JEMBRASSSSSSSSSSSSSSSSSSSSSSSSSS}"
-      className="py-28 sm:py-36 bg-temp-contact text-studio-text border-b border-studio-border relative overflow-hidden"
+      className="py-28 sm:py-44 bg-temp-contact text-studio-text border-b border-studio-border relative overflow-hidden"
     >
       {/* Subtle Blue Team ambient oceanic glow */}
       <div
@@ -66,11 +65,17 @@ export function Contact() {
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Label */}
-        <Reveal className="mb-14 sm:mb-20 pb-4 border-b border-studio-border">
-          <p className="text-xs sm:text-sm font-mono font-bold uppercase tracking-widest text-studio-cyan-light">
-            [ 06 // CONTACT &amp; DISPATCH ]
-          </p>
-        </Reveal>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 sm:mb-24 pb-4 border-b border-studio-border"
+        >
+          <h2 className="text-xs sm:text-sm font-sans font-bold uppercase tracking-wider text-studio-muted">
+            GET IN TOUCH &amp; DISPATCH
+          </h2>
+        </motion.div>
 
         {/* Monumental Headline */}
         <motion.div
@@ -78,31 +83,31 @@ export function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-14 sm:mb-20 max-w-5xl"
+          className="mb-16 sm:mb-24 max-w-5xl"
         >
-          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight leading-[0.96] bg-gradient-to-b from-white via-white/95 to-white/75 bg-clip-text text-transparent font-display">
+          <h3 className="text-4xl sm:text-6xl md:text-7xl lg:text-[104px] font-extrabold uppercase tracking-monumental leading-[0.92] bg-gradient-to-b from-white via-white/95 to-white/75 bg-clip-text text-transparent font-display">
             <div>LET&apos;S UNCOVER</div>
-            <div className="font-display font-extrabold uppercase tracking-tight bg-gradient-to-r from-sky-300 via-studio-cyan-light to-blue-400 bg-clip-text text-transparent">
-              GROUND TRUTH TOGETHER
+            <div className="font-display font-extrabold uppercase tracking-monumental bg-gradient-to-r from-sky-300 via-studio-cyan-light to-blue-400 bg-clip-text text-transparent">
+              WHAT&apos;S HIDDEN
             </div>
-          </h2>
-          <p className="mt-6 text-base sm:text-xl font-sans text-studio-muted max-w-2xl font-normal leading-relaxed">
-            Available for SOC/DFIR internships, reverse engineering research, and competition challenge authoring. My inbox is open.
+          </h3>
+          <p className="mt-8 text-base sm:text-xl font-sans text-studio-muted max-w-2xl font-normal leading-relaxed">
+            Research collaborations, forensic tooling, CTF challenge authoring: my inbox is open.
           </p>
         </motion.div>
 
         {/* Big Magnetic Email Action & Click-to-Copy Pill */}
-        <Reveal delay={0.15} className="pb-14 sm:pb-20 border-b border-studio-border flex flex-col sm:flex-row sm:items-baseline justify-between gap-6">
+        <Reveal delay={0.15} className="pb-16 sm:pb-24 border-b border-studio-border flex flex-col sm:flex-row sm:items-baseline justify-between gap-6">
           <div>
-            <span className="text-xs font-mono uppercase tracking-widest text-studio-muted block mb-3 font-semibold">
-              DIRECT INBOX DISPATCH
+            <span className="text-xs font-mono uppercase tracking-widest text-studio-faint block mb-3 font-medium">
+              DIRECT EMAIL
             </span>
             <a
               href={`mailto:${socials.email}`}
               className="group inline-flex items-baseline gap-2 sm:gap-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-mono font-bold text-studio-text hover:text-studio-accent-light transition-colors break-all"
             >
               <span>{socials.email}</span>
-              <ArrowUpRight className="w-6 h-6 sm:w-10 sm:h-10 text-studio-muted group-hover:text-studio-accent-light transition-transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5" />
+              <ArrowUpRight className="w-6 h-6 sm:w-10 sm:h-10 text-studio-faint group-hover:text-studio-accent-light transition-transform group-hover:translate-x-1.5 group-hover:-translate-y-1.5" />
             </a>
           </div>
 
@@ -126,7 +131,7 @@ export function Contact() {
                 ) : (
                   <>
                     <Copy className="w-4 h-4 text-studio-accent-light" />
-                    <span>COPY EMAIL ADDRESS</span>
+                    <span>COPY EMAIL</span>
                   </>
                 )}
               </button>
@@ -134,7 +139,7 @@ export function Contact() {
           </div>
         </Reveal>
 
-        {/* Verified directory links */}
+        {/* Verified directory links — clean minimalist profile cards centered & balanced */}
         <StaggerContainer className="pt-10 sm:pt-14 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-2xl mx-auto" stagger={0.08}>
           {profiles.map((item) => {
             const Icon = item.icon;
@@ -144,23 +149,23 @@ export function Contact() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex items-center justify-between p-4 sm:p-5 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.08] hover:border-studio-accent-light/40 transition-all duration-300 shadow-sm hover:shadow-[0_0_28px_rgba(37,99,235,0.14)]"
+                  className="group relative flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/[0.08] hover:border-studio-accent-light/40 transition-all duration-300 shadow-sm hover:shadow-[0_0_28px_rgba(37,99,235,0.14)]"
                 >
                   <div className="flex items-center gap-3.5 min-w-0">
-                    <div className="w-10 h-10 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center text-studio-text group-hover:text-studio-accent-light transition-colors shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-studio-text group-hover:text-studio-accent-light transition-colors shrink-0">
                       <Icon className="w-5 h-5" />
                     </div>
                     <div className="min-w-0">
                       <span className="font-sans text-sm sm:text-base font-bold text-studio-text group-hover:text-studio-accent-light transition-colors tracking-wide block truncate">
                         {item.label}
                       </span>
-                      <span className="font-mono text-xs text-studio-muted tracking-wide block truncate mt-0.5">
+                      <span className="font-mono text-xs text-studio-faint tracking-wide block truncate mt-0.5">
                         {item.handle}
                       </span>
                     </div>
                   </div>
 
-                  <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center text-studio-muted group-hover:text-studio-accent-light group-hover:border-studio-accent-light/30 transition-all shrink-0 ml-3">
+                  <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center text-studio-faint group-hover:text-studio-accent-light group-hover:border-studio-accent-light/30 transition-all shrink-0 ml-3">
                     <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </div>
                 </a>

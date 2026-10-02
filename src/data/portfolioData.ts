@@ -141,17 +141,17 @@ export const portfolioData = {
 
   hero: {
     eyebrow: "BLUE TEAM · DIGITAL FORENSICS · INCIDENT RESPONSE",
-    titleLine1: "DECONSTRUCTING ANOMALIES",
-    titleLine2Serif: "DEFENDING CRITICAL SYSTEMS",
-    titleLine3: "",
+    titleLine1: "DECONSTRUCTING",
+    titleLine2Serif: "THE UNSEEN",
+    titleLine3: "SYSTEMS",
     punchline:
-      "Defensive security researcher and forensic engineer specializing in volatile memory triage, binary reverse engineering, and resilient threat detection engineering.",
+      "Undergraduate researcher and defensive security engineer focused on digital forensics, proactive threat detection, and resilient system infrastructure.",
     badges: [
-      "DFIR & Memory Triage",
-      "Blue Team Defense",
-      "Arch Linux Forensics",
-      "CTF Author & Finalist",
-      "BINUS University R&D",
+      "Digital Forensics & DFIR",
+      "Blue Team Operations",
+      "PETIR Cyber Security",
+      "CSC BINUS Deputy Coordinator R&D",
+      "CI/CD & DevOps Automation",
     ],
   } as HeroData,
 
@@ -164,9 +164,9 @@ export const portfolioData = {
     highlightParagraph:
       "Currently serving as Deputy Coordinator of R&D at Cyber Security Community (CSC) and Apprentice at PETIR Cyber Security, where I architect automated CI/CD security infrastructure, orchestrate competition problem sets, and dissect low-level kernel and memory telemetry.",
     stats: [
-      { value: "79", label: "Merged PRs & Infra Audits" },
-      { value: "30+", label: "Forensic & CTF Challenges Authored" },
-      { value: "20+", label: "Technical Authors Mentored" },
+      { value: "3.23", label: "Cumulative GPA / 4.00" },
+      { value: "30", label: "CTF Challenges Orchestrated" },
+      { value: "20+", label: "Challenge Authors Led" },
     ],
     portraits: [
       {

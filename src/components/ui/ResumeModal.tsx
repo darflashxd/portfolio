@@ -94,7 +94,7 @@ export function ResumeModal() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={reduced ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="relative w-full max-w-5xl h-[90vh] max-h-[880px] rounded-2xl bg-[#060810] border border-white/15 border-t-white/35 shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col z-10"
+              className="relative w-full max-w-5xl h-[90vh] max-h-[880px] rounded-3xl bg-[#060810] border border-white/15 border-t-white/35 shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col z-10"
             >
               {/* Header Strip */}
               <div className="flex items-center justify-between px-5 sm:px-7 py-3.5 bg-white/[0.03] border-b border-white/10 select-none">
@@ -203,7 +203,7 @@ export function ResumeModal() {
                 /* ── Technical Profile View ── */
                 <div className="h-full p-6 sm:p-8 overflow-y-auto space-y-6 text-studio-text">
                   {/* Status Banner */}
-                  <div className="p-4 rounded-xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-cyan-950/30 border border-studio-accent/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-cyan-950/30 border border-studio-accent/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="relative flex h-2.5 w-2.5 shrink-0">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -225,7 +225,7 @@ export function ResumeModal() {
                   </div>
 
                   {/* Recruiter Quick Pitch Tool */}
-                  <div className="p-4 sm:p-5 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2.5">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] space-y-2.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-studio-accent-light uppercase">
                         <Sparkles className="w-3.5 h-3.5" />
