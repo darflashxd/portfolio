@@ -1,13 +1,7 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useMotionTemplate,
-  useReducedMotion,
-} from "motion/react";
+import { useRef, useState, useCallback } from "react";
+import { useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -17,10 +11,8 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * SpotlightCard — subtle cursor-follow glow with spring physics.
- * Position + opacity are Motion values (no React re-render per mousemove).
- * Stiffness ~150 / damping ~20 gives a calm, trailing response — never a
- * laser-chasing effect. Glow is low-opacity and radial.
+ * SpotlightCard — GPU-accelerated cursor-follow glow via CSS Custom Properties.
+ * Zero JavaScript animation frame overhead while maintaining 100% fluid visual sheen.
  */
 export function SpotlightCard({
   children,
@@ -30,48 +22,42 @@ export function SpotlightCard({
 }: SpotlightCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const rectRef = useRef<DOMRect | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const reduced = useReducedMotion();
-
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const glow = useMotionValue(0);
-
-  const sx = useSpring(mx, { stiffness: 150, damping: 22, mass: 0.4 });
-  const sy = useSpring(my, { stiffness: 150, damping: 22, mass: 0.4 });
-  const sGlow = useSpring(glow, { stiffness: 120, damping: 26 });
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (reduced) return;
-      const rect = rectRef.current || ref.current?.getBoundingClientRect();
-      if (!rect) return;
-      mx.set(e.clientX - rect.left);
-      my.set(e.clientY - rect.top);
+      const el = ref.current;
+      if (!el) return;
+      const rect = rectRef.current || el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      el.style.setProperty("--spotlight-x", `${x}px`);
+      el.style.setProperty("--spotlight-y", `${y}px`);
     },
-    [mx, my, reduced]
+    [reduced]
   );
 
   const handleMouseEnter = useCallback(() => {
     if (reduced) return;
     rectRef.current = ref.current?.getBoundingClientRect() ?? null;
-    glow.set(0.85);
-  }, [glow, reduced]);
+    setIsHovered(true);
+  }, [reduced]);
 
   const handleMouseLeave = useCallback(() => {
     rectRef.current = null;
-    glow.set(0);
-  }, [glow]);
+    setIsHovered(false);
+  }, []);
 
   const handleFocus = useCallback(() => {
     if (reduced) return;
-    glow.set(0.5);
-  }, [glow, reduced]);
+    setIsHovered(true);
+  }, [reduced]);
 
   const handleBlur = useCallback(() => {
-    glow.set(0);
-  }, [glow]);
-
-  const spotlightTemplate = useMotionTemplate`radial-gradient(420px circle at ${sx}px ${sy}px, ${spotlightColor}, transparent 70%)`;
+    setIsHovered(false);
+  }, []);
 
   if (reduced) {
     return (
@@ -102,9 +88,12 @@ export function SpotlightCard({
       )}
       {...props}
     >
-      <motion.div
-        className="pointer-events-none absolute -inset-px z-10"
-        style={{ opacity: sGlow, background: spotlightTemplate }}
+      <div
+        className="pointer-events-none absolute -inset-px z-10 transition-opacity duration-300"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(420px circle at var(--spotlight-x, -500px) var(--spotlight-y, -500px), ${spotlightColor}, transparent 70%)`,
+        }}
         aria-hidden="true"
       />
       <div className="relative z-20 h-full">{children}</div>

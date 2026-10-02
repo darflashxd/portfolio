@@ -1,13 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useMotionTemplate,
-  useReducedMotion,
-} from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface TiltCardProps {
@@ -20,8 +14,8 @@ interface TiltCardProps {
 
 /**
  * TiltCard (Pop & Lift) — smooth tactile elevation card with specular glare sheen.
- * Replaces disruptive 3D angular rotation with clean Y-axis lift and subtle scale pop,
- * preserving 100% crisp text readability while providing tactile feedback.
+ * GPU-accelerated specular glare via CSS custom properties.
+ * Smooth spring lift on hover with zero background idle solver overhead.
  */
 export function TiltCard({
   children,
@@ -34,23 +28,18 @@ export function TiltCard({
   const [isHovered, setIsHovered] = useState(false);
   const reduced = useReducedMotion();
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { stiffness: 320, damping: 24, mass: 0.35 };
-  const sX = useSpring(mouseX, springConfig);
-  const sY = useSpring(mouseY, springConfig);
-
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (reduced) return;
-      const rect = rectRef.current || ref.current?.getBoundingClientRect();
-      if (!rect) return;
-
-      mouseX.set(e.clientX - rect.left);
-      mouseY.set(e.clientY - rect.top);
+      const el = ref.current;
+      if (!el) return;
+      const rect = rectRef.current || el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      el.style.setProperty("--glare-x", `${x}px`);
+      el.style.setProperty("--glare-y", `${y}px`);
     },
-    [mouseX, mouseY, reduced]
+    [reduced]
   );
 
   const handleMouseEnter = () => {
@@ -63,8 +52,6 @@ export function TiltCard({
     rectRef.current = null;
     setIsHovered(false);
   };
-
-  const glareTemplate = useMotionTemplate`radial-gradient(520px circle at ${sX}px ${sY}px, ${spotlightColor}, transparent 65%)`;
 
   if (reduced) {
     return (
@@ -101,10 +88,10 @@ export function TiltCard({
         )}
       >
         {/* Specular Glare Glass Sheen */}
-        <motion.div
+        <div
           className="pointer-events-none absolute -inset-px z-20 rounded-3xl transition-opacity duration-300"
           style={{
-            background: glareTemplate,
+            background: `radial-gradient(520px circle at var(--glare-x, -500px) var(--glare-y, -500px), ${spotlightColor}, transparent 65%)`,
             opacity: isHovered ? 1 : 0,
           }}
           aria-hidden="true"

@@ -47,6 +47,8 @@ function PhotoCard({
           src={photo.src}
           alt={photo.alt}
           fill
+          priority={isCenter}
+          loading={isCenter ? "eager" : "lazy"}
           sizes="(max-width: 768px) 260px, 320px"
           className="object-cover transition-transform duration-500 ease-out hover:scale-[1.02]"
           onError={() => setHasError(true)}

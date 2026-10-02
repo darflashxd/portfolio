@@ -8,10 +8,12 @@ import { CandidateStrip } from "@/components/ui/CandidateStrip";
 import { About } from "@/components/About";
 import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
-import { Experience } from "@/components/Experience";
-import { CTFArchive } from "@/components/CTFArchive";
-import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+
+// Chunk heavy below-the-fold interactive sections for lightweight initial main-thread execution
+const Experience = dynamic(() => import("@/components/Experience").then((m) => m.Experience));
+const CTFArchive = dynamic(() => import("@/components/CTFArchive").then((m) => m.CTFArchive));
+const Contact = dynamic(() => import("@/components/Contact").then((m) => m.Contact));
 
 // Lazy-load off-screen and desktop-only interactive components for fast First Contentful Paint
 const ResumeModal = dynamic(

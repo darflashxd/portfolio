@@ -53,6 +53,7 @@ export function EditorialImage({
           alt={alt}
           fill
           priority={priority}
+          loading={priority ? "eager" : "lazy"}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
           className={cn(
             objectFit === "contain" ? "object-contain p-3" : "object-cover",

@@ -26,17 +26,41 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       wheelMultiplier: 1,
     });
 
-    let rafId: number;
+    let rafId: number = 0;
+    let idleFrames = 0;
 
     function raf(time: number) {
       lenis.raf(time);
+      if (Math.abs(lenis.velocity) < 0.05 && !lenis.isScrolling) {
+        idleFrames++;
+        if (idleFrames > 30) {
+          rafId = 0;
+          return;
+        }
+      } else {
+        idleFrames = 0;
+      }
       rafId = requestAnimationFrame(raf);
     }
 
-    rafId = requestAnimationFrame(raf);
+    function wakeUp() {
+      idleFrames = 0;
+      if (rafId === 0) {
+        rafId = requestAnimationFrame(raf);
+      }
+    }
+
+    wakeUp();
+
+    window.addEventListener("wheel", wakeUp, { passive: true });
+    window.addEventListener("scroll", wakeUp, { passive: true });
+    window.addEventListener("keydown", wakeUp, { passive: true });
 
     return () => {
-      cancelAnimationFrame(rafId);
+      if (rafId !== 0) cancelAnimationFrame(rafId);
+      window.removeEventListener("wheel", wakeUp);
+      window.removeEventListener("scroll", wakeUp);
+      window.removeEventListener("keydown", wakeUp);
       lenis.destroy();
     };
   }, []);

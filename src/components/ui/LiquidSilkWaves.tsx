@@ -103,12 +103,21 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
     // Mouse target with lerping
     const mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
+    let containerRect: DOMRect | null = null;
+    const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
+    const updateContainerRect = () => {
+      if (container) {
+        containerRect = container.getBoundingClientRect();
+      }
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!inView) return;
-      const rect = container.getBoundingClientRect();
-      mouse.targetX = e.clientX - rect.left;
-      mouse.targetY = e.clientY - rect.top;
+      if (!containerRect) updateContainerRect();
+      if (!containerRect) return;
+      mouse.targetX = e.clientX - containerRect.left;
+      mouse.targetY = e.clientY - containerRect.top;
     };
 
     const handleMouseLeave = () => {
@@ -116,8 +125,11 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
       mouse.targetY = -1000;
     };
 
-    container.addEventListener("mousemove", handleMouseMove, { passive: true });
-    container.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    if (!isTouch) {
+      container.addEventListener("mousemove", handleMouseMove, { passive: true });
+      container.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+      window.addEventListener("scroll", updateContainerRect, { passive: true });
+    }
 
     const buildGradients = () => {
       if (!ctx || canvasHeight <= 0) return;
@@ -132,10 +144,11 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
     };
 
     const resize = () => {
-      const rect = container.getBoundingClientRect();
+      updateContainerRect();
+      const rect = containerRect || container.getBoundingClientRect();
       canvasWidth = rect.width;
       canvasHeight = rect.height;
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const dpr = Math.min(window.devicePixelRatio || 1, isTouch ? 1.0 : 1.25);
       canvas.width = Math.max(1, Math.round(rect.width * dpr));
       canvas.height = Math.max(1, Math.round(rect.height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -204,9 +217,11 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
       time += 0.015 * timeMultiplier;
 
-      const step = width < 640 ? 26 : 20;
+      const step = isTouch ? 30 : width < 640 ? 26 : 20;
+      const waveCount = WAVES.length;
 
-      WAVES.forEach((wave, idx) => {
+      for (let idx = 0; idx < waveCount; idx++) {
+        const wave = WAVES[idx];
         const baseY = height * wave.yOffsetRatio;
         ctx.beginPath();
         ctx.moveTo(0, height);
@@ -263,7 +278,7 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
         ctx.lineWidth = idx === 3 ? 1.5 : 1.0;
         ctx.strokeStyle = wave.gradientColors[0];
         ctx.stroke();
-      });
+      }
 
       ctx.globalCompositeOperation = "source-over";
       startLoop();
@@ -273,8 +288,11 @@ export function LiquidSilkWaves({ className = "" }: LiquidSilkWavesProps) {
 
     return () => {
       stopLoop();
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
+      if (!isTouch) {
+        container.removeEventListener("mousemove", handleMouseMove);
+        container.removeEventListener("mouseleave", handleMouseLeave);
+        window.removeEventListener("scroll", updateContainerRect);
+      }
       window.removeEventListener("resize", resize);
       observer.disconnect();
       document.removeEventListener("visibilitychange", handleVisibility);
