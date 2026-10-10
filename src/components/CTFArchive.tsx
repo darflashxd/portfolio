@@ -87,30 +87,16 @@ export function CTFArchive() {
           </p>
         </div>
 
-        {/* Footer Tags & Actions */}
-        <div className="pt-4 border-t border-white/[0.06] space-y-3.5">
-          <div className="flex flex-wrap gap-1.5">
-            {item.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full px-2.5 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[10px] font-sans font-medium text-studio-faint"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          {/* Single Primary Action: In-App PDF View Modal */}
-          <div className="pt-1">
-            <button
-              type="button"
-              onClick={() => setActivePdf(item)}
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-studio-accent/20 hover:bg-studio-accent/30 border border-studio-accent/40 text-studio-accent-light hover:text-white text-xs font-sans font-bold uppercase tracking-wider transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-cyan-light active:scale-[0.99]"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              <span>VIEW PDF REPORT</span>
-            </button>
-          </div>
+        {/* Action: In-App PDF View Modal */}
+        <div className="pt-4 border-t border-white/[0.06]">
+          <button
+            type="button"
+            onClick={() => setActivePdf(item)}
+            className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-studio-accent/20 hover:bg-studio-accent/30 border border-studio-accent/40 text-studio-accent-light hover:text-white text-xs font-sans font-bold uppercase tracking-wider transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-cyan-light active:scale-[0.99]"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>VIEW PDF REPORT</span>
+          </button>
         </div>
       </article>
     </SpotlightCard>
