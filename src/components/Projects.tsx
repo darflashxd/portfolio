@@ -108,13 +108,13 @@ export function Projects() {
                     <article className="p-6 sm:p-8 md:p-10 flex flex-col justify-between h-full group">
                       <div className="space-y-6">
                         {/* Top Meta Bar */}
-                        <div className="flex items-baseline justify-between">
-                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-sans font-bold text-studio-cyan-light shadow-sm">
+                        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+                          <span className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-sans font-bold text-studio-cyan-light shadow-sm">
                             <Sparkles className="w-3.5 h-3.5" />
                             FEATURED ZERO-KNOWLEDGE ENCLAVE
                           </span>
-                          <span className="text-xs font-sans font-medium text-studio-faint uppercase">
-                            {project.category} · {project.year}
+                          <span className="shrink-0 text-xs font-mono font-medium text-studio-muted uppercase tracking-wider">
+                            AI PRIVACY · {project.year}
                           </span>
                         </div>
 
