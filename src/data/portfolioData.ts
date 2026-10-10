@@ -220,7 +220,7 @@ export const portfolioData = {
       year: "2026",
       tagline: "Client-side zero-knowledge privacy guard and algebraic reconstruction defense against public GenAI conversation leaks.",
       sellingPoint:
-        "Architected a 6-tier defense-in-depth engine eliminating sensitive data exfiltration across LLM platforms (ChatGPT, Claude, DeepSeek). Combines deterministic regulatory scanners (NIK, NPWP, PCI-DSS, API keys), a GPU fine-tuned multilingual DistilBERT model, and an adversary-oracle solver preventing mathematical deduction of redacted figures. Client-side end-to-end encryption via WebCrypto AES-256-GCM with URL hash key-isolation and ephemeral burn-after-reading on Cloudflare Edge & D1. Targeted for Black Hat Asia 2027 Arsenal.",
+        "Architected a 6-tier defense-in-depth engine eliminating sensitive data exfiltration across LLM platforms (ChatGPT, Claude, DeepSeek). Combines deterministic regulatory scanners (NIK, NPWP, PCI-DSS, API keys), a GPU fine-tuned multilingual DistilBERT model, and an adversary-oracle solver preventing mathematical deduction of redacted figures. Client-side end-to-end encryption via WebCrypto AES-256-GCM with URL hash key-isolation and ephemeral burn-after-reading on Cloudflare Edge & D1.",
       accentColor: "#38BDF8",
       technologies: ["TypeScript", "WebCrypto (AES-256-GCM)", "Manifest V3", "DistilBERT", "Cloudflare Workers", "D1 SQL", "Python"],
       image: "/images/projects/project-safeshare.png",

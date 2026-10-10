@@ -111,7 +111,7 @@ export function Projects() {
                         <div className="flex items-baseline justify-between">
                           <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-sans font-bold text-studio-cyan-light shadow-sm">
                             <Sparkles className="w-3.5 h-3.5" />
-                            FEATURED ENCLAVE · BLACK HAT 2027 TARGET
+                            FEATURED ZERO-KNOWLEDGE ENCLAVE
                           </span>
                           <span className="text-xs font-sans font-medium text-studio-faint uppercase">
                             {project.category} · {project.year}
@@ -211,7 +211,7 @@ export function Projects() {
                           ) : (
                             <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 font-sans text-[11px] font-semibold text-studio-cyan-light">
                               <Terminal className="w-3.5 h-3.5" />
-                              <span>PRIVATE REPO (BLACK HAT 2027)</span>
+                              <span>PRIVATE RESEARCH REPO</span>
                             </span>
                           )}
                         </div>
@@ -628,7 +628,7 @@ export function Projects() {
                     ) : (
                       <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-mono font-bold text-studio-cyan-light">
                         <Terminal className="w-3.5 h-3.5" />
-                        <span>PRIVATE RESEARCH REPO (BLACK HAT ASIA 2027 TARGET)</span>
+                        <span>PRIVATE RESEARCH REPOSITORY</span>
                       </span>
                     )}
 
