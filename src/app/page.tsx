@@ -6,13 +6,13 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { CandidateStrip } from "@/components/ui/CandidateStrip";
 import { About } from "@/components/About";
-import { Skills } from "@/components/Skills";
-import { Projects } from "@/components/Projects";
 import { Footer } from "@/components/Footer";
 
 // Chunk heavy below-the-fold interactive sections for lightweight initial main-thread execution
 const Experience = dynamic(() => import("@/components/Experience").then((m) => m.Experience));
+const Projects = dynamic(() => import("@/components/Projects").then((m) => m.Projects));
 const CTFArchive = dynamic(() => import("@/components/CTFArchive").then((m) => m.CTFArchive));
+const Skills = dynamic(() => import("@/components/Skills").then((m) => m.Skills));
 const Contact = dynamic(() => import("@/components/Contact").then((m) => m.Contact));
 
 // Lazy-load off-screen and desktop-only interactive components for fast First Contentful Paint
@@ -49,10 +49,10 @@ export default function Home() {
         <Hero isLoaded={true} />
         <CandidateStrip />
         <About />
-        <Skills />
-        <Projects />
         <Experience />
+        <Projects />
         <CTFArchive />
+        <Skills />
         <Contact />
       </main>
 

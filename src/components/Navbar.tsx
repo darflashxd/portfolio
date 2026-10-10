@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { label: "About", href: "#about", num: "01", id: "about" },
-  { label: "Skills", href: "#skills", num: "02", id: "skills" },
+  { label: "Experiences", href: "#experience", num: "02", id: "experience" },
   { label: "Projects", href: "#projects", num: "03", id: "projects" },
-  { label: "Experiences", href: "#experience", num: "04", id: "experience" },
-  { label: "Writeups", href: "#writeups", num: "05", id: "writeups" },
+  { label: "Writeups", href: "#writeups", num: "04", id: "writeups" },
+  { label: "Skills", href: "#skills", num: "05", id: "skills" },
   { label: "Contact", href: "#contact", num: "06", id: "contact" },
 ];
 

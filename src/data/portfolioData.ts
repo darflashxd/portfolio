@@ -436,9 +436,9 @@ export const portfolioData = {
         ],
         photos: [
           {
-            src: "/images/experience/exp-ctf-1.jpg",
-            alt: "CSC CTF Problem Setting Session",
-            caption: "Challenge authoring and artifact validation test harness",
+            src: "/images/profile/profile.jpg",
+            alt: "Ahmad Rafi Sutanto — Research & Development Activist",
+            caption: "Ahmad Rafi Sutanto — Research and Development Activist at Cyber Security Community (CSC)",
           },
         ],
         link: "https://www.linkedin.com/in/rafisutanto/",

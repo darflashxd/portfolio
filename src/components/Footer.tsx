@@ -33,10 +33,10 @@ export function Footer() {
           <nav className="flex flex-wrap gap-4 sm:gap-6 uppercase tracking-wider text-xs font-semibold text-studio-muted" aria-label="Footer navigation">
             <a href="#hero" className="hover:text-studio-text transition-colors py-2">Hero</a>
             <a href="#about" className="hover:text-studio-text transition-colors py-2">About</a>
-            <a href="#skills" className="hover:text-studio-text transition-colors py-2">Skills</a>
-            <a href="#projects" className="hover:text-studio-text transition-colors py-2">Projects</a>
             <a href="#experience" className="hover:text-studio-text transition-colors py-2">Experiences</a>
+            <a href="#projects" className="hover:text-studio-text transition-colors py-2">Projects</a>
             <a href="#writeups" className="hover:text-studio-text transition-colors py-2">Writeups</a>
+            <a href="#skills" className="hover:text-studio-text transition-colors py-2">Skills</a>
             <a href="#contact" className="hover:text-studio-text transition-colors py-2">Contact</a>
             <button
               type="button"
