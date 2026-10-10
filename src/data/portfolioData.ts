@@ -212,8 +212,22 @@ export const portfolioData = {
 
   projects: [
     {
-      id: "csc-ctf-2026",
+      id: "safeshare",
       num: "01",
+      title: "SafeShare-AI",
+      serifAccent: "Zero-Knowledge Privacy Enclave",
+      category: "AI Privacy · Zero-Knowledge Cryptography",
+      year: "2026",
+      tagline: "Client-side zero-knowledge privacy guard and algebraic reconstruction defense against public GenAI conversation leaks.",
+      sellingPoint:
+        "Architected a 6-tier defense-in-depth engine eliminating sensitive data exfiltration across LLM platforms (ChatGPT, Claude, DeepSeek). Combines deterministic regulatory scanners (NIK, NPWP, PCI-DSS, API keys), a GPU fine-tuned multilingual DistilBERT model, and an adversary-oracle solver preventing mathematical deduction of redacted figures. Client-side end-to-end encryption via WebCrypto AES-256-GCM with URL hash key-isolation and ephemeral burn-after-reading on Cloudflare Edge & D1. Targeted for Black Hat Asia 2027 Arsenal.",
+      accentColor: "#38BDF8",
+      technologies: ["TypeScript", "WebCrypto (AES-256-GCM)", "Manifest V3", "DistilBERT", "Cloudflare Workers", "D1 SQL", "Python"],
+      image: "/images/projects/project-safeshare.png",
+    },
+    {
+      id: "csc-ctf-2026",
+      num: "02",
       title: "CSC CTF Contest 2026",
       serifAccent: "Automated CI/CD Platform",
       category: "DevOps · Competition Infrastructure",
@@ -228,7 +242,7 @@ export const portfolioData = {
     },
     {
       id: "poisoned-aur",
-      num: "02",
+      num: "03",
       title: "The Poisoned AUR",
       serifAccent: "BeeCTF Forensics Challenge",
       category: "Digital Forensics · Threat Simulation",
@@ -243,7 +257,7 @@ export const portfolioData = {
     },
     {
       id: "pulmoai",
-      num: "03",
+      num: "04",
       title: "PulmoAI",
       serifAccent: "TB Chest X-Ray Detection",
       category: "Applied AI · Full-Stack Web App",

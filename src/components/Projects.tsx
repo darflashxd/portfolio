@@ -16,8 +16,9 @@ import { cn } from "@/lib/utils";
 type LayoutRole = "featured" | "medium" | "wide";
 
 const PROJECT_LAYOUT: { id: string; role: LayoutRole }[] = [
-  { id: "csc-ctf-2026", role: "featured" },
+  { id: "safeshare", role: "featured" },
   { id: "poisoned-aur", role: "medium" },
+  { id: "csc-ctf-2026", role: "wide" },
   { id: "pulmoai", role: "wide" },
 ];
 
@@ -95,22 +96,22 @@ export function Projects() {
             const isFeatured = role === "featured";
             const isWide = role === "wide";
 
-            /* ── Tile 01: Featured Dominant Tile (7-Col) — CSC CTF Contest 2026 ── */
+            /* ── Tile 01: Featured Dominant Tile (7-Col) — SafeShare-AI ── */
             if (isFeatured) {
               return (
                 <StaggerItem key={project.id} className="md:col-span-7">
                   <TiltCard
                     maxTilt={5}
-                    spotlightColor="rgba(37, 99, 235, 0.22)"
-                    className="border border-white/[0.08] hover:border-studio-accent-light/40 bg-studio-surface/60 backdrop-blur-md h-full"
+                    spotlightColor="rgba(56, 189, 248, 0.22)"
+                    className="border border-white/[0.08] hover:border-studio-cyan-light/40 bg-studio-surface/60 backdrop-blur-md h-full"
                   >
                     <article className="p-6 sm:p-8 md:p-10 flex flex-col justify-between h-full group">
                       <div className="space-y-6">
                         {/* Top Meta Bar */}
                         <div className="flex items-baseline justify-between">
-                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-accent/10 border border-studio-accent/25 text-xs font-sans font-bold text-studio-accent-light shadow-sm">
+                          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-sans font-bold text-studio-cyan-light shadow-sm">
                             <Sparkles className="w-3.5 h-3.5" />
-                            FEATURED INFRASTRUCTURE
+                            FEATURED ENCLAVE · BLACK HAT 2027 TARGET
                           </span>
                           <span className="text-xs font-sans font-medium text-studio-faint uppercase">
                             {project.category} · {project.year}
@@ -125,7 +126,7 @@ export function Projects() {
                           onKeyDown={(e) => {
                             if (e.key === "Enter" || e.key === " ") setInspectedProject(project);
                           }}
-                          className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-accent rounded-2xl overflow-hidden cursor-pointer"
+                          className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-cyan-light rounded-2xl overflow-hidden cursor-pointer"
                           aria-label={`${project.title} — inspect technical architecture`}
                         >
                           <ImageReveal duration={1.1} className="rounded-2xl">
@@ -135,7 +136,7 @@ export function Projects() {
                                 alt={project.title}
                                 aspectRatio="aspect-auto h-full w-full"
                                 rounded="rounded-2xl"
-                                monogram="C"
+                                monogram="S"
                                 fallbackType="project"
                                 fallbackLabel={project.title}
                                 fallbackSub={`${project.category} · ${project.year}`}
@@ -148,10 +149,10 @@ export function Projects() {
 
                         {/* Content */}
                         <div className="space-y-3 pt-2">
-                          <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.04] font-display text-studio-text group-hover:text-studio-accent-light transition-colors duration-300">
+                          <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.04] font-display text-studio-text group-hover:text-studio-cyan-light transition-colors duration-300">
                             {project.title}{" "}
                             {project.serifAccent && (
-                              <span className="font-display font-bold text-studio-accent-light block sm:inline">
+                              <span className="font-display font-bold text-studio-cyan-light block sm:inline">
                                 · {project.serifAccent}
                               </span>
                             )}
@@ -161,11 +162,11 @@ export function Projects() {
                             {project.tagline}
                           </p>
 
-                          {/* Real Metric Pill from LinkedIn */}
+                          {/* Metric Pill */}
                           <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center gap-3 text-xs font-sans text-studio-faint">
-                            <Terminal className="w-4 h-4 text-studio-accent-light shrink-0" />
+                            <Terminal className="w-4 h-4 text-studio-cyan-light shrink-0" />
                             <span>
-                              <strong className="text-studio-text">79 PRs Merged · 128/285 Commits (45%):</strong> End-to-end automated CI/CD pipeline via GitHub Actions, ctfcli, and Docker on VPS.
+                              <strong className="text-studio-text">6-Tier Defense &amp; 100% Audit Pass:</strong> Client-Side WebCrypto AES-256-GCM, DistilBERT AI &amp; Algebraic Inversion Protection.
                             </span>
                           </div>
                         </div>
@@ -188,9 +189,9 @@ export function Projects() {
                           <button
                             type="button"
                             onClick={() => setInspectedProject(project)}
-                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/10 hover:border-studio-accent-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/10 hover:border-studio-cyan-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
                           >
-                            <Terminal className="w-3.5 h-3.5 text-studio-accent-light" />
+                            <Terminal className="w-3.5 h-3.5 text-studio-cyan-light" />
                             <span>INSPECT</span>
                           </button>
 
@@ -208,9 +209,9 @@ export function Projects() {
                               </a>
                             </Magnetic>
                           ) : (
-                            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] font-sans text-[11px] font-medium text-studio-faint">
-                              <FolderGit2 className="w-3.5 h-3.5" />
-                              <span>INTERNAL REPO</span>
+                            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 font-sans text-[11px] font-semibold text-studio-cyan-light">
+                              <Terminal className="w-3.5 h-3.5" />
+                              <span>PRIVATE REPO (BLACK HAT 2027)</span>
                             </span>
                           )}
                         </div>
@@ -361,12 +362,16 @@ export function Projects() {
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 pt-6 sm:pt-8">
                 {ordered.slice(2).map(({ project }) => {
+                  const isCsc = project.id === "csc-ctf-2026";
                   return (
                     <div key={project.id} className="md:col-span-12">
                       <TiltCard
                         maxTilt={4}
-                        spotlightColor="rgba(212, 160, 23, 0.2)"
-                        className="border border-white/[0.08] hover:border-studio-amber-light/40 bg-studio-surface/60 backdrop-blur-md"
+                        spotlightColor={isCsc ? "rgba(37, 99, 235, 0.2)" : "rgba(212, 160, 23, 0.2)"}
+                        className={cn(
+                          "border border-white/[0.08] bg-studio-surface/60 backdrop-blur-md",
+                          isCsc ? "hover:border-studio-accent-light/40" : "hover:border-studio-amber-light/40"
+                        )}
                       >
                         <article className="p-6 sm:p-8 md:p-10 group">
                           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
@@ -388,7 +393,7 @@ export function Projects() {
                                     alt={project.title}
                                     aspectRatio="aspect-auto h-full w-full"
                                     rounded="rounded-2xl"
-                                    monogram="P"
+                                    monogram={isCsc ? "C" : "P"}
                                     fallbackType="project"
                                     fallbackLabel={project.title}
                                     fallbackSub={`${project.category} · ${project.year}`}
@@ -402,19 +407,30 @@ export function Projects() {
                             {/* Right: 5-Col Narrative + Stats */}
                             <div className="md:col-span-5 space-y-4">
                               <div className="flex items-center justify-between">
-                                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-amber/10 border border-studio-amber/25 text-xs font-sans font-bold text-studio-amber-light">
-                                  <Activity className="w-3.5 h-3.5" />
-                                  MEDICAL AI
+                                <span className={cn(
+                                  "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-sans font-bold",
+                                  isCsc
+                                    ? "bg-studio-accent/10 border border-studio-accent/25 text-studio-accent-light"
+                                    : "bg-studio-amber/10 border border-studio-amber/25 text-studio-amber-light"
+                                )}>
+                                  {isCsc ? <Sparkles className="w-3.5 h-3.5" /> : <Activity className="w-3.5 h-3.5" />}
+                                  {isCsc ? "FEATURED INFRASTRUCTURE" : "MEDICAL AI"}
                                 </span>
                                 <span className="text-xs font-sans font-medium text-studio-faint uppercase">
                                   {project.year}
                                 </span>
                               </div>
 
-                              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-studio-text group-hover:text-studio-amber-light transition-colors duration-300">
+                              <h3 className={cn(
+                                "text-2xl sm:text-3xl font-extrabold tracking-tight font-display text-studio-text transition-colors duration-300",
+                                isCsc ? "group-hover:text-studio-accent-light" : "group-hover:text-studio-amber-light"
+                              )}>
                                 {project.title}{" "}
                                 {project.serifAccent && (
-                                  <span className="font-display font-bold text-studio-amber-light block sm:inline">
+                                  <span className={cn(
+                                    "font-display font-bold block sm:inline",
+                                    isCsc ? "text-studio-accent-light" : "text-studio-amber-light"
+                                  )}>
                                     · {project.serifAccent}
                                   </span>
                                 )}
@@ -424,10 +440,17 @@ export function Projects() {
                                 {project.tagline}
                               </p>
 
-                              <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between text-xs font-sans text-studio-faint font-medium">
-                                <span>OPTIMIZATION (MobileNetV2)</span>
-                                <span className="text-studio-amber-light font-bold font-mono">99.65% ACCURACY</span>
-                              </div>
+                              {isCsc ? (
+                                <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between text-xs font-sans text-studio-faint font-medium">
+                                  <span>CI/CD PIPELINE &amp; CTFD SYNC</span>
+                                  <span className="text-studio-accent-light font-bold font-mono">79 PRS MERGED (45%)</span>
+                                </div>
+                              ) : (
+                                <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-between text-xs font-sans text-studio-faint font-medium">
+                                  <span>OPTIMIZATION (MobileNetV2)</span>
+                                  <span className="text-studio-amber-light font-bold font-mono">99.65% ACCURACY</span>
+                                </div>
+                              )}
 
                               <div className="pt-2 flex flex-wrap gap-1.5">
                                 {project.technologies.slice(0, 4).map((t) => (
@@ -444,9 +467,12 @@ export function Projects() {
                                 <button
                                   type="button"
                                   onClick={() => setInspectedProject(project)}
-                                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-studio-amber-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
+                                  className={cn(
+                                    "inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors",
+                                    isCsc ? "hover:border-studio-accent-light/50" : "hover:border-studio-amber-light/50"
+                                  )}
                                 >
-                                  <Activity className="w-3.5 h-3.5 text-studio-amber-light" />
+                                  {isCsc ? <Terminal className="w-3.5 h-3.5 text-studio-accent-light" /> : <Activity className="w-3.5 h-3.5 text-studio-amber-light" />}
                                   <span>INSPECT ARCHITECTURE</span>
                                 </button>
 
@@ -455,7 +481,10 @@ export function Projects() {
                                     href={project.repoUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 hover:border-studio-amber-light/40 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text hover:text-studio-amber-light transition-all font-bold"
+                                    className={cn(
+                                      "inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] text-xs font-sans uppercase tracking-wider text-studio-text transition-all font-bold",
+                                      isCsc ? "hover:border-studio-accent-light/40 hover:text-studio-accent-light" : "hover:border-studio-amber-light/40 hover:text-studio-amber-light"
+                                    )}
                                   >
                                     <FolderGit2 className="w-4 h-4 text-studio-muted" />
                                     <span>VIEW REPOSITORY</span>
@@ -597,8 +626,9 @@ export function Projects() {
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                     ) : (
-                      <span className="text-xs font-sans text-studio-faint font-medium">
-                        Internal Protected Infrastructure
+                      <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-mono font-bold text-studio-cyan-light">
+                        <Terminal className="w-3.5 h-3.5" />
+                        <span>PRIVATE RESEARCH REPO (BLACK HAT ASIA 2027 TARGET)</span>
                       </span>
                     )}
 
