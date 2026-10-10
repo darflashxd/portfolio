@@ -29,11 +29,30 @@ export function Contact() {
   const { socials } = portfolioData;
   const [copied, setCopied] = useState(false);
 
-  const copyEmail = () => {
-    if (navigator?.clipboard) {
-      navigator.clipboard.writeText(socials.email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+  const copyEmail = async () => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(socials.email);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        throw new Error("Clipboard API unavailable");
+      }
+    } catch {
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = socials.email;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // Fallback fails silently without raising unhandled page error
+      }
     }
   };
 

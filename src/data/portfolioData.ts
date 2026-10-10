@@ -122,8 +122,8 @@ export interface SocialLinks {
   phone?: string;
   github: string;
   linkedin: string;
-  tryhackme: string;
-  hackthebox: string;
+  tryhackme?: string;
+  hackthebox?: string;
 }
 
 export const portfolioData = {
@@ -253,7 +253,6 @@ export const portfolioData = {
       accentColor: "#22D3EE",
       technologies: ["Linux Forensics", "systemd Journal", "ELF Analysis", "xattr", "FTK Imager", "WSL2"],
       image: "/images/projects/project-dfir-labs.jpg",
-      repoUrl: "https://github.com/PETIRsec/beefest-2026-qual/tree/main/Forensic/BTW%20I%20Use%20Arch",
     },
     {
       id: "pulmoai",
@@ -486,7 +485,7 @@ export const portfolioData = {
       summary: "24-hour practical incident response exam: network PCAP triage, digital forensics, SIEM threat hunting, and malware analysis.",
       badgeLetter: "B",
       image: "/images/certifications/cert-btl1.jpg",
-      credentialUrl: "https://securityblue.team/what-is-btl1/",
+      credentialUrl: "https://securityblue.team/certifications/blue-team-level-1/",
       actionLabel: "Curriculum & Exam Blueprint",
     },
     {
@@ -585,7 +584,5 @@ export const portfolioData = {
     phone: "+62 895-3831-57017",
     github: "https://github.com/darflashxd",
     linkedin: "https://www.linkedin.com/in/rafisutanto/",
-    tryhackme: "https://tryhackme.com/p/YOUR_THM_HANDLE",
-    hackthebox: "https://app.hackthebox.com/profile/YOUR_HTB_HANDLE",
   } as SocialLinks,
 };
