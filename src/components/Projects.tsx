@@ -65,9 +65,9 @@ export function Projects() {
       id="projects"
       className="py-28 sm:py-40 bg-temp-projects text-studio-text border-b border-studio-border relative overflow-hidden"
     >
-      {/* Ambient Cool Cyan Glow */}
+      {/* Subtle Ambient Section Glow (Clean diffuse gradient without localized oval blobs) */}
       <div
-        className="absolute top-1/3 left-1/4 w-[550px] h-[380px] bg-studio-cyan/5 blur-[160px] pointer-events-none rounded-full"
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-studio-cyan/[0.02] to-transparent pointer-events-none"
         aria-hidden="true"
       />
 
@@ -107,11 +107,11 @@ export function Projects() {
                   >
                     <article className="p-6 sm:p-8 md:p-10 flex flex-col justify-between h-full group">
                       <div className="space-y-6">
-                        {/* Top Meta Bar */}
+                        {/* Top Meta Bar — Clean architectural tag without bulky oval pill */}
                         <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
-                          <span className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-sans font-bold text-studio-cyan-light shadow-sm">
-                            <Sparkles className="w-3.5 h-3.5" />
-                            FEATURED ZERO-KNOWLEDGE ENCLAVE
+                          <span className="shrink-0 inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/[0.04] border border-studio-cyan-light/25 text-xs font-mono font-bold text-studio-cyan-light shadow-sm">
+                            <span className="w-1.5 h-1.5 rounded-full bg-studio-cyan-light animate-pulse" />
+                            ZERO-KNOWLEDGE ENCLAVE
                           </span>
                           <span className="shrink-0 text-xs font-mono font-medium text-studio-muted uppercase tracking-wider">
                             AI PRIVACY · {project.year}
@@ -222,11 +222,11 @@ export function Projects() {
                       <div className="space-y-4">
                         {/* Top Meta Bar */}
                         <div className="flex items-center justify-between gap-3">
-                          <span className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-studio-cyan/10 border border-studio-cyan/25 text-xs font-sans font-bold text-studio-cyan-light">
+                          <span className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white/[0.04] border border-studio-cyan-light/25 text-xs font-mono font-bold text-studio-cyan-light">
                             <Terminal className="w-3.5 h-3.5" />
                             DIGITAL FORENSICS
                           </span>
-                          <span className="text-xs font-sans font-medium text-studio-faint uppercase shrink-0">
+                          <span className="text-xs font-mono font-medium text-studio-muted uppercase shrink-0">
                             BEECTF · {project.year}
                           </span>
                         </div>
@@ -382,15 +382,15 @@ export function Projects() {
                             <div className="md:col-span-5 space-y-4">
                               <div className="flex items-center justify-between">
                                 <span className={cn(
-                                  "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-sans font-bold",
+                                  "inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-bold",
                                   isCsc
-                                    ? "bg-studio-accent/10 border border-studio-accent/25 text-studio-accent-light"
-                                    : "bg-studio-amber/10 border border-studio-amber/25 text-studio-amber-light"
+                                    ? "bg-white/[0.04] border border-studio-accent-light/30 text-studio-accent-light"
+                                    : "bg-white/[0.04] border border-studio-amber-light/30 text-studio-amber-light"
                                 )}>
                                   {isCsc ? <Sparkles className="w-3.5 h-3.5" /> : <Activity className="w-3.5 h-3.5" />}
                                   {isCsc ? "FEATURED INFRASTRUCTURE" : "MEDICAL AI"}
                                 </span>
-                                <span className="text-xs font-sans font-medium text-studio-faint uppercase">
+                                <span className="text-xs font-mono font-medium text-studio-muted uppercase">
                                   {project.year}
                                 </span>
                               </div>
