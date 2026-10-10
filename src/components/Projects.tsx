@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { ArrowUpRight, FolderGit2, Sparkles, Terminal, Activity, X, ExternalLink, Code2, ChevronDown } from "lucide-react";
+import { ArrowUpRight, FolderGit2, Sparkles, Terminal, Activity, X, ExternalLink, ChevronDown } from "lucide-react";
 import { portfolioData, type ProjectEntry } from "@/data/portfolioData";
 import { EditorialImage } from "@/components/EditorialImage";
 import { Reveal } from "@/components/motion/Reveal";
@@ -172,28 +172,16 @@ export function Projects() {
                         </div>
                       </div>
 
-                      {/* Footer Actions & Tags */}
-                      <div className="pt-6 mt-6 border-t border-white/[0.06] flex flex-wrap items-center justify-between gap-4">
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.technologies.slice(0, 4).map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full px-3 py-1 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-muted"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center gap-2.5">
-                          <button
-                            type="button"
-                            onClick={() => setInspectedProject(project)}
-                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/10 hover:border-studio-cyan-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
-                          >
-                            <Terminal className="w-3.5 h-3.5 text-studio-cyan-light" />
-                            <span>INSPECT</span>
-                          </button>
+                      {/* Footer Actions */}
+                      <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-end gap-2.5">
+                        <button
+                          type="button"
+                          onClick={() => setInspectedProject(project)}
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/10 hover:border-studio-cyan-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
+                        >
+                          <Terminal className="w-3.5 h-3.5 text-studio-cyan-light" />
+                          <span>INSPECT</span>
+                        </button>
 
                           {project.repoUrl ? (
                             <Magnetic intensity={0.2} range={60}>
@@ -214,7 +202,6 @@ export function Projects() {
                               <span>PRIVATE RESEARCH REPO</span>
                             </span>
                           )}
-                        </div>
                       </div>
                     </article>
                   </TiltCard>
@@ -298,27 +285,15 @@ export function Projects() {
                       </div>
 
                       {/* Footer */}
-                      <div className="pt-4 mt-4 border-t border-white/[0.06] flex items-center justify-between gap-3">
-                        <div className="flex flex-wrap gap-1">
-                          {project.technologies.slice(0, 3).map((t) => (
-                            <span
-                              key={t}
-                              className="rounded-full px-2.5 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[10px] font-sans font-medium text-studio-muted"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center gap-2 shrink-0">
-                          <button
-                            type="button"
-                            onClick={() => setInspectedProject(project)}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 hover:border-studio-cyan-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
-                          >
-                            <Terminal className="w-3 h-3 text-studio-cyan-light" />
-                            <span>INSPECT</span>
-                          </button>
+                      <div className="pt-4 mt-4 border-t border-white/[0.06] flex items-center justify-end gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => setInspectedProject(project)}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 hover:border-studio-cyan-light/50 bg-white/[0.04] text-xs font-sans font-bold text-studio-text hover:text-white transition-colors"
+                        >
+                          <Terminal className="w-3 h-3 text-studio-cyan-light" />
+                          <span>INSPECT</span>
+                        </button>
 
                           {project.repoUrl ? (
                             <a
@@ -335,7 +310,6 @@ export function Projects() {
                               INTERNAL
                             </span>
                           )}
-                        </div>
                       </div>
                     </article>
                   </TiltCard>
@@ -451,17 +425,6 @@ export function Projects() {
                                   <span className="text-studio-amber-light font-bold font-mono">99.65% ACCURACY</span>
                                 </div>
                               )}
-
-                              <div className="pt-2 flex flex-wrap gap-1.5">
-                                {project.technologies.slice(0, 4).map((t) => (
-                                  <span
-                                    key={t}
-                                    className="rounded-full px-3 py-1 bg-white/[0.04] border border-white/[0.08] text-[11px] font-sans font-medium text-studio-muted"
-                                  >
-                                    {t}
-                                  </span>
-                                ))}
-                              </div>
 
                               <div className="pt-2 flex flex-wrap items-center gap-3">
                                 <button
@@ -592,24 +555,6 @@ export function Projects() {
                     <p className="text-xs sm:text-sm text-studio-text font-sans leading-relaxed">
                       {inspectedProject.sellingPoint}
                     </p>
-                  </div>
-
-                  {/* Full Stack Badges */}
-                  <div className="space-y-2">
-                    <span className="text-xs font-sans font-bold text-studio-faint uppercase tracking-wider block">
-                      STACK ARCHITECTURE
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {inspectedProject.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 rounded-full bg-studio-surface border border-white/10 text-xs font-sans font-medium text-studio-text flex items-center gap-1.5"
-                        >
-                          <Code2 className="w-3.5 h-3.5 text-studio-cyan-light" />
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
                   </div>
 
                   {/* Actions Footer */}

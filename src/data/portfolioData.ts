@@ -445,7 +445,7 @@ export const portfolioData = {
         summary:
           "Conducted cybersecurity research and authored forensic problems for community events.",
         impactPoints: [
-          "Authored digital forensics challenges for CSC CTF 2025 analyzing raw disk and network artifacts.",
+          "Authored digital forensics challenges for CSC CTF 2025 (file carving).",
           "Mentored junior members on Volatility and Wireshark investigation toolchains.",
         ],
         photos: [
