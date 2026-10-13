@@ -157,12 +157,6 @@ export function Skills() {
       id="skills"
       className="py-28 sm:py-36 bg-temp-skills text-studio-text border-b border-studio-border relative overflow-hidden"
     >
-      {/* Ambient Cool Cyan / Indigo Glow */}
-      <div
-        className="absolute top-1/4 right-1/4 w-[500px] h-[350px] bg-studio-cyan/5 blur-[160px] pointer-events-none rounded-full"
-        aria-hidden="true"
-      />
-
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Header */}
         <Reveal className="mb-14 sm:mb-20">

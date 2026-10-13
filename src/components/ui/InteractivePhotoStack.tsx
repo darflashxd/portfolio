@@ -140,12 +140,6 @@ export function InteractivePhotoStack({ className = "" }: InteractivePhotoStackP
     <div className={cn("w-full flex flex-col items-center select-none py-4", className)}>
       {/* ── Fanned-Out Interactive 3-Card Stage with Continuous Spring FLIP ── */}
       <div className="relative w-full max-w-[420px] sm:max-w-[520px] h-[380px] sm:h-[440px] flex items-center justify-center">
-        {/* Ambient soft glow behind active card */}
-        <div
-          className="absolute inset-0 m-auto w-56 h-56 bg-studio-cyan/10 blur-[100px] rounded-full pointer-events-none"
-          aria-hidden="true"
-        />
-
         {/* Continuous mapped cards with stable keys for smooth animated transitions */}
         {portraits.map((photo, index) => {
           let offset = (index - activeIndex) % total;

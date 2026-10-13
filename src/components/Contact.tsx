@@ -76,12 +76,6 @@ export function Contact() {
       id="contact"
       className="py-28 sm:py-44 bg-temp-contact text-studio-text border-b border-studio-border relative overflow-hidden"
     >
-      {/* Subtle Blue Team ambient oceanic glow */}
-      <div
-        className="absolute bottom-10 right-10 w-[500px] h-[350px] bg-studio-cyan/5 blur-[160px] pointer-events-none rounded-full"
-        aria-hidden="true"
-      />
-
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Label */}
         <motion.div

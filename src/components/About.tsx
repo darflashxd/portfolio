@@ -118,12 +118,6 @@ export function About() {
       id="about"
       className="py-28 sm:py-40 bg-temp-about text-studio-text border-b border-studio-border overflow-hidden relative"
     >
-      {/* Subtle ambient oceanic illumination */}
-      <div
-        className="absolute top-1/2 right-10 -translate-y-1/2 w-[450px] h-[450px] bg-studio-cyan/5 blur-[160px] pointer-events-none rounded-full"
-        aria-hidden="true"
-      />
-
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         {/* Section Header */}
         <Reveal className="mb-16 sm:mb-24 pb-4 border-b border-studio-border">

@@ -151,7 +151,6 @@ export const portfolioData = {
       "Blue Team Operations",
       "PETIR Cyber Security",
       "CSC BINUS Deputy Coordinator R&D",
-      "CI/CD & DevOps Automation",
     ],
   } as HeroData,
 
