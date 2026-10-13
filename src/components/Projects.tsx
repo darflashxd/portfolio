@@ -166,7 +166,7 @@ export function Projects() {
                           <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center gap-3 text-xs font-sans text-studio-faint">
                             <Terminal className="w-4 h-4 text-studio-cyan-light shrink-0" />
                             <span>
-                              <strong className="text-studio-text">6-Tier Defense &amp; 100% Audit Pass:</strong> Client-Side WebCrypto AES-256-GCM, DistilBERT AI &amp; Algebraic Inversion Protection.
+                              <strong className="text-studio-text">Core Security:</strong> Client-side AES-256-GCM encryption with zero server data retention.
                             </span>
                           </div>
                         </div>
