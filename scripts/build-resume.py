@@ -18,7 +18,7 @@ sections = [
         ("text", "Cybersecurity undergraduate at BINUS University with hands-on experience in digital forensics challenge authoring, privacy tooling development, and CTF infrastructure automation. Finalist at Wreck-IT 7.0 national cyber competition. Seeking an internship in digital forensics, security operations, or defensive security engineering."),
     ]),
     ("EDUCATION", [
-        ("heading", "BINUS University | B.S. Computer Science, Cyber Security | 2024–2028 (expected)"),
+        ("heading", "BINUS University, School of Computer Science | Cyber Security | 2024–2028 (expected)"),
         ("text", "Jakarta, Indonesia | GPA: 3.23 / 4.00"),
     ]),
     ("RELEVANT EXPERIENCE", [
