@@ -1,13 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
-const bricolageGrotesque = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
-  display: "swap",
-});
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -25,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://darflashxd.my.id"),
   title: "Ahmad Rafi Sutanto — Cybersecurity & Digital Forensics",
   description:
-    "Personal portfolio of Ahmad Rafi Sutanto. Cybersecurity student at BINUS University, Deputy Coordinator of R&D at Cyber Security Community, specializing in Blue Team & Digital Forensics.",
+    "Ahmad Rafi Sutanto, cybersecurity student at BINUS University. Privacy tools, digital forensics, and CTF infrastructure. Open to internships and job opportunities.",
   keywords: [
     "Ahmad Rafi Sutanto",
     "Cybersecurity",
@@ -61,7 +54,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#06080F",
+  themeColor: "#101214",
   width: "device-width",
   initialScale: 1,
 };
@@ -74,16 +67,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolageGrotesque.variable} ${jetbrainsMono.variable} ${plusJakartaSans.variable} scroll-smooth`}
+      className={`${jetbrainsMono.variable} ${plusJakartaSans.variable}`}
     >
-      <body className="bg-studio-bg text-studio-text font-sans antialiased selection:bg-studio-accent selection:text-white">
+      <body>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-studio-text focus:text-studio-bg focus:font-mono focus:text-xs focus:ring-2 focus:ring-studio-accent focus:outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-3 focus:bg-white focus:text-black"
         >
           Skip to main content
         </a>
-        <SmoothScroll>{children}</SmoothScroll>
+        {children}
       </body>
     </html>
   );
