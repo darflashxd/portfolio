@@ -4,6 +4,11 @@ from html import escape
 
 from docx import Document
 from docx.shared import Inches, Pt
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_CENTER
@@ -15,21 +20,21 @@ PUBLIC = ROOT / "public"
 
 sections = [
     ("SUMMARY", [
-        ("text", "Cybersecurity undergraduate at BINUS University with hands-on experience in digital forensics challenge authoring, privacy tooling development, and CTF infrastructure automation. Finalist at Wreck-IT 7.0 national cyber competition. Seeking an internship in digital forensics, security operations, or defensive security engineering."),
+        ("text", "Cybersecurity undergraduate focused on digital forensics and defensive security. Develops forensic challenges, privacy tools, and CTF infrastructure; seeking a cybersecurity internship."),
     ]),
     ("EDUCATION", [
         ("heading", "BINUS University, School of Computer Science | Cyber Security | 2024–2028 (expected)"),
         ("text", "Jakarta, Indonesia | GPA: 3.23 / 4.00"),
     ]),
     ("RELEVANT EXPERIENCE", [
-        ("heading", "Apprentice & Digital Forensics Challenge Author | PETIR Cyber Security | Mar 2026–Present"),
-        ("bullet", "Developed forensic challenges for IFEST 2026 (Universitas Padjadjaran) and BeeCTF 2026: LUKS volume encryption, ext4 artifact carving, and a simulated malicious Arch Linux AUR package with multi-layer evidence trails."),
-        ("bullet", "Authored reference writeups covering both Linux CLI and FTK Imager investigation paths; built automated validation solvers to guarantee challenge integrity."),
+        ("heading", "Apprentice | PETIR Cyber Security | Mar 2026–Present"),
+        ("bullet", "Authored IFEST and BeeCTF forensic challenges in Aug 2026, covering LUKS encryption, ext4 carving, and a simulated malicious AUR package."),
+        ("bullet", "Documented Linux CLI and FTK Imager investigation paths; built validation solvers to check intended solutions."),
         ("heading", "Deputy Coordinator, R&D | Cyber Security Community, BINUS | Oct 2025–Present"),
         ("bullet", "Coordinate challenge authors across six competition categories and review contributions for technical accuracy and solvability."),
-        ("bullet", "Built GitHub Actions CI/CD workflows that auto-sync challenge metadata to CTFd via ctfcli and deploy Docker services to VPS over SSH, eliminating manual deployment on competition day."),
+        ("bullet", "Built GitHub Actions workflows to sync challenge metadata to CTFd via ctfcli and deploy Docker services to a VPS over SSH."),
         ("heading", "Project Officer | National Cyber Week 2025, CSC BINUS | Oct–Dec 2025"),
-        ("bullet", "Led event operations for 200+ national university participants, including an on-site IoT Hacking CTF final and workshops on web penetration testing and adversarial AI."),
+        ("bullet", "Led competition operations, an on-site IoT hacking final, and workshops on web penetration testing and adversarial AI."),
         ("heading", "R&D Activist | Cyber Security Community, BINUS | Feb–Sep 2025"),
         ("bullet", "Authored file-carving forensics challenges for CSC CTF 2025 and mentored junior members on Volatility and Wireshark investigation workflows."),
     ]),
@@ -43,7 +48,7 @@ sections = [
         ("bullet", "Simulated an Arch Linux package compromise requiring correlation across package logs, shell history, systemd journal, ELF binaries, and extended file attributes (xattr) to reconstruct the full attack timeline."),
         ("heading", "PulmoAI — Tuberculosis chest X-ray detection"),
         ("link", "github.com/darflashxd/pulmoai"),
-        ("bullet", "Optimized CNN model from VGG to MobileNetV2 via transfer learning, reducing model size by 90% while achieving 99.65% validation accuracy. Full-stack app with Flask backend and React frontend."),
+        ("bullet", "Replaced a VGG-style CNN with MobileNetV2 using transfer learning for a chest X-ray classification app with Flask and React."),
     ]),
     ("TECHNICAL SKILLS", [
         ("text", "Forensics & IR: Volatility 3, Autopsy, FTK Imager, Eric Zimmerman Tools, Wireshark; Windows/Linux artifact analysis"),
@@ -52,13 +57,12 @@ sections = [
         ("text", "Reverse Engineering: Ghidra, x64dbg, JADX, APKTool"),
         ("text", "Frameworks: MITRE ATT&CK, NIST SP 800-61, OWASP Top 10"),
     ]),
-    ("AWARDS & COMPETITIONS", [
-        ("text", "Finalist, Wreck-IT 7.0 General CTF | Politeknik Siber dan Sandi Negara (BSSN) | Aug 2026 | Team HM Plenger"),
-        ("text", "Competitor: GEMASTIK (Kemendikbudristek), FindIT! (UGM), IFEST (UNPAD), Polri Cyber CTF, Gundar CTF | 2025–2026"),
+    ("AWARDS", [
+        ("text", "Finalist — Wreck-IT 7.0, General Capture The Flag | Poltek SSN | Aug 2026 | Team HM Plenger"),
+        ("link", "darflashxd.my.id/certificates/cert-wreckit-finalist.pdf"),
     ]),
     ("PROFESSIONAL DEVELOPMENT", [
         ("text", "Blue Team Level 1 (BTL1), Security Blue Team — exam preparation in progress; certification not yet earned."),
-        ("text", "6 published CTF writeups covering digital forensics, memory analysis, and web exploitation (darflashxd.my.id)"),
     ]),
 ]
 
@@ -66,13 +70,32 @@ name = "AHMAD RAFI SUTANTO"
 contact = "Tangerang & Jakarta, Indonesia | +62 895-3831-57017 | rafisutanto@gmail.com"
 profiles = "linkedin.com/in/rafisutanto | github.com/darflashxd | darflashxd.my.id"
 
+def add_link(paragraph, label, url):
+    hyperlink = OxmlElement("w:hyperlink")
+    hyperlink.set(qn("r:id"), paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True))
+    run = OxmlElement("w:r")
+    node = OxmlElement("w:t")
+    node.text = label
+    run.append(node)
+    hyperlink.append(run)
+    paragraph._p.append(hyperlink)
+
+def link_url(label):
+    if '@' in label:
+        return 'mailto:' + label
+    if label.startswith('+62'):
+        return 'tel:' + label.replace(' ', '').replace('-', '')
+    if '.' in label:
+        return 'https://' + label
+    return None
+
 doc = Document()
 section = doc.sections[0]
 section.top_margin = section.bottom_margin = Inches(0.5)
 section.left_margin = section.right_margin = Inches(0.6)
 section.page_width, section.page_height = Inches(8.27), Inches(11.69)
 normal = doc.styles["Normal"]
-normal.font.name, normal.font.size = "Calibri", Pt(10)
+normal.font.name, normal.font.size = "Calibri", Pt(10.5)
 normal.paragraph_format.space_after = Pt(2)
 normal.paragraph_format.line_spacing = 1.0
 for text in [name, contact, profiles]:
@@ -81,24 +104,38 @@ for text in [name, contact, profiles]:
     if text == name:
         paragraph.runs[0].bold = True
         paragraph.runs[0].font.size = Pt(16)
+    else:
+        paragraph.clear()
+        for index, label in enumerate(text.split(' | ')):
+            if index:
+                paragraph.add_run(' | ')
+            url = link_url(label)
+            if url:
+                add_link(paragraph, label, url)
+            else:
+                paragraph.add_run(label)
 
-base = ParagraphStyle("body", fontName="Helvetica", fontSize=9.5, leading=11.5, spaceAfter=2)
+pdfmetrics.registerFont(TTFont("Calibri", "C:/Windows/Fonts/calibri.ttf"))
+pdfmetrics.registerFont(TTFont("Calibri-Bold", "C:/Windows/Fonts/calibrib.ttf"))
+base = ParagraphStyle("body", fontName="Calibri", fontSize=10.5, leading=12, spaceAfter=2)
 styles = {
     "text": base,
     "bullet": ParagraphStyle("bullet", parent=base, leftIndent=10, firstLineIndent=-7),
-    "heading": ParagraphStyle("heading", parent=base, fontName="Helvetica-Bold", spaceBefore=2),
-    "link": ParagraphStyle("link", parent=base, fontSize=8.5, leading=10, textColor=colors.HexColor("#244970")),
+    "heading": ParagraphStyle("heading", parent=base, fontName="Calibri-Bold", spaceBefore=2, keepWithNext=True),
+    "link": ParagraphStyle("link", parent=base, fontSize=10, leading=11, textColor=colors.HexColor("#244970")),
 }
-story = [Paragraph(name, ParagraphStyle("name", parent=base, fontName="Helvetica-Bold", fontSize=16, leading=19, alignment=TA_CENTER))]
+story = [Paragraph(name, ParagraphStyle("name", parent=base, fontName="Calibri-Bold", fontSize=16, leading=19, alignment=TA_CENTER))]
 for text in [contact, profiles]:
-    story.append(Paragraph(escape(text), ParagraphStyle("contact" + text[:3], parent=base, fontSize=8.5, leading=10, alignment=TA_CENTER)))
+    content = ' | '.join(f'<link href="{escape(link_url(label), quote=True)}">{escape(label)}</link>' if link_url(label) else escape(label) for label in text.split(' | '))
+    story.append(Paragraph(content, ParagraphStyle("contact" + text[:3], parent=base, fontSize=10, leading=11, alignment=TA_CENTER)))
 story.append(Spacer(1, 3))
 
 for title, entries in sections:
     paragraph = doc.add_paragraph()
     paragraph.paragraph_format.space_before = Pt(5)
     paragraph.add_run(title).bold = True
-    story.append(Paragraph(title, ParagraphStyle(title, parent=base, fontName="Helvetica-Bold", fontSize=9.5, spaceBefore=5, spaceAfter=2)))
+    paragraph.paragraph_format.keep_with_next = True
+    story.append(Paragraph(title, ParagraphStyle(title, parent=base, fontName="Calibri-Bold", fontSize=10.5, spaceBefore=5, spaceAfter=2, keepWithNext=True)))
     for kind, text in entries:
         paragraph = doc.add_paragraph(("• " if kind == "bullet" else "") + text)
         if kind == "heading":
@@ -106,7 +143,9 @@ for title, entries in sections:
             paragraph.paragraph_format.keep_with_next = True
         content = escape(text)
         if kind == "link":
-            content = f'<link href="{text}">{content}</link>'
+            content = f'<link href="https://{text}">{content}</link>'
+            paragraph.clear()
+            add_link(paragraph, text, "https://" + text)
         story.append(Paragraph(("• " if kind == "bullet" else "") + content, styles[kind]))
 
 pdf_path = PUBLIC / "Resume_Ahmad_Rafi_Sutanto.pdf"
@@ -116,5 +155,10 @@ assert len(reader.pages) == 1, f"Resume must fit one page, got {len(reader.pages
 text = reader.pages[0].extract_text()
 assert all(term in text for term in [name, "SafeShare", "not yet earned", "PETIR", "PulmoAI", "MITRE", "YARA", "Ghidra", "OWASP"])
 assert "Designed 30+" not in text
+assert '\x7f' not in text and '\ufffd' not in text
+assert text.count('Finalist') == 1
+uris = [a.get_object()['/A']['/URI'] for p in reader.pages for a in p.get('/Annots', [])]
+assert len(uris) == 9 and all(u.startswith(('https://', 'mailto:', 'tel:')) for u in uris)
+assert any(u.endswith('cert-wreckit-finalist.pdf') for u in uris)
 doc.save(PUBLIC / "CV_Ahmad_Rafi_Sutanto.docx")
 print("PASS: one-page, text-readable PDF and editable DOCX generated")
