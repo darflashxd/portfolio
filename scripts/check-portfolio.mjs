@@ -18,13 +18,17 @@ for (const route of routes) {
     assert.doesNotMatch(html, /In my BINUS jacket|Building things\.|class="portrait"/);
     assert.doesNotMatch(html, /hero-project/);
     assert.match(html, /https:\/\/github.com\/darflashxd\/safeshare/);
+    assert.match(html, /id="recognition-title"/);
+    assert.match(html, /Finalist — Wreck-IT 7\.0/);
+    assert.match(html, /official PETIR member in October 2026/);
+    assert.match(html, /Previously Apprentice/);
   }
   if (route === "/work/safeshare") {
     assert.match(html, /Black Hat Asia Arsenal 2027/);
     assert.match(html, /It has not been submitted yet/);
   }
 
-  const assets = [...html.matchAll(/href="(\/(?:writeups\/[^"?]+\.pdf|Resume_[^"?]+\.pdf))"/g)];
+  const assets = [...html.matchAll(/href="(\/(?:writeups\/[^"?]+\.pdf|certificates\/[^"?]+\.pdf|Resume_[^"?]+\.pdf))"/g)];
   for (const [, path] of assets) {
     const asset = await fetch(new URL(path, origin), { method: "HEAD" });
     assert.equal(asset.status, 200, `${path} must exist`);

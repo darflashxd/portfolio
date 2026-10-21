@@ -27,7 +27,8 @@ sections = [
         ("text", "Jakarta, Indonesia | GPA: 3.23 / 4.00"),
     ]),
     ("RELEVANT EXPERIENCE", [
-        ("heading", "Apprentice | PETIR Cyber Security | Mar 2026–Present"),
+        ("heading", "Member | PETIR Cyber Security | Oct 2026–Present"),
+        ("text", "Previously Apprentice | Mar–Oct 2026"),
         ("bullet", "Authored IFEST and BeeCTF forensic challenges in Aug 2026, covering LUKS encryption, ext4 carving, and a simulated malicious AUR package."),
         ("bullet", "Documented Linux CLI and FTK Imager investigation paths; built validation solvers to check intended solutions."),
         ("heading", "Deputy Coordinator, R&D | Cyber Security Community, BINUS | Oct 2025–Present"),

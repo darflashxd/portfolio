@@ -161,7 +161,7 @@ export const portfolioData = {
     statement:
       "I'm Ahmad Rafi Sutanto, a Cybersecurity undergraduate at BINUS University specializing in Blue Team operations, Digital Forensics, and Threat Detection.",
     highlightParagraph:
-      "Currently serving as Deputy Coordinator of R&D at Cyber Security Community (CSC) and Apprentice at PETIR Cyber Security, where I architect automated CI/CD security infrastructure, orchestrate competition problem sets, and dissect low-level kernel and memory telemetry.",
+       "Currently serving as Deputy Coordinator of R&D at Cyber Security Community (CSC) and a member of PETIR Cyber Security, contributing to forensic challenges and competition infrastructure.",
     stats: [
       { value: "3.23", label: "Cumulative GPA / 4.00" },
       { value: "30", label: "CTF Challenges Orchestrated" },
@@ -336,13 +336,13 @@ export const portfolioData = {
       },
       {
         id: "petir-apprentice",
-        period: "Mar 2026 — Present · 7 mos",
-        role: "Apprentice",
+        period: "Oct 2026 — Present",
+        role: "Member",
         organization: "PETIR Cyber Security",
-        orgHighlight: "BINUS University · Hybrid",
+        orgHighlight: "Previously Apprentice · Mar–Oct 2026 · BINUS University",
         location: "West Jakarta, Jakarta, Indonesia",
         summary:
-          "Undergoing technical apprenticeship with senior researchers on advanced threat detection and CTF problem sets.",
+          "Official member since October 2026, following an apprenticeship from March to October 2026.",
         impactPoints: [
           "Executed intensive Blue Team defensive drills, threat detection, and network security exercises.",
           "Collaborated with senior members on vulnerability exploitation and forensic triage methodologies.",
