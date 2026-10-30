@@ -30,7 +30,15 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   return <><Navbar /><main id="main-content" tabIndex={-1} className="shell case-study">
     <Link className="text-link back-link" href="/#work"><ArrowLeft size={16} /> All work</Link>
     <header className="case-header"><p className="eyebrow">{project.category} / {project.year}</p><h1>{project.title}</h1><p className="case-summary">{project.summary}</p><p className="case-contribution">{project.contribution}</p><ul className="tool-list">{project.tools.map(tool => <li key={tool}>{tool}</li>)}</ul></header>
-    <figure className="case-image"><Image src={project.image} alt={project.imageAlt} width={1400} height={900} priority sizes="(max-width: 1120px) 100vw, 1120px" /><figcaption>{project.imageAlt}</figcaption></figure>
+    {project.screenshots ? <section className="case-gallery" aria-label="Product screenshots">
+      {project.screenshots.map((shot, index) => <figure className="case-image" key={shot.src}>
+        <h2>{shot.title}</h2>
+        <a href={shot.src} target="_blank" rel="noopener noreferrer" aria-label={`Enlarge ${shot.title.toLowerCase()} (opens in new tab)`}>
+          <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} priority={index === 0} sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1216px) 46vw, 548px" />
+        </a>
+        <figcaption>{shot.caption} <a className="text-link" href={shot.src} target="_blank" rel="noopener noreferrer">View full size <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a></figcaption>
+      </figure>)}
+    </section> : <figure className="case-image"><Image src={project.image} alt={project.imageAlt} width={1400} height={900} priority sizes="(max-width: 1120px) 100vw, 1120px" /><figcaption>{project.imageAlt}</figcaption></figure>}
     <div className="case-body">
       <section><h2>Context</h2><p>{project.context}</p></section>
       <section><h2>Approach</h2>{project.approach.map((step, index) => <article className="case-step" key={step.title}><span className="date">0{index + 1}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></article>)}</section>

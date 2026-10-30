@@ -118,6 +118,13 @@ h2 { font-size: clamp(27px, 3vw, 36px); line-height: 1.25; letter-spacing: -1.3p
 .case-contribution { color: var(--muted); font-size: 14px; margin-top: 18px; }
 .case-image img { width: 100%; height: auto; max-height: 650px; object-fit: contain; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
 .case-image figcaption { color: var(--muted); font-size: 11px; margin-top: 12px; }
+.case-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.case-gallery h2 { font-size: 18px; letter-spacing: -.4px; margin-bottom: 16px; }
+.case-gallery .case-image > a { display: block; border-radius: var(--radius); }
+.case-gallery .case-image img { display: block; padding: 8px; }
+.case-gallery figcaption { line-height: 1.8; }
+.case-gallery figcaption .text-link { display: flex; width: fit-content; }
+@media (max-width: 700px) { .case-gallery { grid-template-columns: 1fr; gap: 32px; } }
 .case-body { max-width: 720px; margin: 64px auto 0; }
 .case-body section { margin-bottom: 48px; }
 .case-body h2 { font-size: 27px; margin-bottom: 18px; }
