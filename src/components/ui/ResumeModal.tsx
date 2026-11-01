@@ -63,7 +63,7 @@ export function ResumeModal() {
     }
   }, [isOpen]);
 
-  const recruiterPitch = `Ahmad Rafi Sutanto — Cybersecurity Student at BINUS University & Deputy Coordinator of R&D at Cyber Security Community (CSC). Specialization: Blue Team, DFIR, and Threat Detection. Experience: 30 CTF challenges, 20+ authors led, BeeCTF forensics author, BTL1 (Expected 2026), GPA 3.23 / 4.00. Portfolio: https://darflashxd.my.id | Resume: https://darflashxd.my.id/Resume_Ahmad_Rafi_Sutanto.pdf | Contact: ${socials.email} | Tel: ${socials.phone ?? "+62 895-3831-57017"}`;
+  const recruiterPitch = `Ahmad Rafi Sutanto — BTL1-certified Cybersecurity Student at BINUS University & Deputy Coordinator of R&D at Cyber Security Community (CSC). Specialization: Blue Team, DFIR, and Threat Detection. Experience: 30 CTF challenges, 20+ authors led, BeeCTF forensics author. Blue Team Level 1 (BTL1), Security Blue Team, earned Nov 2026. GPA 3.23 / 4.00. Portfolio: https://darflashxd.my.id | Resume: https://darflashxd.my.id/Resume_Ahmad_Rafi_Sutanto.pdf | Contact: ${socials.email} | Tel: ${socials.phone ?? "+62 895-3831-57017"}`;
 
   const copyPitch = async () => {
     try {

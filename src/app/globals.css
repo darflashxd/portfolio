@@ -95,6 +95,13 @@ h2 { font-size: clamp(27px, 3vw, 36px); line-height: 1.25; letter-spacing: -1.3p
 .learning-note { border-top: 1px solid var(--border); padding-top: 20px; }
 .learning-note p { margin-top: 8px; }
 .learning-note p span { color: var(--muted); font-size: 11px; }
+.certification-note { margin-bottom: 24px; }
+.certification-heading { display: flex; align-items: center; gap: 16px; }
+.certification-heading img { object-fit: contain; flex-shrink: 0; }
+.certification-heading h3 { font-size: 17px; line-height: 1.5; }
+.certification-heading .eyebrow { margin: 0 0 4px; }
+.certification-heading p:not(.eyebrow) { color: var(--muted); font-size: 11px; }
+.certification-note > p { color: var(--muted); font-size: 12px; }
 .writing-row { display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: 24px; padding: 23px 0; border-top: 1px solid var(--border); }
 .writing-row:last-child { border-bottom: 1px solid var(--border); }
 .writing-year,.pdf-label { color: var(--muted); }

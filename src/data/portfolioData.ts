@@ -100,6 +100,8 @@ export interface CertificationEntry {
   badgeLetter: string;
   image?: string;
   credentialUrl?: string;
+  credentialId?: string;
+  certificateUrl?: string;
   actionLabel?: string;
 }
 
@@ -479,13 +481,15 @@ export const portfolioData = {
     {
       title: "Security Blue Team — Blue Team Level 1 (BTL1)",
       issuer: "Security Blue Team",
-      date: "Currently Preparing",
-      status: "Active Pursuit",
-      summary: "24-hour practical incident response exam: network PCAP triage, digital forensics, SIEM threat hunting, and malware analysis.",
+      date: "01 November 2026",
+      status: "Verified",
+      summary: "Earned through a 24-hour practical incident response exam covering phishing analysis, threat intelligence, digital forensics, SIEM, and incident response.",
       badgeLetter: "B",
-      image: "/images/certifications/cert-btl1.jpg",
-      credentialUrl: "https://securityblue.team/certifications/blue-team-level-1/",
-      actionLabel: "Curriculum & Exam Blueprint",
+      image: "/images/certifications/cert-btl1.png",
+      credentialId: "710141939",
+      credentialUrl: "https://www.credly.com/badges/9cdd0531-7a95-4d0c-8638-788d5d3ff3d8/public_url",
+      certificateUrl: "/certificates/BTL1-Ahmad-Rafi-Sutanto.pdf",
+      actionLabel: "Verify on Credly",
     },
     {
       title: "Wreck-IT 7.0 — Finalis General Capture The Flag",

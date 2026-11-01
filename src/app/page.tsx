@@ -10,7 +10,8 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 
 export default function Home() {
   const { siteInfo, socials, ctfWriteups } = portfolioData;
-  const recognition = portfolioData.certifications.find(item => item.status === "Verified")!;
+  const recognition = portfolioData.certifications.find(item => item.badgeLetter === "W")!;
+  const btl1 = portfolioData.certifications.find(item => item.badgeLetter === "B")!;
 
   return (
     <>
@@ -46,7 +47,11 @@ export default function Home() {
 
         <section id="about" className="section about-section" aria-labelledby="about-title"><div className="shell about-grid">
           <div><p className="eyebrow">02 / A little context</p><h2 id="about-title">The person<br />behind the work.</h2><p className="about-lead">I like the part where scattered evidence starts to make sense.</p><p>I’m studying cybersecurity at BINUS University, with a focus on digital forensics and defensive security. I’m a member of PETIR Cyber Security and Deputy Coordinator of R&amp;D at CSC BINUS, where I contribute to projects and CTF challenges.</p><p>I’m looking for an internship where I can contribute to investigations, detection, or security tooling—and learn from people doing that work every day. I’m also open to job opportunities.</p><a className="text-link" href={siteInfo.resumeUrl} target="_blank" rel="noopener noreferrer">View my CV <Download size={16} /><span className="sr-only"> (PDF, opens in new tab)</span></a></div>
-          <div><PhotoGallery /><section className="learning-note" aria-labelledby="recognition-title"><h3 id="recognition-title" className="eyebrow">Recognition</h3><p>Finalist — Wreck-IT 7.0 General CTF<br /><span>Poltek SSN · Aug 2026 · Team HM Plenger</span></p><a className="text-link" href={recognition.credentialUrl} target="_blank" rel="noopener noreferrer">View certificate <ArrowUpRight size={16} /><span className="sr-only"> (PDF, opens in new tab)</span></a></section><div className="learning-note"><span className="eyebrow">Currently learning</span><p>Preparing for Blue Team Level 1 (BTL1).<br /><span>Certification not yet earned.</span></p></div></div>
+          <div><PhotoGallery /><section className="learning-note certification-note" aria-labelledby="certification-title">
+            <div className="certification-heading"><Image src={btl1.image!} alt="Certified Blue Team Level 1 badge" width={80} height={80} sizes="80px" /><div><p className="eyebrow">Certified</p><h3 id="certification-title">Blue Team Level 1 (BTL1)</h3><p>{btl1.issuer} · {btl1.date}</p></div></div>
+            <p>{btl1.summary}<br /><span>Credential ID: {btl1.credentialId}</span></p>
+            <div className="project-actions"><a className="text-link" href={btl1.credentialUrl} target="_blank" rel="noopener noreferrer">Verify on Credly <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a><a className="text-link" href={btl1.certificateUrl} target="_blank" rel="noopener noreferrer">View certificate PDF <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a></div>
+          </section><section className="learning-note" aria-labelledby="recognition-title"><h3 id="recognition-title" className="eyebrow">Recognition</h3><p>Finalist — Wreck-IT 7.0 General CTF<br /><span>Poltek SSN · Aug 2026 · Team HM Plenger</span></p><a className="text-link" href={recognition.credentialUrl} target="_blank" rel="noopener noreferrer">View certificate <ArrowUpRight size={16} /><span className="sr-only"> (PDF, opens in new tab)</span></a></section></div>
         </div></section>
 
         <Experience />

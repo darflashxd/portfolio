@@ -18,10 +18,12 @@ PUBLIC = Path(__file__).resolve().parents[1] / "public"
 NAME = "AHMAD RAFI SUTANTO"
 CONTACT = "Tangerang & Jakarta, Indonesia | +62 895-3831-57017 | rafisutanto@gmail.com"
 PROFILES = "linkedin.com/in/rafisutanto | github.com/darflashxd | darflashxd.my.id"
+BTL1_LABEL = "Blue Team Level 1 (BTL1)"
+BTL1_URL = "https://www.credly.com/badges/9cdd0531-7a95-4d0c-8638-788d5d3ff3d8/public_url"
 
 sections = [
     ("SUMMARY", [
-        ("text", "Cybersecurity undergraduate at BINUS University focused on digital forensics and defensive security. Builds forensic challenges, privacy tools, and CTF infrastructure; seeking a cybersecurity internship."),
+        ("text", "BTL1-certified cybersecurity undergraduate at BINUS University focused on digital forensics and defensive security. Builds forensic challenges, privacy tools, and CTF infrastructure; seeking a cybersecurity internship."),
     ]),
     ("EDUCATION", [
         ("heading", "BINUS University, School of Computer Science | Cyber Security | 2024 - 2028 (Expected)"),
@@ -61,12 +63,10 @@ sections = [
         ("text", "Reverse Engineering: Ghidra, x64dbg, JADX, APKTool"),
         ("text", "Frameworks: MITRE ATT&CK, NIST SP 800-61, OWASP Top 10"),
     ]),
-    ("AWARDS", [
+    ("CERTIFICATIONS & AWARDS", [
+        ("credential", "Blue Team Level 1 (BTL1) | Security Blue Team | Nov 2026 | Credential ID: 710141939"),
         ("text", "Finalist - Wreck-IT 7.0, General Capture The Flag | Poltek SSN | Aug 2026 | Team HM Plenger"),
         ("link", "darflashxd.my.id/certificates/cert-wreckit-finalist.pdf"),
-    ]),
-    ("PROFESSIONAL DEVELOPMENT", [
-        ("text", "Blue Team Level 1 (BTL1), Security Blue Team - exam preparation in progress; certification not yet earned."),
     ]),
 ]
 
@@ -112,6 +112,7 @@ styles = {
     "bullet": ParagraphStyle("bullet", parent=base, leftIndent=10, firstLineIndent=-7),
     "heading": ParagraphStyle("heading", parent=base, fontName="Calibri-Bold", spaceBefore=1.5, keepWithNext=True),
     "link": ParagraphStyle("link", parent=base, fontSize=10, leading=11),
+    "credential": base,
 }
 story = []
 for text in [NAME, CONTACT, PROFILES]:
@@ -153,7 +154,11 @@ for title, entries in sections:
     for kind, text in entries:
         paragraph = doc.add_paragraph()
         content = escape(text)
-        if kind == "link":
+        if kind == "credential":
+            add_link(paragraph, BTL1_LABEL, BTL1_URL)
+            paragraph.add_run(text[len(BTL1_LABEL):])
+            content = f'<link href="{BTL1_URL}">{BTL1_LABEL}</link>' + escape(text[len(BTL1_LABEL):])
+        elif kind == "link":
             add_link(paragraph, text, link_url(text))
             content = f'<link href="{escape(link_url(text), quote=True)}">{content}</link>'
             paragraph.paragraph_format.keep_with_next = True
@@ -174,9 +179,10 @@ SimpleDocTemplate(str(pdf_path), pagesize=(595.28, 841.89), leftMargin=36, right
 reader = PdfReader(pdf_path)
 assert len(reader.pages) == 1, f"Resume must fit one page; got {len(reader.pages)}"
 text = reader.pages[0].extract_text()
-assert all(item in text for item in [NAME, "PomiCat", "pomicat/blog", "not yet earned", "PETIR", "PulmoAI", "2024 - 2028 (Expected)"])
+assert all(item in text for item in [NAME, "PomiCat", "pomicat/blog", "BTL1-certified", "710141939", "PETIR", "PulmoAI", "2024 - 2028 (Expected)"])
+assert "not yet earned" not in text and "preparation in progress" not in text
 assert "\ufffd" not in text and text.count("Finalist") == 1
 uris = [a.get_object()["/A"]["/URI"] for p in reader.pages for a in p.get("/Annots", [])]
-assert len(uris) == 10 and all(u.startswith(("https://", "mailto:", "tel:")) for u in uris)
+assert len(uris) == 11 and BTL1_URL in uris and all(u.startswith(("https://", "mailto:", "tel:")) for u in uris)
 doc.save(PUBLIC / "CV_Ahmad_Rafi_Sutanto.docx")
-print("PASS: one-page, text-readable PDF and editable DOCX generated; 10 active links")
+print("PASS: one-page PDF and editable DOCX generated; BTL1 earned; 11 active links")

@@ -88,6 +88,7 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
             <p className="text-xs text-studio-muted font-sans leading-relaxed pt-1">
               {cert.summary}
             </p>
+            {cert.credentialId && <p className="text-xs text-studio-muted">Credential ID: {cert.credentialId}</p>}
           </div>
         </div>
 
@@ -103,6 +104,7 @@ function CertificationCard({ cert }: { cert: CertificationEntry }) {
               <span>{cert.actionLabel || "Curriculum & Exam Blueprint"}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
+            {cert.certificateUrl && <a className="text-link" href={cert.certificateUrl} target="_blank" rel="noopener noreferrer">View certificate PDF<span className="sr-only"> (opens in new tab)</span></a>}
           </div>
         )}
       </div>

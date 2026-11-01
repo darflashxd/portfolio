@@ -19,6 +19,11 @@ for (const route of routes) {
     assert.doesNotMatch(html, /hero-project/);
     assert.match(html, /https:\/\/github.com\/darflashxd\/pomicat/);
     assert.match(html, /id="recognition-title"/);
+    assert.match(html, /710141939/);
+    assert.match(html, /Verify on Credly/);
+    assert.match(html, /9cdd0531-7a95-4d0c-8638-788d5d3ff3d8/);
+    assert.match(html, /BTL1-Ahmad-Rafi-Sutanto\.pdf/);
+    assert.doesNotMatch(html, /Certification not yet earned|Preparing for Blue Team/);
     assert.match(html, /Finalist — Wreck-IT 7\.0/);
     assert.match(html, /official PETIR member in October 2026/);
     assert.match(html, /Previously Apprentice/);
