@@ -211,18 +211,18 @@ export const portfolioData = {
 
   projects: [
     {
-      id: "safeshare",
+      id: "pomicat",
       num: "01",
-      title: "SafeShare-AI",
-      serifAccent: "Zero-Knowledge Privacy Enclave",
-      category: "AI Privacy · Zero-Knowledge Cryptography",
+      title: "PomiCat",
+      serifAccent: "Privacy Engineering for AI & Documents",
+      category: "AI Privacy · Secure Sharing",
       year: "2026",
-      tagline: "Browser extension that prevents sensitive data and credential leaks in public AI chat links.",
+      tagline: "Browser extension that reviews AI chats and documents, redacts sensitive details and derived numbers, then shares an encrypted copy.",
       sellingPoint:
-        "Architected a 6-tier defense-in-depth engine eliminating sensitive data exfiltration across LLM platforms (ChatGPT, Claude, DeepSeek). Combines deterministic regulatory scanners (NIK, NPWP, PCI-DSS, API keys), a GPU fine-tuned multilingual DistilBERT model, and an adversary-oracle solver preventing mathematical deduction of redacted figures. Client-side end-to-end encryption via WebCrypto AES-256-GCM with URL hash key-isolation and ephemeral burn-after-reading on Cloudflare Edge & D1.",
-      accentColor: "#38BDF8",
-      technologies: ["TypeScript", "WebCrypto (AES-256-GCM)", "Manifest V3", "DistilBERT", "Cloudflare Workers", "D1 SQL", "Python"],
-      image: "/images/projects/project-safeshare.png",
+        "Built PomiCat, an open-source browser extension for ChatGPT, Claude, Gemini, DeepSeek, Word Online, and Google Docs. Combines local rules and a BERT-small INT8 model, arithmetic inference checks, client-side AES-256-GCM encryption, and a Cloudflare Workers + D1 relay that stores only ciphertext. The key stays after the URL fragment; links support expiry, burn-after-reading, and revocation. Documented evaluation across three LLMs and 160 fictional chat runs; Googlebot tests verify crawler-resistant links.",
+      accentColor: "#8B5CF6",
+      technologies: ["JavaScript", "WebCrypto (AES-256-GCM)", "Cloudflare Workers", "D1", "BERT-small INT8"],
+      image: "/images/projects/pomicat-chat-review.webp",
     },
     {
       id: "csc-ctf-2026",

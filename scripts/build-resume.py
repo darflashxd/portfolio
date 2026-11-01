@@ -42,10 +42,11 @@ sections = [
         ("bullet", "Authored file-carving challenges for CSC CTF 2025 and mentored junior members on Volatility and Wireshark investigation workflows."),
     ]),
     ("SELECTED PROJECTS", [
-        ("heading", "SafeShare - Privacy tooling for AI conversations"),
-        ("link", "github.com/darflashxd/safeshare"),
-        ("bullet", "Built a browser extension to detect and redact credentials, PII, and API keys in AI conversations, with a review interface to adjust redactions before sharing."),
-        ("bullet", "Implemented client-side AES-256-GCM encryption via WebCrypto and a Cloudflare Workers sharing service with burn-after-reading links. Available for use; actively developed."),
+        ("heading", "PomiCat - Privacy tooling for AI chats and documents"),
+        ("link", "github.com/darflashxd/pomicat"),
+        ("bullet", "Built a browser extension that detects and redacts PII and derived financial values in AI chats and documents, with client-side AES-256-GCM encryption and a Cloudflare Workers relay that stores ciphertext."),
+        ("bullet", "Documented an evaluation across 3 LLMs and 160 fictional chat runs; added arithmetic checks, Googlebot crawler tests, and Chrome/Firefox release builds."),
+        ("link", "darflashxd.github.io/pomicat/blog"),
         ("heading", "The Poisoned AUR - BeeCTF 2026 digital forensics challenge"),
         ("link", "github.com/PETIRsec/beefest-2026-qual"),
         ("bullet", "Designed an Arch Linux compromise simulation requiring correlation of package logs, shell history, systemd journal entries, ELF binaries, and extended attributes (xattr) to reconstruct the attack timeline."),
@@ -56,7 +57,7 @@ sections = [
     ("TECHNICAL SKILLS", [
         ("text", "Forensics & IR: Volatility 3, Autopsy, FTK Imager, Eric Zimmerman Tools, Wireshark; Windows/Linux artifact analysis"),
         ("text", "Detection & SIEM: Splunk, Sysmon, Windows Event Logs (EVTX), YARA Rules, Sigma Rules"),
-        ("text", "Development: Python, Bash, TypeScript, Git, Docker, GitHub Actions, ctfcli"),
+        ("text", "Development: Python, Bash, JavaScript/TypeScript, WebCrypto, Cloudflare Workers, Git, Docker, GitHub Actions, ctfcli"),
         ("text", "Reverse Engineering: Ghidra, x64dbg, JADX, APKTool"),
         ("text", "Frameworks: MITRE ATT&CK, NIST SP 800-61, OWASP Top 10"),
     ]),
@@ -99,17 +100,17 @@ section.page_width, section.page_height = Inches(8.27), Inches(11.69)
 normal = doc.styles["Normal"]
 normal.font.name, normal.font.size = "Calibri", Pt(10.5)
 normal.font.color.rgb = RGBColor(0, 0, 0)
-normal.paragraph_format.space_after = Pt(2)
+normal.paragraph_format.space_after = Pt(1)
 normal.paragraph_format.line_spacing = 1.0
 normal.paragraph_format.widow_control = True
 
 pdfmetrics.registerFont(TTFont("Calibri", "C:/Windows/Fonts/calibri.ttf"))
 pdfmetrics.registerFont(TTFont("Calibri-Bold", "C:/Windows/Fonts/calibrib.ttf"))
-base = ParagraphStyle("body", fontName="Calibri", fontSize=10.5, leading=12, spaceAfter=2)
+base = ParagraphStyle("body", fontName="Calibri", fontSize=10.5, leading=12, spaceAfter=1.5)
 styles = {
     "text": base,
     "bullet": ParagraphStyle("bullet", parent=base, leftIndent=10, firstLineIndent=-7),
-    "heading": ParagraphStyle("heading", parent=base, fontName="Calibri-Bold", spaceBefore=2, keepWithNext=True),
+    "heading": ParagraphStyle("heading", parent=base, fontName="Calibri-Bold", spaceBefore=1.5, keepWithNext=True),
     "link": ParagraphStyle("link", parent=base, fontSize=10, leading=11),
 }
 story = []
@@ -143,7 +144,7 @@ story.append(Spacer(1, 3))
 
 for title, entries in sections:
     paragraph = doc.add_paragraph()
-    paragraph.paragraph_format.space_before = Pt(5)
+    paragraph.paragraph_format.space_before = Pt(4)
     paragraph.paragraph_format.keep_with_next = True
     paragraph.add_run(title).bold = True
     story.append(Paragraph(escape(title), ParagraphStyle(
@@ -160,7 +161,7 @@ for title, entries in sections:
             run = paragraph.add_run(("• " if kind == "bullet" else "") + text)
             if kind == "heading":
                 run.bold = True
-                paragraph.paragraph_format.space_before = Pt(2)
+                paragraph.paragraph_format.space_before = Pt(1.5)
                 paragraph.paragraph_format.keep_with_next = True
             if kind == "bullet":
                 paragraph.paragraph_format.left_indent = Pt(10)
@@ -173,9 +174,9 @@ SimpleDocTemplate(str(pdf_path), pagesize=(595.28, 841.89), leftMargin=36, right
 reader = PdfReader(pdf_path)
 assert len(reader.pages) == 1, f"Resume must fit one page; got {len(reader.pages)}"
 text = reader.pages[0].extract_text()
-assert all(item in text for item in [NAME, "SafeShare", "not yet earned", "PETIR", "PulmoAI", "2024 - 2028 (Expected)"])
+assert all(item in text for item in [NAME, "PomiCat", "pomicat/blog", "not yet earned", "PETIR", "PulmoAI", "2024 - 2028 (Expected)"])
 assert "\ufffd" not in text and text.count("Finalist") == 1
 uris = [a.get_object()["/A"]["/URI"] for p in reader.pages for a in p.get("/Annots", [])]
-assert len(uris) == 9 and all(u.startswith(("https://", "mailto:", "tel:")) for u in uris)
+assert len(uris) == 10 and all(u.startswith(("https://", "mailto:", "tel:")) for u in uris)
 doc.save(PUBLIC / "CV_Ahmad_Rafi_Sutanto.docx")
-print("PASS: one-page, text-readable PDF and editable DOCX generated; 9 active links")
+print("PASS: one-page, text-readable PDF and editable DOCX generated; 10 active links")

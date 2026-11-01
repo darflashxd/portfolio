@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "motion"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/work/safeshare",
+        destination: "/work/pomicat",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

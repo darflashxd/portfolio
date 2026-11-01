@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 type LayoutRole = "featured" | "medium" | "wide";
 
 const PROJECT_LAYOUT: { id: string; role: LayoutRole }[] = [
-  { id: "safeshare", role: "featured" },
+  { id: "pomicat", role: "featured" },
   { id: "poisoned-aur", role: "medium" },
   { id: "csc-ctf-2026", role: "wide" },
   { id: "pulmoai", role: "wide" },
@@ -96,7 +96,7 @@ export function Projects() {
             const isFeatured = role === "featured";
             const isWide = role === "wide";
 
-            /* ── Tile 01: Featured Dominant Tile (7-Col) — SafeShare-AI ── */
+            /* ── Tile 01: Featured Dominant Tile (7-Col) — PomiCat ── */
             if (isFeatured) {
               return (
                 <StaggerItem key={project.id} className="md:col-span-7">

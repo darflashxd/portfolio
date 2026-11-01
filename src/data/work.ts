@@ -1,29 +1,82 @@
-export const work = [
+export interface WorkScreenshot {
+  src: string;
+  width: number;
+  height: number;
+  title: string;
+  alt: string;
+  caption: string;
+}
+
+export interface WorkWriting {
+  title: string;
+  description: string;
+  href: string;
+}
+
+export interface WorkLink {
+  label: string;
+  href: string;
+}
+
+export interface WorkEntry {
+  slug: string;
+  title: string;
+  category: string;
+  year: string;
+  image: string;
+  imageAlt: string;
+  screenshots?: WorkScreenshot[];
+  summary: string;
+  contribution: string;
+  tools: string[];
+  links: WorkLink[];
+  status?: string;
+  writing?: WorkWriting;
+  nextSteps?: string;
+  context: string;
+  approach: { title: string; text: string }[];
+  outcome: string;
+  limitations: string;
+  repo?: string;
+}
+
+export const work: WorkEntry[] = [
   {
-    slug: "safeshare",
-    title: "SafeShare",
-    category: "Privacy & security tooling",
+    slug: "pomicat",
+    title: "PomiCat",
+    category: "Privacy engineering · AI & documents",
     year: "2026",
-    image: "/images/projects/safeshare-chat-review.webp",
-    imageAlt: "AI conversation review comparing fictional original text with selected financial details redacted",
+    image: "/images/projects/pomicat-chat-review.webp",
+    imageAlt: "PomiCat review dialog comparing a fictional AI chat with its redacted copy",
     screenshots: [
-      { src: "/images/projects/safeshare-chat-review.webp", width: 1040, height: 952, title: "AI conversation review", alt: "Side-by-side original and redacted fictional AI conversation", caption: "SafeShare v2.4.0: review selected redactions before creating a private link. Fictional data." },
-      { src: "/images/projects/safeshare-word-review.webp", width: 1515, height: 948, title: "Word document review", alt: "Word document review showing fictional employee details and settlement figures before and after redaction", caption: "Development build v2.5.7: review a sanitized DOCX copy with tables preserved. Fictional data; the account number was redacted manually. This build uses Blackline as a temporary name; the project remains SafeShare." },
+      { src: "/images/projects/pomicat-chat-review.webp", width: 1800, height: 1428, title: "AI conversation review", alt: "PomiCat share dialog showing original and redacted fictional AI conversation with derived amounts hidden", caption: "PomiCat 3.x: review the original and the copy others will see. The salary and the figures derived from it are hidden. Fictional data." },
+      { src: "/images/projects/pomicat-word-review.webp", width: 1800, height: 1250, title: "Document review", alt: "PomiCat document review showing a fictional separation agreement before and after redaction", caption: "PomiCat 3.x: review a sanitized DOCX copy with tables preserved. Fictional data; names were marked manually in this capture." },
     ],
-    summary: "A browser extension for reviewing and reducing sensitive-data exposure in AI conversations and supported Word Online documents.",
-    contribution: "Built around sensitive-data detection, redaction, and client-side encryption. Available for users, with development ongoing.",
-    tools: ["TypeScript", "WebCrypto", "Cloudflare Workers"],
-    links: [{ label: "GitHub", href: "https://github.com/darflashxd/safeshare" }, { label: "Download extension", href: "https://github.com/darflashxd/safeshare/releases" }],
-    nextSteps: "I’m preparing SafeShare for a planned submission to Black Hat Asia Arsenal 2027. It has not been submitted yet.",
-    context: "AI conversations and Word documents can contain personal information, credentials, and internal details that should not travel with a shared copy. SafeShare adds a review and protection step before sharing, including a sanitized DOCX workflow for supported Word Online documents.",
+    summary: "A browser extension that reviews AI chats and documents, redacts sensitive details and the numbers that reveal them, then shares an encrypted, crawler-resistant copy.",
+    contribution: "Built around local detection, arithmetic inference checks, client-side AES-256-GCM encryption, and a relay that stores ciphertext. Supports ChatGPT, Claude, Gemini, DeepSeek, Word Online, and Google Docs.",
+    tools: ["JavaScript", "WebCrypto", "Cloudflare Workers", "D1", "BERT-small INT8"],
+    links: [
+      { label: "GitHub", href: "https://github.com/darflashxd/pomicat" },
+      { label: "Releases", href: "https://github.com/darflashxd/pomicat/releases" },
+      { label: "Docs", href: "https://darflashxd.github.io/pomicat/" },
+      { label: "Blog", href: "https://darflashxd.github.io/pomicat/blog/" },
+    ],
+    status: "Open source · Chrome & Firefox builds",
+    writing: {
+      title: "Hiding a number is not enough",
+      description: "Why redacting the salary still leaves it recoverable, what three LLMs did with 40 fictional chats, and why the link key stays after the #.",
+      href: "https://darflashxd.github.io/pomicat/blog/hiding-a-number-is-not-enough.html",
+    },
+    nextSteps: "Ongoing work focuses on detection coverage, document workflows, and release hardening.",
+    context: "Shared AI chats have appeared in search results, and a share link is an ordinary web page. Hiding one value is not enough: salaries, dates, and other details can be reconstructed from the numbers around them. Documents carry the same risk.",
     approach: [
-      { title: "Find sensitive content", text: "Combine pattern-based scanners for structured identifiers and credentials with a multilingual text-classification model. Detection supports review; it should not be treated as a guarantee that every sensitive detail will be found." },
-      { title: "Redact before sharing", text: "Remove identified sensitive information from the shared content. Related numbers and contextual clues also matter: hiding one value does not necessarily prevent someone from inferring it." },
-      { title: "Review the document copy", text: "Inspect original and sanitized Word content side by side, adjust redactions, and check the exported DOCX package rather than only its preview. Document checks cover supported text and package parts; images still require manual review." },
-      { title: "Encrypt on the client", text: "Use the WebCrypto API with AES-256-GCM. The sharing design separates the decryption key using the URL fragment, with Cloudflare Workers and D1 supporting the sharing service." },
+      { title: "Find private details", text: "Combine pattern-based rules and contextual checks with a local BERT-small INT8 model. Rules cover credentials, IDs, bank accounts, phone numbers, and Indonesian formats such as NIK and Rupiah amounts." },
+      { title: "Check derived numbers", text: "Look for ratios, monthly and yearly versions, projections, sums, and differences that reveal a hidden amount across messages. Run the same attack against the reviewed copy before sharing." },
+      { title: "Review documents", text: "Review a separate DOCX copy from Word Online or Google Docs. Remove tracked changes, comments, and document properties; image pixels are marked manually, and the original document is not changed." },
+      { title: "Encrypt and share", text: "Encrypt the reviewed copy in the browser with AES-256-GCM. The key stays after the URL fragment, the relay stores ciphertext, and links support expiry, burn-after-reading, and revocation with a noindex response." },
     ],
-    outcome: "SafeShare is available through GitHub releases and remains actively developed. Recent work expands Word/DOCX review, address and bank-account detection, and regression checks for document sanitization. The screenshots show separate product views and versions, not a single end-to-end run.",
-    limitations: "Detection can miss sensitive content or flag harmless text. Users must review the result, including images and unsupported document content. Arithmetic checks cover specific relationships, not every possible inference. Client-side encryption does not protect against a compromised browser or a leaked sharing link; expiry and revocation cannot recall copies already saved by a recipient.",
+    outcome: "PomiCat 3.0.2 is available as Chrome and Firefox builds through GitHub releases, with an Apache-2.0 codebase and a docs site. In the documented evaluation — 40 fictional chats, four runs, three LLMs — no hidden salary was recovered after PomiCat redaction (0 of 160), compared with 100% after naive redaction. Googlebot tests check that chat and document links return ciphertext and no key.",
+    limitations: "The local model is English-focused; other languages rely mostly on rules. Unsupported arithmetic, combinations of details, text in images, and attachments remain out of scope. Links are bearer links: anyone with the full link can read and save the copy. The relay sees IP addresses, timing, and sizes; the hosted fallback viewer must be trusted. Screenshots cannot be prevented. Detection is best-effort; review the copy before sharing.",
   },
   {
     slug: "the-poisoned-aur",
@@ -55,7 +108,6 @@ export const work = [
     summary: "A GitHub Actions workflow that keeps CTFd challenge metadata and Docker deployments in sync with the competition repository.",
     contribution: "Built deployment automation and coordinated challenge contributions as part of CSC’s R&D team.",
     tools: ["GitHub Actions", "Docker", "ctfcli", "Python"],
-    repo: "https://github.com/csc-research-binus/csc-ctf-contest-2026",
     links: [
       { label: "GitHub", href: "https://github.com/csc-research-binus/csc-ctf-contest-2026" },
       { label: "Event article", href: "https://student-activity.binus.ac.id/csc/2026/05/csc-ctf-contest-2026/" },

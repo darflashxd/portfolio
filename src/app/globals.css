@@ -129,6 +129,7 @@ h2 { font-size: clamp(27px, 3vw, 36px); line-height: 1.25; letter-spacing: -1.3p
 .case-body section { margin-bottom: 48px; }
 .case-body h2 { font-size: 27px; margin-bottom: 18px; }
 .case-body p { color: var(--muted); font-size: 15px; }
+.case-writing h3 { font-size: 18px; line-height: 1.5; margin-bottom: 8px; }
 .case-step { display: grid; grid-template-columns: 30px 1fr; gap: 14px; padding-block: 20px; border-top: 1px solid var(--border); }
 .case-step h3 { font-size: 17px; margin-bottom: 9px; }
 .case-contact { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid var(--border); padding-top: 20px; }

@@ -23,6 +23,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   if (!project) notFound();
 
   const additionalDetails = <>
+    {project.writing && <section className="case-writing"><h2>From the blog</h2><h3>{project.writing.title}</h3><p>{project.writing.description}</p><a className="text-link" href={project.writing.href} target="_blank" rel="noopener noreferrer">Read the post <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a></section>}
     {project.nextSteps && <section><h2>Next steps</h2><p>{project.nextSteps}</p></section>}
     <section><h2>Project links</h2><div className="project-actions">{project.links.map(link => <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener noreferrer">{link.label} <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a>)}</div></section>
   </>;
