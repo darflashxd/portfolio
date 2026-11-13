@@ -9,7 +9,7 @@ import { Experience } from "@/components/Experience";
 import { PhotoGallery } from "@/components/PhotoGallery";
 
 export default function Home() {
-  const { siteInfo, socials, ctfWriteups } = portfolioData;
+  const { siteInfo, socials, ctfWriteups, competitionRecognition: award } = portfolioData;
   const recognition = portfolioData.certifications.find(item => item.badgeLetter === "W")!;
   const btl1 = portfolioData.certifications.find(item => item.badgeLetter === "B")!;
 
@@ -53,6 +53,16 @@ export default function Home() {
             <div className="project-actions"><a className="text-link" href={btl1.credentialUrl} target="_blank" rel="noopener noreferrer">Verify on Credly <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a><a className="text-link" href={btl1.certificateUrl} target="_blank" rel="noopener noreferrer">View certificate PDF <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a></div>
           </section><section className="learning-note" aria-labelledby="recognition-title"><h3 id="recognition-title" className="eyebrow">Recognition</h3><p>Finalist — Wreck-IT 7.0 General CTF<br /><span>Poltek SSN · Aug 2026 · Team HM Plenger</span></p><a className="text-link" href={recognition.credentialUrl} target="_blank" rel="noopener noreferrer">View certificate <ArrowUpRight size={16} /><span className="sr-only"> (PDF, opens in new tab)</span></a></section></div>
         </div></section>
+
+        <section className="section shell competition-recognition" aria-labelledby="competition-title">
+          <div className="section-heading"><div><p className="eyebrow">Competition recognition</p><h2 id="competition-title">{award.title}</h2></div><p><span className="block">{award.date}</span><span className="block">{award.location}</span></p></div>
+          <div className="competition-grid">
+            <figure className="competition-podium"><a href={award.photos[0].src} target="_blank" rel="noopener noreferrer" aria-label="View full team podium photo (opens in new tab)"><Image src={award.photos[0].src} alt={award.photos[0].alt} width={award.photos[0].width} height={award.photos[0].height} sizes="(max-width: 700px) 100vw, 360px" /></a><figcaption>{award.photos[0].caption}</figcaption></figure>
+            <div className="competition-details"><h3>{award.awards}</h3><p className="competition-team">Team: <span>{award.team}</span></p><p>{award.summary}</p><p className="competition-organizer">{award.organizer}</p><a className="text-link" href={award.eventUrl} target="_blank" rel="noopener noreferrer">Event website <ArrowUpRight size={16} /><span className="sr-only"> (event information, not results; opens in new tab)</span></a>
+              <div className="competition-photos">{award.photos.slice(1).map(photo => <figure key={photo.src}><a href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={`View full photo: ${photo.caption} (opens in new tab)`}><Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 700px) 100vw, 340px" /></a><figcaption>{photo.caption}</figcaption></figure>)}</div>
+            </div>
+          </div>
+        </section>
 
         <Experience />
 

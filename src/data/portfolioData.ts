@@ -477,6 +477,22 @@ export const portfolioData = {
     ] as ExperienceEntry[],
   },
 
+  competitionRecognition: {
+    title: "Cyber Frontier 2026",
+    awards: "3rd Place · Best CTF Solver",
+    team: "PETIR - nonce acak  = k",
+    date: "10 November 2026",
+    location: "Semarang, Indonesia",
+    organizer: "PT Siber Sentinel Asia Central Java · Supported by Diskominfo Kota Semarang",
+    eventUrl: "https://cyberfrontiersemarang.city/",
+    summary: "Competed with PETIR - nonce acak  = k, earning third place and the Best CTF Solver team award. Both recognitions were awarded to the team, not to an individual.",
+    photos: [
+      { src: "/images/awards/cyber-frontier-podium.webp", width: 1350, height: 2400, alt: "Cyber Frontier team posing with the Juara III prize board, trophy, and Best CTF Solver certificate", caption: "Team awards · 3rd Place and Best CTF Solver" },
+      { src: "/images/awards/cyber-frontier-competition.webp", width: 1800, height: 1200, alt: "PETIR team working together at laptops during Cyber Frontier 2026", caption: "During the competition · working together onsite" },
+      { src: "/images/awards/cyber-frontier-best-ctf-solver.webp", width: 1800, height: 1200, alt: "Best CTF Solver team award presentation at Cyber Frontier 2026", caption: "Award presentation · Best CTF Solver (team)" },
+    ],
+  },
+
   certifications: [
     {
       title: "Security Blue Team — Blue Team Level 1 (BTL1)",

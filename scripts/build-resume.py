@@ -65,6 +65,7 @@ sections = [
     ]),
     ("CERTIFICATIONS & AWARDS", [
         ("credential", "Blue Team Level 1 (BTL1) | Security Blue Team | Nov 2026 | Credential ID: 710141939"),
+        ("text", "3rd Place & Best CTF Solver (team) - Cyber Frontier 2026 | Nov 2026 | PETIR - nonce acak  = k"),
         ("text", "Finalist - Wreck-IT 7.0, General Capture The Flag | Poltek SSN | Aug 2026 | Team HM Plenger"),
         ("link", "darflashxd.my.id/certificates/cert-wreckit-finalist.pdf"),
     ]),
@@ -181,6 +182,7 @@ assert len(reader.pages) == 1, f"Resume must fit one page; got {len(reader.pages
 text = reader.pages[0].extract_text()
 assert all(item in text for item in [NAME, "PomiCat", "pomicat/blog", "BTL1-certified", "710141939", "PETIR", "PulmoAI", "2024 - 2028 (Expected)"])
 assert "not yet earned" not in text and "preparation in progress" not in text
+assert "Best CTF Solver (team)" in text and "Cyber Frontier 2026" in text
 assert "\ufffd" not in text and text.count("Finalist") == 1
 uris = [a.get_object()["/A"]["/URI"] for p in reader.pages for a in p.get("/Annots", [])]
 assert len(uris) == 11 and BTL1_URL in uris and all(u.startswith(("https://", "mailto:", "tel:")) for u in uris)

@@ -57,6 +57,24 @@ svg { flex-shrink: 0; }
 .portrait-frame img { object-fit: cover; object-position: center 35%; }
 .portrait figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 5px; margin-top: 14px; font-size: 10px; line-height: 1.5; color: var(--muted); }
 .section { padding-block: 88px; }
+/* Competition brief: team evidence; recruiter-first; awards before photos;
+   existing charcoal tokens; no new motion; full uncropped images;
+   captions distinguish context; native links; mobile single column. */
+.competition-recognition { border-top: 1px solid var(--border); }
+.competition-grid { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 40px; align-items: start; }
+.competition-recognition figure img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.competition-recognition figure a { display: block; }
+.competition-recognition figcaption { color: var(--muted); font-size: 11px; line-height: 1.6; margin-top: 10px; }
+.competition-details h3 { font-size: 24px; line-height: 1.4; letter-spacing: -.5px; }
+.competition-details > p { margin-top: 16px; color: var(--muted); font-size: 14px; }
+.competition-team span { white-space: pre-wrap; color: var(--foreground); }
+.competition-details > .competition-organizer { font-size: 12px; }
+.competition-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+@media (max-width: 700px) {
+  .competition-grid, .competition-photos { grid-template-columns: 1fr; }
+  .competition-grid { gap: 28px; }
+  .competition-podium { max-width: 360px; margin-inline: auto; }
+}
 #work { border-top: 1px solid var(--border); padding-top: 56px; }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 44px; }
 .eyebrow,.date,.project-meta,.writing-year,.pdf-label { font-family: var(--font-mono), monospace; font-size: 11px; line-height: 1.6; }

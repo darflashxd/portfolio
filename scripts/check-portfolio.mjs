@@ -19,6 +19,12 @@ for (const route of routes) {
     assert.doesNotMatch(html, /hero-project/);
     assert.match(html, /https:\/\/github.com\/darflashxd\/pomicat/);
     assert.match(html, /id="recognition-title"/);
+    assert.match(html, /Cyber Frontier 2026/);
+    assert.match(html, /Best CTF Solver/);
+    assert.match(html, /Both recognitions were awarded to the team/);
+    assert.match(html, /cyber-frontier-podium.webp/);
+    assert.match(html, /cyber-frontier-competition.webp/);
+    assert.match(html, /cyber-frontier-best-ctf-solver.webp/);
     assert.match(html, /710141939/);
     assert.match(html, /Verify on Credly/);
     assert.match(html, /9cdd0531-7a95-4d0c-8638-788d5d3ff3d8/);
