@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 
@@ -12,31 +11,19 @@ const descriptions: Record<string, { summary: string; points: string[] }> = {
   "csc-member": { summary: "Joined community training in defensive security and investigation basics.", points: ["Practiced packet inspection, Linux security, and disk-forensics triage."] },
 };
 
-// ponytail: only reviewed, usable images; add new event documentation after checking its content and dimensions.
-const usablePhotos = new Set(["/images/experience/exp-ifest-ctf.jpg", "/images/experience/beectf-socs-banner.png", "/images/experience/exp-aur-safety.jpg", "/images/experience/exp-petir-crest.jpg", "/images/projects/project-ctf-infra.png", "/images/experience/exp-ncw.jpg"]);
-const captions: Record<string, string> = {
-  "/images/experience/exp-ifest-ctf.jpg": "Event documentation supplied for IFEST 2026.",
-  "/images/experience/beectf-socs-banner.png": "BeeCTF competition banner.",
-  "/images/experience/exp-aur-safety.jpg": "Reference material for the malicious AUR package scenario.",
-  "/images/experience/exp-petir-crest.jpg": "PETIR Cyber Security identity artwork.",
-  "/images/projects/project-ctf-infra.png": "CSC CTF repository and deployment workflow.",
-  "/images/experience/exp-ncw.jpg": "Group photograph supplied for National Cyber Week 2025.",
-};
 
 export function Experience() {
   const { experiences } = portfolioData;
   return <section id="experience" className="section shell" aria-labelledby="experience-title">
-    <div className="section-heading"><div><p className="eyebrow">03 / Experience &amp; community</p><h2 id="experience-title">Learning by taking part.</h2></div><p>Challenge writing, technical work,<br />and the people behind the events.</p></div>
+    <div className="section-heading"><div><p className="eyebrow">03 / Experience &amp; community</p><h2 id="experience-title">Built through participation.</h2></div><p>Challenge development, technical leadership,<br />and competition operations.</p></div>
     {experiences.categories.map(organization => <div className="experience-group" key={organization}><h3>{organization}</h3>
       {experiences.items.filter(item => item.organization === organization).map(item => {
         const copy = descriptions[item.id];
-        const photos = item.photos.filter(photo => usablePhotos.has(photo.src));
         const links = item.links || (item.link ? [{ label: item.id === "petir-author" ? "BeeCTF background article (2017)" : "LinkedIn profile", href: item.link }] : []);
-        return <article className={`experience-entry ${photos.length ? "has-documentation" : ""}`} key={item.id} data-experience-id={item.id}>
+        return <article className="experience-entry" key={item.id} data-experience-id={item.id}>
           <div className="experience-copy"><p className="date">{item.period.split(" · ")[0]}</p><h4>{item.role}</h4>{item.orgHighlight && <p className="experience-context">{item.orgHighlight}</p>}<p>{copy.summary}</p><ul>{copy.points.map(point => <li key={point}>{point}</li>)}</ul>
             <div className="source-links">{links.map(link => <a key={link.href} className="source-card" href={link.href} target="_blank" rel="noopener noreferrer"><span><strong>{link.label.toLowerCase().replace(/\b\w/g, character => character.toUpperCase())}</strong><small>{new URL(link.href).hostname.replace(/^www\./, "")}</small></span><ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a>)}</div>
           </div>
-          {photos.length > 0 && <div className="experience-photos">{photos.map(photo => <figure key={photo.src}><a href={photo.src} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size image: ${captions[photo.src]} (opens in new tab)`}><Image src={photo.src} alt={captions[photo.src]} width={1000} height={650} sizes="(max-width: 700px) 90vw, 440px" /></a><figcaption>{captions[photo.src]}</figcaption></figure>)}</div>}
         </article>;
       })}</div>)}
   </section>;

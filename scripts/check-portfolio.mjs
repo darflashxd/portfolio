@@ -12,9 +12,19 @@ for (const route of routes) {
   assert.doesNotMatch(html, /<canvas\b|PRIVATE RESEARCH REPO|79 PRS MERGED/);
   if (route === "/") {
     assert.equal((html.match(/data-experience-id=/g) || []).length, 7, "All seven experiences must be visible");
-    assert.match(html, /project-pulmoai/);
-    assert.match(html, /Choose a portrait/);
-    assert.match(html, /Show next portrait/);
+    assert.match(html, /github.com\/darflashxd\/pulmoai/);
+    assert.doesNotMatch(html, /Choose a portrait|Show next portrait|images%2Fprofile|images\/profile|images%2Fawards|images\/awards|exp-ncw/);
+    assert.match(html, /cyber-frontier-2026-third-place.jpg/);
+    assert.doesNotMatch(html, /Explore The Poisoned AUR evidence|Four trails to follow/);
+    assert.match(html, /PomiCat preview/);
+    assert.ok(html.indexOf('class="field-project project-pomicat"') < html.indexOf('class="field-project project-the-poisoned-aur"'), "PomiCat must appear first");
+    assert.match(html, /class="hero-proof-badge"/);
+    assert.match(html, /class="hero-proof-certificate"/);
+    assert.doesNotMatch(html, /Contribution &amp; sources/);
+    assert.match(html, /class="project-sources"/);
+    assert.match(html, /Simulated investigation/);
+    assert.doesNotMatch(html, /project-dfir-labs.jpg/);
+    assert.equal((html.match(/class="certificate-open"/g) || []).length, 3, "Three document previews must be available");
     assert.doesNotMatch(html, /In my BINUS jacket|Building things\.|class="portrait"/);
     assert.doesNotMatch(html, /hero-project/);
     assert.match(html, /https:\/\/github.com\/darflashxd\/pomicat/);
@@ -22,15 +32,16 @@ for (const route of routes) {
     assert.match(html, /Cyber Frontier 2026/);
     assert.match(html, /Best CTF Solver/);
     assert.match(html, /Both recognitions were awarded to the team/);
-    assert.match(html, /cyber-frontier-podium.webp/);
-    assert.match(html, /cyber-frontier-competition.webp/);
-    assert.match(html, /cyber-frontier-best-ctf-solver.webp/);
+    assert.match(html, /Read official results/);
+    assert.match(html, /semarangkota\.go\.id\/en\/news\/seminar-cyber-resilience/);
+    assert.match(html, /PETIR - nonce acak = k/);
     assert.match(html, /710141939/);
+    assert.match(html, /National competition \/ Team award/);
     assert.match(html, /Verify on Credly/);
     assert.match(html, /9cdd0531-7a95-4d0c-8638-788d5d3ff3d8/);
     assert.match(html, /BTL1-Ahmad-Rafi-Sutanto\.pdf/);
     assert.doesNotMatch(html, /Certification not yet earned|Preparing for Blue Team/);
-    assert.match(html, /Finalist — Wreck-IT 7\.0/);
+    assert.match(html, /Wreck-IT 7\.0 Finalist/);
     assert.match(html, /official PETIR member in October 2026/);
     assert.match(html, /Previously Apprentice/);
   }

@@ -39,7 +39,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
         </a>
         <figcaption>{shot.caption} <a className="text-link" href={shot.src} target="_blank" rel="noopener noreferrer">View full size <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a></figcaption>
       </figure>)}
-    </section> : <figure className="case-image"><Image src={project.image} alt={project.imageAlt} width={1400} height={900} priority sizes="(max-width: 1120px) 100vw, 1120px" /><figcaption>{project.imageAlt}</figcaption></figure>}
+    </section> : project.slug === "the-poisoned-aur" ? <figure className="field-artifact aur-artifact aur-case-artifact"><span className="aur-artifact-head">BEECTF / 2026 <span>DIGITAL FORENSICS</span></span><span className="aur-artifact-title">THE<br />POISONED<br />AUR<span className="accent">.</span></span><figcaption className="aur-artifact-foot">Simulated investigation <span>Package logs / shell history / systemd / ELF &amp; xattr</span></figcaption></figure> : <figure className="case-image"><Image src={project.image} alt={project.imageAlt} width={1400} height={900} priority sizes="(max-width: 1120px) 100vw, 1120px" /><figcaption>{project.imageAlt}</figcaption></figure>}
     <div className="case-body">
       <section><h2>Context</h2><p>{project.context}</p></section>
       <section><h2>Approach</h2>{project.approach.map((step, index) => <article className="case-step" key={step.title}><span className="date">0{index + 1}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></article>)}</section>

@@ -480,12 +480,13 @@ export const portfolioData = {
   competitionRecognition: {
     title: "Cyber Frontier 2026",
     awards: "3rd Place · Best CTF Solver",
-    team: "PETIR - nonce acak  = k",
+    team: "PETIR - nonce acak = k",
     date: "10 November 2026",
     location: "Semarang, Indonesia",
     organizer: "PT Siber Sentinel Asia Central Java · Supported by Diskominfo Kota Semarang",
     eventUrl: "https://cyberfrontiersemarang.city/",
-    summary: "Competed with PETIR - nonce acak  = k, earning third place and the Best CTF Solver team award. Both recognitions were awarded to the team, not to an individual.",
+    resultsUrl: "https://semarangkota.go.id/en/news/seminar-cyber-resilience-perkuat-keamanan-siber-dalam-penyelenggaraan-pemerintahan-digital-pemkot-semarang-umumkan-pemenang-cyber-frontier-2026",
+    summary: "Competed through the qualifying rounds and onsite final. Both recognitions were awarded to the team, not to an individual.",
     photos: [
       { src: "/images/awards/cyber-frontier-podium.webp", width: 1350, height: 2400, alt: "Cyber Frontier team posing with the Juara III prize board, trophy, and Best CTF Solver certificate", caption: "Team awards · 3rd Place and Best CTF Solver" },
       { src: "/images/awards/cyber-frontier-competition.webp", width: 1800, height: 1200, alt: "PETIR team working together at laptops during Cyber Frontier 2026", caption: "During the competition · working together onsite" },

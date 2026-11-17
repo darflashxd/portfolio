@@ -65,7 +65,7 @@ sections = [
     ]),
     ("CERTIFICATIONS & AWARDS", [
         ("credential", "Blue Team Level 1 (BTL1) | Security Blue Team | Nov 2026 | Credential ID: 710141939"),
-        ("text", "3rd Place & Best CTF Solver (team) - Cyber Frontier 2026 | Nov 2026 | PETIR - nonce acak  = k"),
+        ("text", "3rd Place & Best CTF Solver (team) - Cyber Frontier 2026 | Nov 2026 | PETIR - nonce acak = k"),
         ("text", "Finalist - Wreck-IT 7.0, General Capture The Flag | Poltek SSN | Aug 2026 | Team HM Plenger"),
         ("link", "darflashxd.my.id/certificates/cert-wreckit-finalist.pdf"),
     ]),

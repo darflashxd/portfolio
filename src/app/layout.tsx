@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Archivo_Black, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -7,6 +7,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   display: "swap",
 });
+const archivo = Archivo_Black({ subsets: ["latin"], weight: "400", variable: "--font-display", display: "swap" });
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -67,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${jetbrainsMono.variable} ${plusJakartaSans.variable}`}
+      className={`${jetbrainsMono.variable} ${plusJakartaSans.variable} ${archivo.variable}`}
     >
       <body>
         <a
