@@ -15,14 +15,14 @@ const descriptions: Record<string, { summary: string; points: string[] }> = {
 export function Experience() {
   const { experiences } = portfolioData;
   return <section id="experience" className="section shell" aria-labelledby="experience-title">
-    <div className="section-heading"><div><p className="eyebrow">03 / Experience &amp; community</p><h2 id="experience-title">Built through participation.</h2></div><p>Challenge development, technical leadership,<br />and competition operations.</p></div>
+    <div className="section-heading"><h2 id="experience-title">Experience</h2><p>Challenge development, technical leadership, and competition operations.</p></div>
     {experiences.categories.map(organization => <div className="experience-group" key={organization}><h3>{organization}</h3>
-      {experiences.items.filter(item => item.organization === organization).map(item => {
+      {experiences.items.filter(item => item.organization === organization).sort((a, b) => Number(b.period.includes("Present")) - Number(a.period.includes("Present"))).map(item => {
         const copy = descriptions[item.id];
         const links = item.links || (item.link ? [{ label: item.id === "petir-author" ? "BeeCTF background article (2017)" : "LinkedIn profile", href: item.link }] : []);
         return <article className="experience-entry" key={item.id} data-experience-id={item.id}>
-          <div className="experience-copy"><p className="date">{item.period.split(" · ")[0]}</p><h4>{item.role}</h4>{item.orgHighlight && <p className="experience-context">{item.orgHighlight}</p>}<p>{copy.summary}</p><ul>{copy.points.map(point => <li key={point}>{point}</li>)}</ul>
-            <div className="source-links">{links.map(link => <a key={link.href} className="source-card" href={link.href} target="_blank" rel="noopener noreferrer"><span><strong>{link.label.toLowerCase().replace(/\b\w/g, character => character.toUpperCase())}</strong><small>{new URL(link.href).hostname.replace(/^www\./, "")}</small></span><ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a>)}</div>
+          <p className="date">{item.period.split(" · ")[0]}</p><div className="experience-copy"><h4>{item.role}</h4>{item.orgHighlight && <p className="experience-context">{item.orgHighlight}</p>}<p>{copy.summary}</p><ul>{copy.points.slice(0, 2).map(point => <li key={point}>{point}</li>)}</ul>
+            <div className="source-links">{links.map(link => <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={14} /><span className="sr-only"> (opens in new tab)</span></a>)}</div>
           </div>
         </article>;
       })}</div>)}
