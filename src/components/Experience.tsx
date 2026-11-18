@@ -21,7 +21,7 @@ export function Experience() {
         const copy = descriptions[item.id];
         const links = item.links || (item.link ? [{ label: item.id === "petir-author" ? "BeeCTF background article (2017)" : "LinkedIn profile", href: item.link }] : []);
         return <article className="experience-entry" key={item.id} data-experience-id={item.id}>
-          <p className="date">{item.period.split(" · ")[0]}</p><div className="experience-copy"><h4>{item.role}</h4>{item.orgHighlight && <p className="experience-context">{item.orgHighlight}</p>}<p>{copy.summary}</p><ul>{copy.points.slice(0, 2).map(point => <li key={point}>{point}</li>)}</ul>
+          <p className="date">{item.period.split(" · ")[0]}</p><div className="experience-copy"><h4>{item.role}</h4>{item.orgHighlight && <p className="experience-context">{item.orgHighlight}</p>}<p>{copy.summary}</p>{item.id !== "csc-member" && item.id !== "csc-rd-activist" && <ul>{copy.points.slice(0, item.period.includes("Present") ? 2 : 1).map(point => <li key={point}>{point}</li>)}</ul>}
             <div className="source-links">{links.map(link => <a key={link.href} className="text-link" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={14} /><span className="sr-only"> (opens in new tab)</span></a>)}</div>
           </div>
         </article>;

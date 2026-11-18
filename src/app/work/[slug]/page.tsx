@@ -21,6 +21,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const project = work.find(item => item.slug === slug);
   if (!project) notFound();
+  const nextProject = work[(work.indexOf(project) + 1) % work.length];
 
   const additionalDetails = <>
     {project.writing && <section className="case-writing"><h2>From the blog</h2><h3>{project.writing.title}</h3><p>{project.writing.description}</p><a className="text-link" href={project.writing.href} target="_blank" rel="noopener noreferrer">Read the post <ArrowUpRight size={16} /><span className="sr-only"> (opens in new tab)</span></a></section>}
@@ -46,6 +47,7 @@ export default async function WorkPage({ params }: { params: Promise<{ slug: str
       <section><h2>Current outcome</h2><p>{project.outcome}</p></section>
       <section><h2>Limitations</h2><p>{project.limitations}</p></section>
       {additionalDetails}
+      <nav className="case-next" aria-label="More projects"><span className="eyebrow">Next project</span><Link href={`/work/${nextProject.slug}`}>{nextProject.title} <ArrowUpRight size={22} /></Link></nav>
       <div className="case-contact"><p>Want to discuss this project?</p><a className="text-link" href="mailto:rafisutanto@gmail.com">Email me <ArrowUpRight size={16} /></a></div>
     </div>
   </main><Footer /></>;
