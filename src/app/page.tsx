@@ -6,6 +6,7 @@ import { work } from "@/data/work";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Experience } from "@/components/Experience";
+import { Cat } from "@/components/Cat";
 import { CertificatePreview, ProductPreview } from "@/components/Evidence";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
     <section className="shell poster-intro" aria-labelledby="intro-title">
       <div className="poster-meta"><p className="eyebrow">Cybersecurity · BINUS University</p><p className="eyebrow">Tangerang &amp; Jakarta, Indonesia</p></div>
       <h1 id="intro-title"><span>AHMAD RAFI</span><span>SUTANTO</span></h1>
+      <Cat />
       <div className="poster-bottom"><p className="poster-role">Digital forensics<br />&amp; defensive security.</p><div><p>Cybersecurity undergraduate at BINUS University. I build forensic challenges, privacy tools, and competition infrastructure.</p><div className="actions"><a className="text-link" href="#work">Explore selected work <ArrowDown size={16} /></a><a className="text-link" href={siteInfo.resumeUrl} target="_blank" rel="noopener noreferrer">View CV <ArrowUpRight size={16} /><span className="sr-only"> (PDF, opens in new tab)</span></a></div></div></div>
       <div className="hero-proof" aria-label="Verified credentials and team awards"><a href={btl1.credentialUrl} target="_blank" rel="noopener noreferrer"><Image className="hero-proof-badge" src="/images/certifications/cert-btl1.png" alt="Blue Team Level 1 badge" width={72} height={72} sizes="72px" /><span className="hero-proof-copy"><span>Professional certification / 2026</span><strong>Blue Team Level 1</strong><small>Verify on Credly <ArrowUpRight size={13} /></small></span><span className="sr-only"> (opens in new tab)</span></a><a href={award.resultsUrl} target="_blank" rel="noopener noreferrer"><Image className="hero-proof-certificate" src="/images/certifications/cyber-frontier-preview.webp" alt="Cyber Frontier 2026 third-place team certificate" width={706} height={1000} sizes="56px" /><span className="hero-proof-copy"><span>National competition / Team award</span><strong>3rd Place · Best CTF Solver</strong><small>Cyber Frontier 2026 · Official results <ArrowUpRight size={13} /></small></span><span className="sr-only"> (opens in new tab)</span></a></div>
     </section>

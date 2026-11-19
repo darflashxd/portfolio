@@ -1,0 +1,23 @@
+/* Two quiet companions: independent bounded lanes, readable silhouettes,
+   automatic walking and rests; no text overlap or click-to-play behavior. */
+.cat-stage { position: relative; height: 94px; margin-top: -20px; }
+.cat-lane { position: absolute; width: 38%; max-width: 310px; bottom: -5px; height: 80px; pointer-events: none; --cat-speed: 18s; --cat-coat: #eeeae1; --cat-edge: #a5a69e; --cat-shade: #b7b8ae; --cat-ear: #d3b6b0; --cat-muzzle: #fff8ec; --cat-eye: #263640; --cat-nose: #966b66; --cat-collar: #8ab4f8; }
+.cat-lane.ivory { left: 3%; }
+.cat-lane.charcoal { right: 3%; --cat-speed: 23s; --cat-coat: #303840; --cat-edge: #7d8b99; --cat-shade: #20272e; --cat-ear: #7c686e; --cat-muzzle: #454d55; --cat-eye: #d9d6a5; --cat-nose: #bc929b; --cat-collar: #9ba7b4; }
+.cat-traveler { width: 100px; height: 80px; position: absolute; left: 0; animation: cat-roam var(--cat-speed) linear infinite; }
+.cat-facing { animation: cat-turn var(--cat-speed) steps(1,end) infinite; }
+.charcoal .cat-traveler,.charcoal .cat-facing { animation-delay: -8s; }
+.cat-lane svg { display: block; width: 100px; height: 80px; overflow: visible; }
+.cat-leg { transform-box: fill-box; transform-origin: 50% 0; animation: cat-gait 850ms ease-in-out infinite alternate; }
+.cat-leg.far { animation-direction: alternate-reverse; }
+.cat-leg.back { animation-delay: -280ms; }
+.cat-head { transform-box: fill-box; transform-origin: center; animation: cat-nod 1700ms ease-in-out infinite alternate; }
+.cat-pause { position: absolute; top: 0; right: 0; min-height: 32px; padding: 6px 8px; color: var(--muted); background: transparent; font-size: 11px; cursor: pointer; }
+.cat-pause:hover { color: var(--foreground); }
+.cat-stage[data-paused="true"] * { animation-play-state: paused !important; }
+@keyframes cat-roam { 0%,100% { left: 0; } 50% { left: calc(100% - 100px); } }
+@keyframes cat-turn { 0% { transform: scaleX(-1); } 50% { transform: scaleX(1); } }
+@keyframes cat-gait { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+@keyframes cat-nod { from { transform: rotate(-2deg); } to { transform: rotate(2deg); } }
+@media(max-width:700px) { .cat-stage { height: 80px; margin-top: -10px; } .cat-lane { width: 45%; height: 64px; bottom: -4px; } .cat-lane.ivory { left: 0; } .cat-lane.charcoal { right: 0; } .cat-traveler,.cat-lane svg { width: 80px; height: 64px; } @keyframes cat-roam { 0%,100% { left: 0; } 50% { left: calc(100% - 80px); } } }
+@media(prefers-reduced-motion:reduce) { .cat-stage * { animation: none !important; transition: none !important; } .cat-lane.charcoal .cat-traveler { left: auto; right: 0; } .cat-pause { display: none; } }

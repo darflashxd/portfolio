@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { CatMark } from "@/components/Cat";
 import { portfolioData } from "@/data/portfolioData";
 
 export function Navbar() {
@@ -24,7 +25,7 @@ export function Navbar() {
   return (
     <header className="site-header" onKeyDown={event => { if (event.key === "Escape" && open) { setOpen(false); toggle.current?.focus(); } }}>
       <div className="shell header-inner">
-        <Link className="brand" href="/">darflashxd</Link>
+        <Link className="brand" href="/" style={{ display: "inline-flex", alignItems: "center", gap: 9 }}><CatMark />darflashxd</Link>
         <button ref={toggle} className="nav-toggle" type="button" aria-expanded={open} aria-controls="main-nav" aria-label={open ? "Close navigation" : "Open navigation"} onClick={() => setOpen(!open)}>{open ? <X size={20} /> : <Menu size={20} />} Menu</button>
         <nav id="main-nav" data-open={open} aria-label="Main navigation" onClick={() => setOpen(false)}>
           {[["work", "Work"], ["credentials", "Credentials"], ["experience", "Experience"], ["writing", "Writeups"], ["contact", "Contact"]].map(([id, label]) => <Link key={id} href={`/#${id}`} aria-current={active === id ? "location" : undefined}>{label}</Link>)}
